@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31005.135
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BerteloSteen(Automation)", "BerteloSteen(Automation)\BerteloSteen(Automation).csproj", "{5C8EE204-9785-4EB8-B671-0E470E0B2098}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5C8EE204-9785-4EB8-B671-0E470E0B2098}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C8EE204-9785-4EB8-B671-0E470E0B2098}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C8EE204-9785-4EB8-B671-0E470E0B2098}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C8EE204-9785-4EB8-B671-0E470E0B2098}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C7B0219D-0CB0-46C2-A663-9A22AEE74D50}
+	EndGlobalSection
+EndGlobal
