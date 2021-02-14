@@ -31,6 +31,7 @@ namespace BerteloSteen_Automation_.BOS_Test_Utils
             CssName,
             ClassName,
             Selector
+            
         }
     }
 }

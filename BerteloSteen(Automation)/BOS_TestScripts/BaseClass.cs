@@ -15,7 +15,6 @@ namespace BerteloSteen_Automation_
         public void Login()
         {
             Drive.driver = new ChromeDriver();
-            Drive.ngdriver = new NgWebDriver(Drive.driver);
             //naviate to Url
             Drive.driver.Manage().Window.Maximize();
             Drive.driver.Manage().Cookies.DeleteAllCookies();
