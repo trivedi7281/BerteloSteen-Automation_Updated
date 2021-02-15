@@ -23,17 +23,28 @@ namespace BerteloSteen_Automation_.BOS_PageObjects
         [FindsBy(How = How.XPath, Using = "//*[@id='engli']")]
         public IWebElement engLanguage { get; set; }
 
-
+        
+        CustomLib Stop = new CustomLib();
         [Obsolete]
         public void GetDetails()
         {
-            Thread.Sleep(20000);
-            Drive.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(30);
+            Stop.WaitFortheLoadingIconDisappear20000();
+            Drive.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(15);
             engLanguage.Clicks();
-            Thread.Sleep(20000);
+            Stop.WaitFortheLoadingIconDisappear10000();
+            Drive.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(15);
             String title = Drive.driver.Title;
-            Console.WriteLine("Title is:" + title);
-            Assert.AreEqual("Appointment", title);
+            if (title == "Appointment")
+            {
+                Console.WriteLine("Title is:" + title);
+                Assert.AreEqual("Appointment", title);
+                Assert.That(Drive.driver.PageSource.Contains(title),Is.EqualTo("Appointment"), "Bug: The title is not correct! Priority:Medium & Severity:Medium");
+            }
+            else
+            {
+                Console.WriteLine("Title is:" + title);
+                Assert.AreEqual("Verkstedordre", title);
+            }
             String Url = Drive.driver.Url;
             Console.WriteLine("URL is:" + Url);
             //String pageSource = Drive.driver.PageSource;

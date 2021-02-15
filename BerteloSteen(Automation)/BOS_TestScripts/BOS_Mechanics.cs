@@ -20,6 +20,7 @@ namespace BerteloSteen_Automation_.BOS_TestScripts
             mech.GetPageTitle();
             //On Function it will click on the selected dealer and show the details.
             mech.SelectDealer("Bertel O. Steen Minde (015)");
+            mech.SelectDealer("9");
 
 
 

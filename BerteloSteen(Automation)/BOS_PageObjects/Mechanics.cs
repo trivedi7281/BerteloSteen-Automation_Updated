@@ -26,35 +26,51 @@ namespace BerteloSteen_Automation_.BOS_PageObjects
         public IWebElement engLanguage { get; set; }
 
 
-        [FindsBy(How = How.XPath, Using = "//*[@id='darsdealer ']")]
+        [FindsBy(How = How.CssSelector, Using = "#darsdealer\\  > a")]
         public IWebElement clickonDARS { get; set; }
 
-        
 
-        [FindsBy(How = How.CssSelector, Using = "#darsdealer-submenu\\  > ul:nth-child(2) > li:nth-child(2) > a")]
+        [FindsBy(How = How.XPath, Using = "//*[@id='darsdealer-submenu ']/ul[2]/li[2]/a")]
         public IWebElement clickonMechanicsTab { get; set; }
 
+        CustomLib Stop = new CustomLib();
+        /// <summary>
+        /// Navigate to Mechanics
+        /// :Click on DARS Tab>> Click on Mechanics Tab in Workshop setting
+        /// </summary>
         public void ClickonDARS()
         {
-            Thread.Sleep(20000);
+            Stop.WaitFortheLoadingIconDisappear20000();
             Drive.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(30);
             engLanguage.Clicks();
             //Click on DARS Tab
-            Thread.Sleep(15000);
-            clickonDARS.Clicks();
+            Stop.WaitFortheLoadingIconDisappear15000();
+            clickonDARS.Click();
             Drive.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
-            clickonMechanicsTab.Clicks();
+            Stop.WaitFortheLoadingIconDisappear20000();
+            clickonMechanicsTab.Click();
             
         }
-
+        /// <summary>
+        /// Verify the Page Title
+        /// : As module wise we entered into the different modules 
+        /// so we can verify its title's.
+        /// </summary>
         public void GetPageTitle()
         {
-            Thread.Sleep(15000);
+            Stop.WaitFortheLoadingIconDisappear15000();
             String title = Drive.driver.Title;
-            Console.WriteLine("Page Title is:" + title);
-            Assert.AreEqual("Mechanics", title);
+            if (title == "Mechanics")
+            {
+                Console.WriteLine("Title is:" + title);
+                Assert.AreEqual("Mechanics", title);
+            }
+            else
+            {
+                Console.WriteLine("Title is:" + title);
+                Assert.AreEqual("Mekanikere", title);
+            }
         }
-
 
 
         [FindsBy(How = How.XPath, Using = "//input[@id = 'mat-input-5']")]
@@ -62,21 +78,49 @@ namespace BerteloSteen_Automation_.BOS_PageObjects
 
         //Here this xpath have been changed as per we select any other dealer
         [FindsBy(How = How.XPath, Using = "//*[@id='1']")]
-        public IWebElement clickonselectedDealer { get; set; }
+        public IWebElement EnteredselectedDealer { get; set; }
+
+        //Again Verify with another Dealer ID
+        [FindsBy(How = How.XPath, Using = "//*[@id='109']")]
+        public IWebElement EnteredselectedDealer2 { get; set; }
 
         
 
 
+        /// <summary>
+        /// Select Dealer
+        /// : here we can check the functionality that once we click on 
+        /// dealer dropdown and then enter entry on it and select that dealer.
+        /// </summary>
+        /// <param name="dealerName"></param>
         public void SelectDealer(string dealerName)
         {
-            Thread.Sleep(15000);
-            Actions action = new Actions(Drive.driver);
-            action.KeyDown(selectDealers, Keys.Control).SendKeys("A")
-            .KeyUp(selectDealers, Keys.Delete).Build().Perform();
+            Stop.WaitFortheLoadingIconDisappear10000();
+            selectDealers.Clear();
             Thread.Sleep(2000);
-            selectDealers.EnterText(dealerName);
-            clickonselectedDealer.Clicks();
+            selectDealers.SendKeys(dealerName);
+            EnteredselectedDealer.Clicks();
+            Stop.WaitFortheLoadingIconDisappear2000();
+            selectDealers.Clear();
+            Stop.WaitFortheLoadingIconDisappear2000();
+            selectDealers.SendKeys(dealerName);
+            Stop.WaitFortheLoadingIconDisappear5000();
+            EnteredselectedDealer2.Clicks();
 
+        }
+
+        
+        [FindsBy(How = How.XPath, Using = "//*[@id='mat - input - 10']")]
+        public IWebElement ClickOnSearchBar { get; set; }
+
+        [FindsBy(How = How.XPath, Using = "//*[@id='searchButton']")]
+        public IWebElement ClickOnSearchBtn { get; set; }
+        
+        public void SearchBar(String SearchItem)
+        {
+            ClickOnSearchBar.SendKeys(SearchItem);
+            ClickOnSearchBtn.Click();
+            ClickOnSearchBar.Clear();
         }
     }
 }

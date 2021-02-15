@@ -3,10 +3,6 @@ using BerteloSteen_Automation_.BOS_Test_Utils;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.PageObjects;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BerteloSteen_Automation_.BOS_PageObjects
 {
@@ -16,6 +12,7 @@ namespace BerteloSteen_Automation_.BOS_PageObjects
         public LoginPageObjects()
         {
             PageFactory.InitElements(Drive.driver, this);
+            
         }
 
         [FindsBy(How = How.XPath, Using = "//input[contains(@id,'i0116')]")]
@@ -24,14 +21,15 @@ namespace BerteloSteen_Automation_.BOS_PageObjects
         [FindsBy(How = How.XPath, Using = "//input[contains(@value,'Next')]")]
         public IWebElement submitBtn { get; set; }
 
-
+        
+        CustomLib Stop = new CustomLib();
         [Obsolete]
         public void EnterUserName(String userName)
         {
             //Enter UserName
             txtUserName.SendKeys(userName);
             //Click on LoginBtn
-            Drive.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
+            Stop.WaitFortheLoadingIconDisappear2000();
             submitBtn.Clicks();
 
         }
@@ -43,14 +41,13 @@ namespace BerteloSteen_Automation_.BOS_PageObjects
         [FindsBy(How = How.XPath, Using = "//input[contains(@value,'Sign in')]")]
         public IWebElement signIn { get; set; }
 
-
-
+        [Obsolete]
         public void EnterPassword(String password)
         {
             //Enter Password
             txtPassword.SendKeys(password);
             //Click on LoginBtn
-            Drive.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
+            Stop.WaitFortheLoadingIconDisappear2000();
             signIn.Clicks();
 
         }
@@ -63,7 +60,7 @@ namespace BerteloSteen_Automation_.BOS_PageObjects
         [FindsBy(How = How.XPath, Using = "//input[contains(@value,'Yes')]")]
         public IWebElement yes { get; set; }
 
-
+        [Obsolete]
         public GetProperties StaySignedIN()
         {
 
