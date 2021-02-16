@@ -1,14 +1,22 @@
 ﻿using BerteloSteen_Automation_.BOS_PageObjects;
 using BerteloSteen_Automation_.BOS_Test_Utils;
 using NUnit.Framework;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace BerteloSteen_Automation_
-{
-    public class BaseClass
+namespace BerteloSteen_Automation_.BOS_TestScripts
+{/// <summary>
+/// This class is for when you want to login only one time 
+/// and check the whole Page without any TearDown
+/// </summary>
+    public class OnetimeSetup
     {
-        [SetUp]
+        [OneTimeSetUp]
         [Obsolete]
         public void Login()
         {
@@ -21,7 +29,7 @@ namespace BerteloSteen_Automation_
             Drive.driver.Manage().Window.Maximize();
             Drive.driver.Manage().Cookies.DeleteAllCookies();
             Drive.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
-            Drive.driver.Navigate().GoToUrl("https://waqbolp01.azurewebsites.net/en-US");
+            Drive.driver.Navigate().GoToUrl("https://waqbolp01.azurewebsites.net/");
             Console.WriteLine("Navigated to the 'demo Home Page' URL Sucessfully");
             Drive.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
             //Intitialize the page by calling it reference
@@ -35,13 +43,15 @@ namespace BerteloSteen_Automation_
             Console.WriteLine("Stay Logged In");
             loginpage.StaySignedIN();
             Console.WriteLine("Logged In Sucessfully");
-            
+
         }
 
 
-        [TearDown]
+        [OneTimeTearDown]
         public void Close()
         {
+            (Drive.driver as IJavaScriptExecutor).ExecuteScript("sessionStorage.clear();");
+            (Drive.driver as IJavaScriptExecutor).ExecuteScript("localStorage.clear();");
             Drive.driver.Manage().Cookies.DeleteAllCookies();
             Drive.driver.Close();
             Drive.driver.Quit();

@@ -80,9 +80,10 @@
     <Compile Include="BOS_Test Utils\Drive.cs" />
     <Compile Include="BOS_Test Utils\EcryptDecrypt.cs" />
     <Compile Include="BOS_Test Utils\ExcelLibrary.cs" />
-    <Compile Include="BOS_TestScripts\BaseClass.cs" />
+    <Compile Include="BOS_TestScripts\Base Classes\BaseClass.cs" />
     <Compile Include="BOS_TestScripts\BOS_GET_Title_Url.cs" />
     <Compile Include="BOS_TestScripts\BOS_Mechanics.cs" />
+    <Compile Include="BOS_TestScripts\Base Classes\OnetimeSetup.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

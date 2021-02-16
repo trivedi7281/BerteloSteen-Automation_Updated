@@ -42,5 +42,21 @@ namespace BerteloSteen_Automation_.BOS_Test_Utils
             System.Threading.Thread.Sleep(1000);
         }
 
+
+        //[FindsBy(How = How.XPath, Using = "//div[@class ='loading x32']")]
+        //public IList<IWebElement> PageLoader;
+
+        //public void waitFortheLoadingPage()
+        //{
+        //    int count = 1;
+        //    while(PageLoader.Count()!= && count < 10)
+        //    {
+        //        System.Threading.Thread.Sleep(2000);
+        //        count++;
+        //    }
+        //}
+
+
+      
     }
 }
