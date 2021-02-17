@@ -3,6 +3,7 @@ using OpenQA.Selenium.Support.PageObjects;
 using OpenQA.Selenium.Support.UI;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -12,21 +13,7 @@ namespace BerteloSteen_Automation_.BOS_Test_Utils
 {
     class CustomLib
     {
-        public void WaitFortheLoadingIconDisappear20000()
-        {
-            System.Threading.Thread.Sleep(20000);
-        }
-
-        public void WaitFortheLoadingIconDisappear15000()
-        {
-            System.Threading.Thread.Sleep(15000);
-        }
-
-        public void WaitFortheLoadingIconDisappear10000()
-        {
-            System.Threading.Thread.Sleep(10000);
-        }
-
+        
         public void WaitFortheLoadingIconDisappear5000()
         {
             System.Threading.Thread.Sleep(5000);
@@ -56,7 +43,68 @@ namespace BerteloSteen_Automation_.BOS_Test_Utils
         //    }
         //}
 
+        public static IWebElement FluentWaitbyXPath(IWebDriver driver , string elementName)
+        {
+            try{ 
+            DefaultWait<IWebDriver> fluentWait = new DefaultWait<IWebDriver>(driver);
+            fluentWait.Timeout = TimeSpan.FromSeconds(5);
+            fluentWait.PollingInterval = TimeSpan.FromMilliseconds(100);
+            fluentWait.IgnoreExceptionTypes(typeof(NoSuchElementException));
+            fluentWait.IgnoreExceptionTypes(typeof(ElementNotVisibleException));
+            IWebElement searchElementbyXPath = fluentWait.Until(x => x.FindElement(By.XPath(elementName)));
+            return searchElementbyXPath;
+                
+            }
+            catch(Exception e)
+            {
+                Debug.WriteLine("Some Error:" + e.Message);
+                return null;
+                
+            }
+        }
 
-      
+
+        public static IWebElement FluentWaitbyName(IWebDriver driver, string elementName)
+        {
+            try
+            {
+                DefaultWait<IWebDriver> fluentWait = new DefaultWait<IWebDriver>(driver);
+                fluentWait.Timeout = TimeSpan.FromSeconds(5);
+                
+                fluentWait.PollingInterval = TimeSpan.FromMilliseconds(100);
+                fluentWait.IgnoreExceptionTypes(typeof(NoSuchElementException));
+                fluentWait.IgnoreExceptionTypes(typeof(ElementNotVisibleException));
+                IWebElement searchElementbyName = fluentWait.Until(x => x.FindElement(By.Name(elementName)));
+                return searchElementbyName;
+                
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine("Some Error:" + e.Message);
+                return null;
+            }
+        }
+
+
+        public static IWebElement FluentWaitbyCSS(IWebDriver driver, string elementName)
+        {
+            try
+            {
+                DefaultWait<IWebDriver> fluentWait = new DefaultWait<IWebDriver>(driver);
+                fluentWait.Timeout = TimeSpan.FromSeconds(5);
+                fluentWait.PollingInterval = TimeSpan.FromMilliseconds(100);
+                fluentWait.IgnoreExceptionTypes(typeof(NoSuchElementException));
+                fluentWait.IgnoreExceptionTypes(typeof(ElementNotVisibleException));
+                IWebElement searchElementbyCSS = fluentWait.Until(x => x.FindElement(By.CssSelector(elementName)));
+                return searchElementbyCSS;
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine("Some Error:" + e.Message);
+                return null;
+            }
+        }
+
+
     }
 }

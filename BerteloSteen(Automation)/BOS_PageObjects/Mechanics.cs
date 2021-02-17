@@ -36,15 +36,13 @@ namespace BerteloSteen_Automation_.BOS_PageObjects
         /// </summary>
         public void ClickonDARS()
         {
-            
-            Stop.WaitFortheLoadingIconDisappear20000();
-            Drive.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(30);
+
+            CustomLib.FluentWaitbyXPath(Drive.driver, "engLanguage");
             engLanguage.Clicks();
             //Click on DARS Tab
-            Stop.WaitFortheLoadingIconDisappear10000();
+            CustomLib.FluentWaitbyXPath(Drive.driver, "clickonDARS");
             clickonDARS.Click();
-            Drive.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
-            Stop.WaitFortheLoadingIconDisappear10000();
+            CustomLib.FluentWaitbyXPath(Drive.driver, "clickonMechanicsTab");
             clickonMechanicsTab.Click();
             
         }
@@ -55,7 +53,7 @@ namespace BerteloSteen_Automation_.BOS_PageObjects
         /// </summary>
         public void GetPageTitle()
         {
-            Stop.WaitFortheLoadingIconDisappear15000();
+            CustomLib.FluentWaitbyXPath(Drive.driver, "clickonMechanicsTab");
             string title = Drive.driver.Title;
             Console.WriteLine("Title is:" + title);
             Assert.AreEqual("Mechanics", title);
@@ -79,27 +77,24 @@ namespace BerteloSteen_Automation_.BOS_PageObjects
         /// dealer dropdown and then enter entry on it and select that dealer.
         /// </summary>
         /// <param name="DealerName"></param>
-        public void SelectDealer(string DealerName , string DealerName2)
+        public void SelectDealer(string DealerName , string DealerName2 = null)
         {
-            Stop.WaitFortheLoadingIconDisappear2000();
+            CustomLib.FluentWaitbyXPath(Drive.driver, "selectDealers");
             selectDealers.Clear();
-            Stop.WaitFortheLoadingIconDisappear5000();
             selectDealers.SendKeys(DealerName);
-            Stop.WaitFortheLoadingIconDisappear5000();
+            CustomLib.FluentWaitbyXPath(Drive.driver, "EnteredselectedDealer");
             EnteredselectedDealer.Click();
 
-            Stop.WaitFortheLoadingIconDisappear2000();
-            selectDealers.Clear();
-            Stop.WaitFortheLoadingIconDisappear5000();
-            selectDealers.SendKeys(DealerName2);
-            Stop.WaitFortheLoadingIconDisappear5000();
-            SelectAnotherDealer.Click();
             
-            selectDealers.Clear();
-            Stop.WaitFortheLoadingIconDisappear5000();
-            selectDealers.SendKeys(DealerName);
-            Stop.WaitFortheLoadingIconDisappear5000();
-            EnteredselectedDealer.Click();
+            //selectDealers.Clear();
+            //selectDealers.SendKeys(DealerName2);
+            //CustomLib.FluentWaitbyXPath(Drive.driver, "SelectAnotherDealer");
+            //SelectAnotherDealer.Click();
+            
+            //selectDealers.Clear();
+            //selectDealers.SendKeys(DealerName);
+            //CustomLib.FluentWaitbyXPath(Drive.driver, "EnteredselectedDealer");
+            //EnteredselectedDealer.Click();
 
         }
 
@@ -116,12 +111,10 @@ namespace BerteloSteen_Automation_.BOS_PageObjects
         /// <param name="SearchItem"></param>
         public void SearchBar(string SearchItem)
         {
-            Stop.WaitFortheLoadingIconDisappear5000();
+            CustomLib.FluentWaitbyXPath(Drive.driver, "ClickOnSearchBar");
             ClickOnSearchBar.SendKeys(SearchItem);
             ClickOnSearchBtn.Click();
-            Stop.WaitFortheLoadingIconDisappear5000();
-            ClickOnSearchBar.Clear();
-            ClickOnSearchBtn.Click();
+            
         }
 
 
@@ -131,8 +124,9 @@ namespace BerteloSteen_Automation_.BOS_PageObjects
 
         public void clickToCreatePDF()
         {
-            Stop.WaitFortheLoadingIconDisappear10000();
+            CustomLib.FluentWaitbyXPath(Drive.driver, "PDF");
             PDF.Clicks();
+            Stop.WaitFortheLoadingIconDisappear2000();
             //Here we have to compare PDF Data with our Page Source Data.
         }
 
@@ -144,14 +138,116 @@ namespace BerteloSteen_Automation_.BOS_PageObjects
 
         public void clickToCreateExcel()
         {
-            Stop.WaitFortheLoadingIconDisappear10000();
+            CustomLib.FluentWaitbyXPath(Drive.driver, "Excel");
             Excel.Clicks();
-            Stop.WaitFortheLoadingIconDisappear15000();
+            Stop.WaitFortheLoadingIconDisappear5000();
             //Here we have to compare Excel Data with our Page Source Data.
         }
 
+        //Xpath for the Mechanics Table 
+        [FindsBy(How = How.XPath, Using = "//table[@matsortactive='name'][@matsortdirection='asc']")]
+        public IWebElement Mechanicstable { get; set; }
+        
+
+        public void CheckTablefoundtheSearchData()
+        {
+            Drive.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(6);
+            CustomLib.FluentWaitbyXPath(Drive.driver, "Mechanicstable");
+            TableUtil.ReadTable(Mechanicstable);
+            string VerifyName =TableUtil.ReadCell("Name", 1);
+            Console.WriteLine("Name is : " + VerifyName);
+            Assert.AreEqual("Alexander Almeland Jensen", VerifyName);
+        }
+
+        //Xpath for the Mechanics Table 
+        [FindsBy(How = How.XPath, Using = "//tbody[@role='rowgroup']/tr[1]/td[12]/div/a[1]")]
+        public IWebElement EditButton { get; set; }
 
 
+        public void clickintoActionBtn()
+        {
+            EditButton.Click();
+            Stop.WaitFortheLoadingIconDisappear5000();
+
+        }
+
+        //Xpath for the Mechanics Table 
+        [FindsBy(How = How.XPath, Using = "//*[@id='addMechanicsDetails']/div[1]/p")]
+        public IWebElement MechanicsAdditionalDetails { get; set; }
+
+        //Xpath for the Mechanics Table 
+        [FindsBy(How = How.XPath, Using = "//*[@id='addMechanicsDetails']/div[2]/ul/li/a[@aria-controls='generalInfo']")]
+        public IWebElement GeneralInfo { get; set; }
+
+        //Xpath for the Mechanics Table 
+        [FindsBy(How = How.XPath, Using = "//*[@id='addMechanicsDetails']/div[2]/ul/li/a[@aria-controls='associatedBrands']")]
+        public IWebElement AssociateBrands { get; set; }
+
+        //Xpath for the Mechanics Table 
+        [FindsBy(How = How.XPath, Using = "//*[@id='addMechanicsDetails']/div[2]/ul/li/a[@aria-controls = 'mechanicLeaves']")]
+        public IWebElement MechanicLeaves { get; set; }
+
+        //Xpath for the Mechanics Table 
+        [FindsBy(How = How.XPath, Using = "//*[@id='addMechanicLeave']")]
+        public IWebElement AddMechanicLeaves { get; set; }
+
+        //Xpath for the Mechanics Table 
+        [FindsBy(How = How.XPath, Using = "//div[@class='appointment-comment-title ng-tns-c468-44'][1]")]
+        public IWebElement VerifyMechanicLeavesHeader { get; set; }
+
+        //Xpath for the Mechanics Table 
+        [FindsBy(How = How.XPath, Using = "//span[@id='mechanicName']")]
+        public IWebElement VerifyMechanicName { get; set; }
+
+        //Xpath for the Mechanics Table 
+        [FindsBy(How = How.XPath, Using = "//li[@class='ng-tns-c468-44']/a[@class='pop-close-ico cancelMechanicLeaves ng-tns-c468-44']")]
+        public IWebElement CancelMechanicLeavePage { get; set; }
+
+        
+
+
+        public void VerifytheTabsofMechanicAditionalDetails()
+        {
+            //CustomLib.FluentWaitbyXPath(Drive.driver, "MechanicsAdditionalDetails");
+            //string PageHeader = MechanicsAdditionalDetails.GetText();
+            //Assert.AreEqual("Mechanics", PageHeader);
+            //Console.WriteLine("Page Header is :" + PageHeader);
+            //Stop.WaitFortheLoadingIconDisappear5000();
+            CustomLib.FluentWaitbyXPath(Drive.driver, "GeneralInfo");
+            GeneralInfo.Click();
+
+            Stop.WaitFortheLoadingIconDisappear2000();
+            AssociateBrands.Click();
+
+            CustomLib.FluentWaitbyXPath(Drive.driver, "MechanicLeaves");
+            MechanicLeaves.Click();
+            CustomLib.FluentWaitbyXPath(Drive.driver, "AddMechanicLeaves");
+
+            AddMechanicLeaves.Click();
+            //CustomLib.FluentWaitbyXPath(Drive.driver, "VerifyMechanicLeavesHeader");
+            //string MechanicLeavePageHeader = VerifyMechanicLeavesHeader.GetText();
+            //Assert.AreEqual("Mechanic Leave", MechanicLeavePageHeader);
+            //Console.WriteLine("Page Header is :" + MechanicLeavePageHeader);
+
+            CustomLib.FluentWaitbyXPath(Drive.driver, "VerifyMechanicName");
+            string MechanicName = VerifyMechanicName.GetText();
+            Assert.AreEqual("Alexander Almeland Jensen", MechanicName);
+            Console.WriteLine("Mechanic Name is :" + MechanicName);
+
+            CustomLib.FluentWaitbyXPath(Drive.driver, "CancelMechanicLeavePage");
+            CancelMechanicLeavePage.Click();
+
+        }
+
+        //Xpath for the Mechanics Table 
+        [FindsBy(How = How.XPath, Using = "//a[@id='closeButton']")]
+        public IWebElement ExitFromMechanicAdditionalDetailsPage { get; set; }
+
+        public void ExitFromMechanicDetailsPage()
+        {
+            CustomLib.FluentWaitbyXPath(Drive.driver, "ExitFromMechanicAdditionalDetailsPage");
+            ExitFromMechanicAdditionalDetailsPage.Click();
+        }
 
     }
 }

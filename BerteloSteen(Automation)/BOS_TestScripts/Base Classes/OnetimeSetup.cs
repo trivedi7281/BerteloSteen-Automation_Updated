@@ -20,7 +20,6 @@ namespace BerteloSteen_Automation_.BOS_TestScripts
         [Obsolete]
         public void Login()
         {
-            CustomLib Stop = new CustomLib();
             ChromeOptions options = new ChromeOptions();
             options.AddArgument("no-sandbox");
             Drive.driver = new ChromeDriver(ChromeDriverService.CreateDefaultService(), options, TimeSpan.FromMinutes(3));
@@ -28,18 +27,16 @@ namespace BerteloSteen_Automation_.BOS_TestScripts
             //naviate to Url
             Drive.driver.Manage().Window.Maximize();
             Drive.driver.Manage().Cookies.DeleteAllCookies();
-            Drive.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
             Drive.driver.Navigate().GoToUrl("https://waqbolp01.azurewebsites.net/");
             Console.WriteLine("Navigated to the 'demo Home Page' URL Sucessfully");
-            Drive.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
             //Intitialize the page by calling it reference
+            Drive.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
             LoginPageObjects loginpage = new LoginPageObjects();
             loginpage.EnterUserName("zedbxacp@bosbil.no");
             Console.WriteLine("UserName Entered");
             Drive.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
             loginpage.EnterPassword("6d96E333yjB88ut");
             Console.WriteLine("Password Entered");
-            Drive.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
             Console.WriteLine("Stay Logged In");
             loginpage.StaySignedIN();
             Console.WriteLine("Logged In Sucessfully");

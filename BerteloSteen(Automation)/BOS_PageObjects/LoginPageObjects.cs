@@ -15,39 +15,40 @@ namespace BerteloSteen_Automation_.BOS_PageObjects
             
         }
 
-        [FindsBy(How = How.XPath, Using = "//input[contains(@id,'i0116')]")]
+        [FindsBy(How = How.XPath, Using = "//input[@placeholder='Email, phone, or Skype']")]
         public IWebElement txtUserName { get; set; }
 
-        [FindsBy(How = How.XPath, Using = "//input[contains(@value,'Next')]")]
+        [FindsBy(How = How.XPath, Using = "//div[@class='inline-block']/input[@value='Next']")]
         public IWebElement submitBtn { get; set; }
 
         
-        CustomLib Stop = new CustomLib();
-        [Obsolete]
-        public void EnterUserName(String userName)
+        
+        public void EnterUserName(string userName)
         {
             //Enter UserName
+            CustomLib.FluentWaitbyXPath(Drive.driver, "txtUserName");
             txtUserName.SendKeys(userName);
             //Click on LoginBtn
-            Stop.WaitFortheLoadingIconDisappear2000();
+            CustomLib.FluentWaitbyXPath(Drive.driver, "submitBtn");
             submitBtn.Clicks();
 
         }
 
 
-        [FindsBy(How = How.XPath, Using = "//input[contains(@id,'i0118')]")]
+        [FindsBy(How = How.XPath, Using = "//input[@placeholder='Password']")]
         public IWebElement txtPassword { get; set; }
 
-        [FindsBy(How = How.XPath, Using = "//input[contains(@value,'Sign in')]")]
+        [FindsBy(How = How.XPath, Using = "//div[@class='inline-block']/input[@value='Sign in']")]
         public IWebElement signIn { get; set; }
 
         [Obsolete]
-        public void EnterPassword(String password)
+        public void EnterPassword(string password)
         {
             //Enter Password
+            CustomLib.FluentWaitbyXPath(Drive.driver, "txtPassword");
             txtPassword.SendKeys(password);
             //Click on LoginBtn
-            Stop.WaitFortheLoadingIconDisappear2000();
+            CustomLib.FluentWaitbyXPath(Drive.driver, "signIn");
             signIn.Clicks();
 
         }
@@ -57,7 +58,7 @@ namespace BerteloSteen_Automation_.BOS_PageObjects
         public IWebElement staySignedIn { get; set; }
 
 
-        [FindsBy(How = How.XPath, Using = "//input[contains(@value,'Yes')]")]
+        [FindsBy(How = How.XPath, Using = "//div[@class='inline-block']/input[@value='Yes']")]
         public IWebElement yes { get; set; }
 
         [Obsolete]
@@ -65,8 +66,8 @@ namespace BerteloSteen_Automation_.BOS_PageObjects
         {
 
             staySignedIn.Clicks();
+            CustomLib.FluentWaitbyXPath(Drive.driver, "yes");
             yes.Clicks();
-            
             //Return to the GetProperties
             return new GetProperties();
 

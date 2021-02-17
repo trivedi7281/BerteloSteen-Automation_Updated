@@ -14,21 +14,21 @@ namespace BerteloSteen_Automation_.BOS_PageObjects
         public GetProperties()
         {
             PageFactory.InitElements(Drive.driver, this);
+            
         }
+
+        
 
         [FindsBy(How = How.XPath, Using = "//*[@id='engli']")]
         public IWebElement EngLanguage { get; set; }
 
         
-        public CustomLib Stop = new CustomLib();
-        [Obsolete]
+       
         public void GetDetails()
         {
-            Stop.WaitFortheLoadingIconDisappear20000();
-            Drive.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(15);
+            CustomLib.FluentWaitbyXPath(Drive.driver , "EngLanguage");
             EngLanguage.Clicks();
-            Stop.WaitFortheLoadingIconDisappear15000();
-            Drive.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(15);
+            CustomLib.FluentWaitbyXPath(Drive.driver, "EngLanguage");
             string title = Drive.driver.Title;
             Console.WriteLine("Title is:" + title);
             Assert.AreEqual("Appointment", title);

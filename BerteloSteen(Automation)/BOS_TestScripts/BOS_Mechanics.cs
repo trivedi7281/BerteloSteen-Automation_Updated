@@ -22,7 +22,7 @@ namespace BerteloSteen_Automation_.BOS_TestScripts
             Mech.ClickonDARS();
             Mech.GetPageTitle();
             //On Function it will click on the selected dealer and show the details.
-            Mech.SelectDealer("015" , "97");
+            Mech.SelectDealer("015");
         }
 
         [Test, Order(2)]
@@ -31,6 +31,7 @@ namespace BerteloSteen_Automation_.BOS_TestScripts
         {
             Mech = new Mechanics();
             Mech.SearchBar("Alexander Almeland Jensen");
+            Mech.CheckTablefoundtheSearchData();
         }
 
         [Test, Order(3)]
@@ -49,6 +50,23 @@ namespace BerteloSteen_Automation_.BOS_TestScripts
             Mech.clickToCreateExcel();
         }
 
+
+        [Test, Order(5)]
+        [Obsolete]
+        public void PencilBtn()
+        {
+            Mech = new Mechanics();
+            Mech.clickintoActionBtn();
+        }
+
+        [Test, Order(6)]
+        [Obsolete]
+        public void VerifyMechanicAdditionalDetails()
+        {
+            Mech = new Mechanics();
+            Mech.VerifytheTabsofMechanicAditionalDetails();
+            Mech.ExitFromMechanicDetailsPage();
+        }
 
     }
 }
