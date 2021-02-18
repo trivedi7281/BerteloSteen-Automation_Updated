@@ -8,14 +8,12 @@ using System.Threading.Tasks;
 
 namespace BerteloSteen_Automation_.BOS_Test_Utils
 {
-    class Drive
+     class Drive
     {
 
         public static IWebDriver driver { get; set; }
 
-        public static IJavaScriptExecutor js { get; set; }
-
-        public static NgWebDriver ngdriver { get; set; }
+       public static NgWebDriver ngdriver { get; set; }
 
 
 

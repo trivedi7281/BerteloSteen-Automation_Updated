@@ -80,6 +80,7 @@
     <Compile Include="BOS_Test Utils\Drive.cs" />
     <Compile Include="BOS_Test Utils\EcryptDecrypt.cs" />
     <Compile Include="BOS_Test Utils\ExcelLibrary.cs" />
+    <Compile Include="BOS_Test Utils\Hardwareworking.cs" />
     <Compile Include="BOS_Test Utils\TableUtil.cs" />
     <Compile Include="BOS_TestScripts\Base Classes\BaseClass.cs" />
     <Compile Include="BOS_TestScripts\BOS_GET_Title_Url.cs" />

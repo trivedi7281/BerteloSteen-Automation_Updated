@@ -69,7 +69,7 @@ namespace BerteloSteen_Automation_.BOS_Test_Utils
                 if (ControltoOperate != null && cell != null)
                 {
                     var returnedControl = (from c in cell
-                                           where c.GetAttribute("Value") == ControltoOperate
+                                           where c.GetAttribute("title") == ControltoOperate
                                            select c).SingleOrDefault();
 
                     returnedControl?.Click();

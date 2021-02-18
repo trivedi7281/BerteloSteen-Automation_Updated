@@ -13,7 +13,11 @@ namespace BerteloSteen_Automation_.BOS_Test_Utils
 {
     class CustomLib
     {
-        
+        public void WaitFortheLoadingIconDisappear10000()
+        {
+            System.Threading.Thread.Sleep(10000);
+        }
+
         public void WaitFortheLoadingIconDisappear5000()
         {
             System.Threading.Thread.Sleep(5000);
@@ -104,6 +108,9 @@ namespace BerteloSteen_Automation_.BOS_Test_Utils
                 return null;
             }
         }
+
+
+      
 
 
     }

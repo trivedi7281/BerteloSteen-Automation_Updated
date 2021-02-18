@@ -22,7 +22,7 @@ namespace BerteloSteen_Automation_.BOS_TestScripts
             Mech.ClickonDARS();
             Mech.GetPageTitle();
             //On Function it will click on the selected dealer and show the details.
-            Mech.SelectDealer("015");
+            Mech.SelectDealer("15");
         }
 
         [Test, Order(2)]
@@ -53,7 +53,7 @@ namespace BerteloSteen_Automation_.BOS_TestScripts
 
         [Test, Order(5)]
         [Obsolete]
-        public void PencilBtn()
+        public void ClickPencilBtn()
         {
             Mech = new Mechanics();
             Mech.clickintoActionBtn();
@@ -61,12 +61,61 @@ namespace BerteloSteen_Automation_.BOS_TestScripts
 
         [Test, Order(6)]
         [Obsolete]
-        public void VerifyMechanicAdditionalDetails()
+        public void EnterIntoMechanicsLeaveTab()
         {
             Mech = new Mechanics();
-            Mech.VerifytheTabsofMechanicAditionalDetails();
-            Mech.ExitFromMechanicDetailsPage();
+            Mech.MechanicLeavesTab();
+            
         }
+
+
+        [Test, Order(7)]
+        [Obsolete]
+        public void ClickintoAddMechanicLeavesTab()
+        {
+            Mech = new Mechanics();
+            Mech.AddMechanicLeavesTab();
+
+        }
+
+        [Test, Order(8)]
+        [Obsolete]
+        public void CheckValidationsonMechanicLeavePage()
+        {
+            Mech = new Mechanics();
+            Mech.CheckMechanicLeavePageValidations();
+
+        }
+
+        [Test, Order(9)]
+        [Obsolete]
+        public void EnterMechanicLeaveDetails()
+        {
+            Mech = new Mechanics();
+            Mech.EnterMechanicLeaveDetails();
+
+        }
+
+        [Test, Order(10)]
+        [Obsolete]
+        public void ExitMechanicDetailsPage()
+        {
+            Mech = new Mechanics();
+            Mech.ExitFromMechanicDetailsPage();
+
+        }
+
+        [Test, Order(11)]
+        [Obsolete]
+        public void EnterIntoMechanicsAbsenceTab()
+        {
+            Mech = new Mechanics();
+            Mech.mechanicBusinessAbsenceTab();
+
+        }
+
+
+
 
     }
 }
