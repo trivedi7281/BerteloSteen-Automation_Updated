@@ -88,7 +88,6 @@
     <Compile Include="BOS_TestScripts\BOS_Mechanics.cs" />
     <Compile Include="BOS_TestScripts\Base Classes\OnetimeSetup.cs" />
     <Compile Include="BOS_TestScripts\BOS_My_Dealer.cs" />
-    <Compile Include="BOS_TestScripts\test.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
