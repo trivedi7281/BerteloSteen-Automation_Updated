@@ -325,8 +325,8 @@ namespace BerteloSteen_Automation_.BOS_PageObjects
                 js.ExecuteScript("document.getElementById('LeaveEndDate').value ='23.3.2021'"); // id has been mentioned into the code of End date field
                 CustomLib.WaitFortheLoadingIconDisappear5000();
                 ((IJavaScriptExecutor)Drive.driver).ExecuteScript("window.scrollBy(0,500);");
-                saveMechanicLeaveBtn.Click();
-                //Hardwareworking.Hover(saveMechanicLeaveBtn);
+                //saveMechanicLeaveBtn.Click();
+                Hardwareworking.Hover(saveMechanicLeaveBtn);
                 CustomLib.WaitFortheLoadingIconDisappear10000();
             }
 
