@@ -13,7 +13,7 @@ namespace BerteloSteen_Automation_
         [Obsolete]
         public void Login()
         {
-            CustomLib Stop = new CustomLib();
+
             ChromeOptions options = new ChromeOptions();
             options.AddArgument("no-sandbox");
             Drive.driver = new ChromeDriver(ChromeDriverService.CreateDefaultService(), options, TimeSpan.FromMinutes(3));

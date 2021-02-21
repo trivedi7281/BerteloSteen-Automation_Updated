@@ -21,7 +21,6 @@ namespace BerteloSteen_Automation_.BOS_TestScripts
             Mech = new Mechanics();
             Mech.ClickonDARS();
             Mech.GetPageTitle();
-            //On Function it will click on the selected dealer and show the details.
             Mech.SelectDealer("15");
         }
 
@@ -65,7 +64,7 @@ namespace BerteloSteen_Automation_.BOS_TestScripts
         {
             Mech = new Mechanics();
             Mech.MechanicLeavesTab();
-            
+
         }
 
 
@@ -98,6 +97,41 @@ namespace BerteloSteen_Automation_.BOS_TestScripts
 
         [Test, Order(10)]
         [Obsolete]
+        public void EnterIntoMechanicsAbsenceTab()
+        {
+            Mech = new Mechanics();
+            Mech.mechanicBusinessAbsenceTab();
+
+        }
+
+        [Test, Order(11)]
+        [Obsolete]
+        public void ClickintoMechanicBusinessAbsenceTab()
+        {
+            Mech = new Mechanics();
+            Mech.addMechanicBusinessAbsenceTab();
+        }
+
+
+        [Test, Order(12)]
+        [Obsolete]
+        public void CheckMechanicBusinessAbsenceValidations()
+        {
+            Mech = new Mechanics();
+            Mech.CheckMechanicBusinessAbsencePageValidations();
+        }
+
+        [Test, Order(13)]
+        [Obsolete]
+        public void EnterMechanicBusinessAbsenceDetails()
+        {
+            Mech = new Mechanics();
+            Mech.EnterMechanicBusinessAbsenceDetails();
+
+        }
+
+        [Test, Order(14)]
+        [Obsolete]
         public void ExitMechanicDetailsPage()
         {
             Mech = new Mechanics();
@@ -105,14 +139,8 @@ namespace BerteloSteen_Automation_.BOS_TestScripts
 
         }
 
-        [Test, Order(11)]
-        [Obsolete]
-        public void EnterIntoMechanicsAbsenceTab()
-        {
-            Mech = new Mechanics();
-            Mech.mechanicBusinessAbsenceTab();
 
-        }
+
 
 
 

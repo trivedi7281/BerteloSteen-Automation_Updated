@@ -10,7 +10,7 @@ using System.Text;
 
 namespace BerteloSteen_Automation_.BOS_PageObjects
 {
-    class Mechanics
+   public  class Mechanics
     {
         [Obsolete]
         public Mechanics()
@@ -18,7 +18,7 @@ namespace BerteloSteen_Automation_.BOS_PageObjects
             PageFactory.InitElements(Drive.driver, this);
         }
 
-        [FindsBy(How = How.XPath, Using = "//*[@id='engli']")]
+        [FindsBy(How = How.XPath, Using = "//li[@id='engli']")]
         public IWebElement engLanguage { get; set; }
 
 
@@ -26,10 +26,14 @@ namespace BerteloSteen_Automation_.BOS_PageObjects
         public IWebElement clickonDARS { get; set; }
 
 
+        [FindsBy(How = How.XPath, Using = "//li[@id='darsdealer ']")]
+        public IWebElement DARSHighlight { get; set; }
+        
+
+
         [FindsBy(How = How.XPath, Using = "//a[@href='/en-US/Administration/Mechanics/List']")]
         public IWebElement clickonMechanicsTab { get; set; }
 
-        CustomLib Stop = new CustomLib();
 
         /// <summary>
         /// Navigate to Mechanics
@@ -40,11 +44,14 @@ namespace BerteloSteen_Automation_.BOS_PageObjects
         {
             Drive.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
             CustomLib.FluentWaitbyXPath(Drive.driver, "engLanguage");
+            CustomLib.Highlightelement(engLanguage);
             engLanguage.Clicks();
             //Click on DARS Tab
+            CustomLib.Highlightelement(DARSHighlight);
             CustomLib.FluentWaitbyXPath(Drive.driver, "clickonDARS");
             clickonDARS.Click();
             CustomLib.FluentWaitbyXPath(Drive.driver, "clickonMechanicsTab");
+            CustomLib.Highlightelement(clickonMechanicsTab);
             clickonMechanicsTab.Click();
 
         }
@@ -66,11 +73,11 @@ namespace BerteloSteen_Automation_.BOS_PageObjects
         public IWebElement selectDealers { get; set; }
 
         //Here this xpath have been changed as per we select any other dealer
-        [FindsBy(How = How.XPath, Using = "//*[@id='1']")]
+        [FindsBy(How = How.XPath, Using = "//mat-option[@id='1']")]
         public IWebElement EnteredselectedDealer { get; set; }
 
 
-        [FindsBy(How = How.XPath, Using = "//*[@id='109']")]
+        [FindsBy(How = How.XPath, Using = "//mat-option[@id='109']")]
         public IWebElement SelectAnotherDealer { get; set; }
 
         /// <summary>
@@ -128,7 +135,7 @@ namespace BerteloSteen_Automation_.BOS_PageObjects
         {
             CustomLib.FluentWaitbyXPath(Drive.driver, "PDF");
             PDF.Clicks();
-            Stop.WaitFortheLoadingIconDisappear2000();
+            CustomLib.WaitFortheLoadingIconDisappear2000();
             //Here we have to compare PDF Data with our Page Source Data.
         }
 
@@ -142,7 +149,7 @@ namespace BerteloSteen_Automation_.BOS_PageObjects
         {
             CustomLib.FluentWaitbyXPath(Drive.driver, "Excel");
             Excel.Clicks();
-            Stop.WaitFortheLoadingIconDisappear5000();
+            CustomLib.WaitFortheLoadingIconDisappear5000();
             //Here we have to compare Excel Data with our Page Source Data.
         }
 
@@ -170,8 +177,9 @@ namespace BerteloSteen_Automation_.BOS_PageObjects
         public void clickintoActionBtn()
         {
             CustomLib.FluentWaitbyXPath(Drive.driver, "EditButton");
+            CustomLib.Highlightelement(EditButton);
             EditButton.Click();
-            Stop.WaitFortheLoadingIconDisappear1000();
+            CustomLib.WaitFortheLoadingIconDisappear5000();
 
         }
 
@@ -210,7 +218,7 @@ namespace BerteloSteen_Automation_.BOS_PageObjects
             string PageHeader = MechanicsAdditionalDetails.Text;
             Assert.AreEqual("Mechanics", PageHeader);
             Console.WriteLine("Page Header is :" + PageHeader);
-            Stop.WaitFortheLoadingIconDisappear5000();
+            CustomLib.WaitFortheLoadingIconDisappear5000();
             CustomLib.FluentWaitbyXPath(Drive.driver, "GeneralInfo");
             GeneralInfo.Click();
 
@@ -218,7 +226,7 @@ namespace BerteloSteen_Automation_.BOS_PageObjects
 
         public void AssociateBrandsTab()
         {
-            Stop.WaitFortheLoadingIconDisappear2000();
+            CustomLib.WaitFortheLoadingIconDisappear2000();
             AssociateBrands.Click();
         }
 
@@ -269,7 +277,7 @@ namespace BerteloSteen_Automation_.BOS_PageObjects
         public IWebElement EndDateError { get; set; }
 
         //Xpath for the SaveBtn
-        [FindsBy(How = How.XPath, Using = "//button[@id='saveMechanicLeave'][@actiontype ='Save']")]
+        [FindsBy(How = How.CssSelector, Using = "#saveMechanicLeave")]
         public IWebElement saveMechanicLeaveBtn { get; set; }
 
         //Xpath for the CancelBtn
@@ -277,9 +285,14 @@ namespace BerteloSteen_Automation_.BOS_PageObjects
         public IWebElement CancelMechanicLeavePage { get; set; }
 
 
+        //Xpath for the StartDate
+        [FindsBy(How = How.XPath, Using = "//input[@id='LeaveStartDate']")]
+        public IWebElement StartDate { get; set; }
+
+
         public void CheckMechanicLeavePageValidations()
         {
-
+            CustomLib.Highlightelement(saveMechanicLeaveBtn);
             saveMechanicLeaveBtn.Click();
             CustomLib.FluentWaitbyXPath(Drive.driver, "StartDateError");
             string StartDateErrorText = StartDateError.Text;
@@ -290,6 +303,7 @@ namespace BerteloSteen_Automation_.BOS_PageObjects
             Assert.AreEqual("End date is required", EndDateErrorText);
             Console.WriteLine("End Date Error is :" + EndDateErrorText);
             CustomLib.FluentWaitbyXPath(Drive.driver, "CancelMechanicLeavePage");
+            CustomLib.Highlightelement(CancelMechanicLeavePage);
             CancelMechanicLeavePage.Click();
 
 
@@ -297,18 +311,23 @@ namespace BerteloSteen_Automation_.BOS_PageObjects
 
         public void EnterMechanicLeaveDetails()
         {
+             CustomLib.FluentWaitbyXPath(Drive.driver, "AddMechanicLeaves");
+             AddMechanicLeaves.Click();
             if (DateRange.Selected)
             {
-                CustomLib.FluentWaitbyXPath(Drive.driver, "AddMechanicLeaves");
-                AddMechanicLeaves.Click();
+                CustomLib.WaitFortheLoadingIconDisappear2000();
                 PassComment.SendKeys("Today I am Not feeling Well.");
+                //StartDate.Click();
+                //CustomLib.HandleCalendar("March", "2021", "22");
                 IJavaScriptExecutor js = (IJavaScriptExecutor)Drive.driver;
-                js.ExecuteScript("document.getElementById('LeaveStartDate').value ='18/3/2021'"); // id has been mentioned into the code of Start date field
-                Stop.WaitFortheLoadingIconDisappear2000();
-                js.ExecuteScript("document.getElementById('LeaveEndDate').value ='20/3/2021'"); // id has been mentioned into the code of End date field
-                Stop.WaitFortheLoadingIconDisappear2000();
-                Hardwareworking.Hover(saveMechanicLeaveBtn);
-                Stop.WaitFortheLoadingIconDisappear10000();
+                js.ExecuteScript("document.getElementById('LeaveStartDate').value ='22.3.2021'"); // id has been mentioned into the code of Start date field
+                CustomLib.WaitFortheLoadingIconDisappear2000();
+                js.ExecuteScript("document.getElementById('LeaveEndDate').value ='23.3.2021'"); // id has been mentioned into the code of End date field
+                CustomLib.WaitFortheLoadingIconDisappear5000();
+                ((IJavaScriptExecutor)Drive.driver).ExecuteScript("window.scrollBy(0,500);");
+                saveMechanicLeaveBtn.Click();
+                //Hardwareworking.Hover(saveMechanicLeaveBtn);
+                CustomLib.WaitFortheLoadingIconDisappear10000();
             }
 
         }
@@ -357,7 +376,7 @@ namespace BerteloSteen_Automation_.BOS_PageObjects
         public IWebElement StartDateValidation { get; set; }
 
         //Xpath for the EndDate Validation
-        [FindsBy(How = How.XPath, Using = " //*[@id='AbsenceStartDateRequired']")]
+        [FindsBy(How = How.XPath, Using = " //*[@id='AbsenceEndDateRequired']")]
         public IWebElement EndDateValidation { get; set; }
 
         //Xpath for the None in Mechanic absence Page 
@@ -401,7 +420,7 @@ namespace BerteloSteen_Automation_.BOS_PageObjects
             addMechanicBusinessAbsenceBtn.Click();
             CustomLib.FluentWaitbyXPath(Drive.driver, "VerifymechanicBusinessAbsenceHeader");
             string MechanicBusinessAbsenceHeader = VerifymechanicBusinessAbsenceHeader.Text;
-            Assert.AreEqual("Mechanic Leave", MechanicBusinessAbsenceHeader);
+            Assert.AreEqual("Mechanic Business Absence", MechanicBusinessAbsenceHeader);
             Console.WriteLine("Page Header is :" + MechanicBusinessAbsenceHeader);
 
             CustomLib.FluentWaitbyXPath(Drive.driver, "VerifyMechanicNameinMBAPOPPage");
@@ -414,8 +433,8 @@ namespace BerteloSteen_Automation_.BOS_PageObjects
 
         public void CheckMechanicBusinessAbsencePageValidations()
         {
+            CustomLib.Highlightelement(saveMechanicBusinessAbsenceBtn);
             saveMechanicBusinessAbsenceBtn.Click();
-
             CustomLib.FluentWaitbyXPath(Drive.driver, "StartDateValidation");
             string StartDateValidationText = StartDateValidation.Text;
             Assert.AreEqual("Start date is required", StartDateValidationText);
@@ -428,10 +447,12 @@ namespace BerteloSteen_Automation_.BOS_PageObjects
 
             CustomLib.FluentWaitbyXPath(Drive.driver, "DescriptionValidation");
             string DescriptionValidationText = DescriptionValidation.Text;
-            Assert.AreEqual("End date is required", DescriptionValidationText);
-            Console.WriteLine("End Date Error is :" + DescriptionValidationText);
+            Assert.AreEqual("Description is Required", DescriptionValidationText);
+            Console.WriteLine("Description error text is :" + DescriptionValidationText);
 
             CustomLib.FluentWaitbyXPath(Drive.driver, "CancelMechanicBusinessAbsencePage");
+            ((IJavaScriptExecutor)Drive.driver).ExecuteScript("window.scrollBy(0,200)");
+            CustomLib.Highlightelement(CancelMechanicBusinessAbsencePage);
             CancelMechanicBusinessAbsencePage.Click();
 
         }
@@ -443,13 +464,13 @@ namespace BerteloSteen_Automation_.BOS_PageObjects
                 CustomLib.FluentWaitbyXPath(Drive.driver, "addMechanicBusinessAbsenceBtn");
                 addMechanicBusinessAbsenceBtn.Click();
                 IJavaScriptExecutor js = (IJavaScriptExecutor)Drive.driver;
-                js.ExecuteScript("document.getElementById('AbsenceStartDate').value ='18.3.2021 20:25'"); // id has been mentioned into the code of Start date field
-                Stop.WaitFortheLoadingIconDisappear2000();
-                js.ExecuteScript("document.getElementById('AbsenceEndDate').value ='20.3.2021 20:25'"); // id has been mentioned into the code of End date field
-                Stop.WaitFortheLoadingIconDisappear2000();
+                js.ExecuteScript("document.getElementById('AbsenceStartDate').value ='20.3.2021 20:25'"); // id has been mentioned into the code of Start date field
+                CustomLib.WaitFortheLoadingIconDisappear2000();
+                js.ExecuteScript("document.getElementById('AbsenceEndDate').value ='21.3.2021 20:25'"); // id has been mentioned into the code of End date field
+                CustomLib.WaitFortheLoadingIconDisappear2000();
                 AddDescription.SendKeys("Business absence at Monday and Wednesday");
                 Hardwareworking.Hover(saveMechanicBusinessAbsenceBtn);
-                Stop.WaitFortheLoadingIconDisappear5000();
+                CustomLib.WaitFortheLoadingIconDisappear5000();
             }
             //else if(TypeWeeklyinMechanicAbsencePage.Selected)
             //{
@@ -464,7 +485,7 @@ namespace BerteloSteen_Automation_.BOS_PageObjects
 
         //<!-----------------------------*****---------------------------------mechanicBusinessAbsence Tab-----------------------------------------*****-------------------------------------->
 
-        public void mechanicCommunicationTab()
+        public void MechanicRecipientListTab()
         {
             CustomLib.FluentWaitbyXPath(Drive.driver, "mechanicCommunication");
             mechanicCommunication.Click();
@@ -480,8 +501,8 @@ namespace BerteloSteen_Automation_.BOS_PageObjects
 
         public void ExitFromMechanicDetailsPage()
         {
-
-            Stop.WaitFortheLoadingIconDisappear5000();
+            CustomLib.Highlightelement(ExitFromMechanicAdditionalDetailsPage);
+            CustomLib.WaitFortheLoadingIconDisappear5000();
             Hardwareworking.Hover(ExitFromMechanicAdditionalDetailsPage);
             //CustomLib.FluentWaitbyXPath(Drive.driver, "ExitFromMechanicAdditionalDetailsPage");
             //IJavaScriptExecutor executor = (IJavaScriptExecutor)Drive.driver;

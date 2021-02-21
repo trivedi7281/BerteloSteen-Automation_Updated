@@ -3,6 +3,7 @@ using OpenQA.Selenium.Support.PageObjects;
 using OpenQA.Selenium.Support.UI;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -11,41 +12,27 @@ using System.Threading.Tasks;
 
 namespace BerteloSteen_Automation_.BOS_Test_Utils
 {
-    class CustomLib
+   public  static class CustomLib
     {
-        public void WaitFortheLoadingIconDisappear10000()
+        public static void WaitFortheLoadingIconDisappear10000()
         {
             System.Threading.Thread.Sleep(10000);
         }
 
-        public void WaitFortheLoadingIconDisappear5000()
+        public static void WaitFortheLoadingIconDisappear5000()
         {
             System.Threading.Thread.Sleep(5000);
         }
 
-        public void WaitFortheLoadingIconDisappear2000()
+        public static void WaitFortheLoadingIconDisappear2000()
         {
             System.Threading.Thread.Sleep(2000);
         }
 
-        public void WaitFortheLoadingIconDisappear1000()
+        public static void WaitFortheLoadingIconDisappear1000()
         {
             System.Threading.Thread.Sleep(1000);
         }
-
-
-        //[FindsBy(How = How.XPath, Using = "//div[@class ='loading x32']")]
-        //public IList<IWebElement> PageLoader;
-
-        //public void waitFortheLoadingPage()
-        //{
-        //    int count = 1;
-        //    while(PageLoader.Count()!= && count < 10)
-        //    {
-        //        System.Threading.Thread.Sleep(2000);
-        //        count++;
-        //    }
-        //}
 
         public static IWebElement FluentWaitbyXPath(IWebDriver driver , string elementName)
         {
@@ -109,8 +96,47 @@ namespace BerteloSteen_Automation_.BOS_Test_Utils
             }
         }
 
-
+        public static void Highlightelement( this IWebElement element)
+        {
+            ((IJavaScriptExecutor)Drive.driver).ExecuteScript("arguments[0].style.border ='1px solid black'", element);
+            Thread.Sleep(2500);
+            ((IJavaScriptExecutor)Drive.driver).ExecuteScript("arguments[0].style.border ='1px solid white'", element);
+            ((IJavaScriptExecutor)Drive.driver).ExecuteScript("arguments[0].style.background ='Grey'", element);
+        }
       
+        public static void HandleCalendar(this string month , string year , string selectdate)
+        {
+            string month_Selector = "body > div:nth-child(11) > div.xdsoft_datepicker.active > div.xdsoft_mounthpicker > div.xdsoft_label.xdsoft_month > span";
+            string year_Selector = "body > div:nth-child(11) > div.xdsoft_datepicker.active > div.xdsoft_mounthpicker > div.xdsoft_label.xdsoft_year > span";
+            string nextBtn = "body > div:nth-child(11) > div.xdsoft_datepicker.active > div.xdsoft_mounthpicker > button.xdsoft_next";
+            string dateTable = "body > div:nth-child(11) > div.xdsoft_datepicker.active > div.xdsoft_calendar";
+            
+            while ( Drive.driver.FindElement(By.CssSelector(month_Selector)).Text.Contains(month) && Drive.driver.FindElement(By.CssSelector(year_Selector)).Text.Contains(year))
+            {
+                System.Threading.Thread.Sleep(2000);
+                Drive.driver.FindElement(By.CssSelector(nextBtn)).Click();
+
+            }
+
+            // converting webelement to list of webelement
+            List<string> dates = new List<string>();
+            ReadOnlyCollection<IWebElement> Datetable = Drive.driver.FindElements(By.CssSelector(dateTable));
+
+            foreach (IWebElement date in Datetable)
+            {
+                if (date.Text.Length > 0)
+                {
+                    if (date.Text.Contains(selectdate))
+                    {
+                        dates.Add(date.Text);
+                        date.Click();
+
+                    }
+
+                }
+
+            }
+        }
 
 
     }

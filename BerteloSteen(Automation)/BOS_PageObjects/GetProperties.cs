@@ -26,6 +26,7 @@ namespace BerteloSteen_Automation_.BOS_PageObjects
        
         public void GetDetails()
         {
+            CustomLib.Highlightelement(EngLanguage);
             CustomLib.FluentWaitbyXPath(Drive.driver , "EngLanguage");
             EngLanguage.Clicks();
             CustomLib.FluentWaitbyXPath(Drive.driver, "EngLanguage");

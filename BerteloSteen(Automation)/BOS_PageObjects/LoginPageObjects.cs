@@ -26,9 +26,11 @@ namespace BerteloSteen_Automation_.BOS_PageObjects
         public void EnterUserName(string userName)
         {
             //Enter UserName
+            CustomLib.Highlightelement(txtUserName);
             CustomLib.FluentWaitbyXPath(Drive.driver, "txtUserName");
             txtUserName.SendKeys(userName);
             //Click on LoginBtn
+            CustomLib.Highlightelement(submitBtn);
             CustomLib.FluentWaitbyXPath(Drive.driver, "submitBtn");
             submitBtn.Clicks();
 
@@ -45,8 +47,10 @@ namespace BerteloSteen_Automation_.BOS_PageObjects
         public void EnterPassword(string password)
         {
             //Enter Password
+            CustomLib.Highlightelement(txtPassword);
             CustomLib.FluentWaitbyXPath(Drive.driver, "txtPassword");
             txtPassword.SendKeys(password);
+            CustomLib.Highlightelement(signIn);
             //Click on LoginBtn
             CustomLib.FluentWaitbyXPath(Drive.driver, "signIn");
             signIn.Clicks();
@@ -64,8 +68,9 @@ namespace BerteloSteen_Automation_.BOS_PageObjects
         [Obsolete]
         public GetProperties StaySignedIN()
         {
-
+            CustomLib.Highlightelement(staySignedIn);
             staySignedIn.Clicks();
+            CustomLib.Highlightelement(yes);
             CustomLib.FluentWaitbyXPath(Drive.driver, "yes");
             yes.Clicks();
             //Return to the GetProperties
