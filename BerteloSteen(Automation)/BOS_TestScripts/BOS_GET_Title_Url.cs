@@ -1,4 +1,5 @@
 ﻿using BerteloSteen_Automation_.BOS_PageObjects;
+using BerteloSteen_Automation_.BOS_Test_Utils;
 using NUnit.Framework;
 using System;
 
@@ -13,9 +14,12 @@ namespace BerteloSteen_Automation_.BOS_TestScripts
         [Obsolete]
         public void getUrlTitle()
         { 
-            GetProperties prop = new GetProperties();
+            GetPropertiesObjects prop = new GetPropertiesObjects();
             prop.GetDetails();
+            
+
         }
+ 
 
     }
 }

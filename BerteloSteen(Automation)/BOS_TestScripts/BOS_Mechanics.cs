@@ -9,13 +9,13 @@ namespace BerteloSteen_Automation_.BOS_TestScripts
     class BOS_Mechanics : OnetimeSetup
     {
         
-        public Mechanics Mech;
+        public MechanicsObjects Mech;
         
         [Test , Order(1)]
         [Obsolete]
         public void CheckDealerDropdown()
         {
-            Mech = new Mechanics();
+            Mech = new MechanicsObjects();
             Mech.ClickonDARS();
             Mech.GetPageTitle();
             Mech.SelectDealer("15");
@@ -25,7 +25,7 @@ namespace BerteloSteen_Automation_.BOS_TestScripts
         [Obsolete]
         public void CheckSearchBar()
         {
-            Mech = new Mechanics();
+            Mech = new MechanicsObjects();
             Mech.SearchBar("Alexander Almeland Jensen");
             Mech.CheckTablefoundtheSearchData();
         }
@@ -34,7 +34,7 @@ namespace BerteloSteen_Automation_.BOS_TestScripts
         [Obsolete]
         public void CheckPDFFunctionality()
         {
-            Mech = new Mechanics();
+            Mech = new MechanicsObjects();
             Mech.clickToCreatePDF();
         }
 
@@ -42,7 +42,7 @@ namespace BerteloSteen_Automation_.BOS_TestScripts
         [Obsolete]
         public void CheckExcelFunctionality()
         {
-            Mech = new Mechanics();
+            Mech = new MechanicsObjects();
             Mech.clickToCreateExcel();
         }
 
@@ -51,87 +51,115 @@ namespace BerteloSteen_Automation_.BOS_TestScripts
         [Obsolete]
         public void ClickPencilBtn()
         {
-            Mech = new Mechanics();
+            Mech = new MechanicsObjects();
             Mech.clickintoActionBtn();
         }
 
+
         [Test, Order(6)]
+        [Obsolete]
+        public void ClickGeneralInfoTab()
+        {
+            Mech = new MechanicsObjects();
+            Mech.GeneralInfoTab();
+        }
+
+        [Test, Order(7)]
+        [Obsolete]
+        public void ClickAssociateBrandTab()
+        {
+            Mech = new MechanicsObjects();
+            Mech.AssociateBrandsTab();
+        }
+
+
+        [Test, Order(8)]
         [Obsolete]
         public void EnterIntoMechanicsLeaveTab()
         {
-            Mech = new Mechanics();
+            Mech = new MechanicsObjects();
             Mech.MechanicLeavesTab();
 
         }
 
 
-        [Test, Order(7)]
+        [Test, Order(9)]
         [Obsolete]
         public void ClickintoAddMechanicLeavesTab()
         {
-            Mech = new Mechanics();
+            Mech = new MechanicsObjects();
             Mech.AddMechanicLeavesTab();
 
         }
 
-        [Test, Order(8)]
-        [Obsolete]
-        public void CheckValidationsonMechanicLeavePage()
-        {
-            Mech = new Mechanics();
-            Mech.CheckMechanicLeavePageValidations();
+        //[Test, Order(10)]
+        //[Obsolete]
+        //public void CheckValidationsonMechanicLeavePage()
+        //{
+        //    Mech = new MechanicsObjects();
+        //    Mech.CheckMechanicLeavePageValidations();
 
-        }
+        //}
 
-        [Test, Order(9)]
+        [Test, Order(11)]
         [Obsolete]
         public void EnterMechanicLeaveDetails()
         {
-            Mech = new Mechanics();
+            Mech = new MechanicsObjects();
             Mech.EnterMechanicLeaveDetails();
 
         }
 
-        [Test, Order(10)]
+        [Test, Order(12)]
         [Obsolete]
         public void EnterIntoMechanicsAbsenceTab()
         {
-            Mech = new Mechanics();
+            Mech = new MechanicsObjects();
             Mech.mechanicBusinessAbsenceTab();
 
         }
 
-        [Test, Order(11)]
+        [Test, Order(13)]
         [Obsolete]
         public void ClickintoMechanicBusinessAbsenceTab()
         {
-            Mech = new Mechanics();
+            Mech = new MechanicsObjects();
             Mech.addMechanicBusinessAbsenceTab();
         }
 
 
-        [Test, Order(12)]
+        [Test, Order(14)]
         [Obsolete]
         public void CheckMechanicBusinessAbsenceValidations()
         {
-            Mech = new Mechanics();
+            Mech = new MechanicsObjects();
             Mech.CheckMechanicBusinessAbsencePageValidations();
         }
 
-        [Test, Order(13)]
-        [Obsolete]
-        public void EnterMechanicBusinessAbsenceDetails()
-        {
-            Mech = new Mechanics();
-            Mech.EnterMechanicBusinessAbsenceDetails();
+        //[Test, Order(15)]
+        //[Obsolete]
+        //public void EnterMechanicBusinessAbsenceDetails()
+        //{
+        //    Mech = new Mechanics();
+        //    Mech.EnterMechanicBusinessAbsenceDetails();
 
+        //}
+
+
+        [Test, Order(16)]
+        [Obsolete]
+        public void ClickintoMechanicRecipientListTab()
+        {
+            Mech = new MechanicsObjects();
+            Mech.MechanicRecipientListTab();
         }
 
-        [Test, Order(14)]
+
+        [Test, Order(17)]
         [Obsolete]
         public void ExitMechanicDetailsPage()
         {
-            Mech = new Mechanics();
+            Mech = new MechanicsObjects();
             Mech.ExitFromMechanicDetailsPage();
 
         }

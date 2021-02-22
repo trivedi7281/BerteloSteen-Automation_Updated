@@ -98,29 +98,39 @@ namespace BerteloSteen_Automation_.BOS_Test_Utils
 
         public static void Highlightelement( this IWebElement element)
         {
-            ((IJavaScriptExecutor)Drive.driver).ExecuteScript("arguments[0].style.border ='1px solid black'", element);
+            ((IJavaScriptExecutor)Drive.driver).ExecuteScript("arguments[0].style.border ='1px solid black';", element);
             Thread.Sleep(2500);
-            ((IJavaScriptExecutor)Drive.driver).ExecuteScript("arguments[0].style.border ='1px solid white'", element);
-            ((IJavaScriptExecutor)Drive.driver).ExecuteScript("arguments[0].style.background ='Grey'", element);
+            ((IJavaScriptExecutor)Drive.driver).ExecuteScript("arguments[0].style.border ='1px solid white';", element);
+            ((IJavaScriptExecutor)Drive.driver).ExecuteScript("arguments[0].style.background ='Grey';", element);
         }
       
-        public static void HandleCalendar(this string month , string year , string selectdate)
+        public static void HandleCalendar(this string month , string selectdate)
         {
-            string month_Selector = "body > div:nth-child(11) > div.xdsoft_datepicker.active > div.xdsoft_mounthpicker > div.xdsoft_label.xdsoft_month > span";
-            string year_Selector = "body > div:nth-child(11) > div.xdsoft_datepicker.active > div.xdsoft_mounthpicker > div.xdsoft_label.xdsoft_year > span";
-            string nextBtn = "body > div:nth-child(11) > div.xdsoft_datepicker.active > div.xdsoft_mounthpicker > button.xdsoft_next";
-            string dateTable = "body > div:nth-child(11) > div.xdsoft_datepicker.active > div.xdsoft_calendar";
-            
-            while ( Drive.driver.FindElement(By.CssSelector(month_Selector)).Text.Contains(month) && Drive.driver.FindElement(By.CssSelector(year_Selector)).Text.Contains(year))
+            //string MonthDDSelector = "(//div[@class = 'xdsoft_label xdsoft_month'])[1]";
+            //string month_Selector = "(//div[@class = 'xdsoft_option ' and @data-value = 'month_Number'])[1]"; // month will be in Number
+            //string year_Selector = "(//div[@class='xdsoft_option ' and @data-value='Year_Number'])[1]"; //year selection in Number
+            string nextBtn = " (//button[@class = 'xdsoft_next'])[1]";
+            string dateTable = "(//div[@class= 'xdsoft_calendar'])[1]/table/tbody/tr/td"; //Dates in Number
+            // here we can make a dynamic month for search and select.
+            string beforespanmonth = "(//div[@class = 'xdsoft_label xdsoft_month'])[1]/span"; //Month in SpanTag
+            //string afterspanmonth = "')]";
+            //string forMonth = beforespanmonth + month + afterspanmonth;
+            // here we can make a dynamic year for search and select.
+            //string beforespanyear = "(//div[@class = 'xdsoft_label xdsoft_year'])[1]/span"; //Month in SpanTag
+            //string afterspanyear = "')]";
+            //string foryear = beforespanyear + year + afterspanyear;
+
+
+            while (Drive.driver.FindElement(By.XPath(beforespanmonth)).Text.Contains(month))
             {
                 System.Threading.Thread.Sleep(2000);
-                Drive.driver.FindElement(By.CssSelector(nextBtn)).Click();
+                Drive.driver.FindElement(By.XPath(nextBtn)).Click();
 
             }
 
             // converting webelement to list of webelement
             List<string> dates = new List<string>();
-            ReadOnlyCollection<IWebElement> Datetable = Drive.driver.FindElements(By.CssSelector(dateTable));
+            ReadOnlyCollection<IWebElement> Datetable = Drive.driver.FindElements(By.XPath(dateTable));
 
             foreach (IWebElement date in Datetable)
             {

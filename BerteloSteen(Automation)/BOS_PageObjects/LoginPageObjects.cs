@@ -66,7 +66,7 @@ namespace BerteloSteen_Automation_.BOS_PageObjects
         public IWebElement yes { get; set; }
 
         [Obsolete]
-        public GetProperties StaySignedIN()
+        public GetPropertiesObjects StaySignedIN()
         {
             CustomLib.Highlightelement(staySignedIn);
             staySignedIn.Clicks();
@@ -74,7 +74,7 @@ namespace BerteloSteen_Automation_.BOS_PageObjects
             CustomLib.FluentWaitbyXPath(Drive.driver, "yes");
             yes.Clicks();
             //Return to the GetProperties
-            return new GetProperties();
+            return new GetPropertiesObjects();
 
 
 

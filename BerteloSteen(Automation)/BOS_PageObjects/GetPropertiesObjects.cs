@@ -8,10 +8,10 @@ using System;
 
 namespace BerteloSteen_Automation_.BOS_PageObjects
 {
-    class GetProperties
+    class GetPropertiesObjects
     {
         [Obsolete]
-        public GetProperties()
+        public GetPropertiesObjects()
         {
             PageFactory.InitElements(Drive.driver, this);
             

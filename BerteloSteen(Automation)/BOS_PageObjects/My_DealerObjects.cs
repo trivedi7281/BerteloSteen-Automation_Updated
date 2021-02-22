@@ -3,6 +3,7 @@ using BerteloSteen_Automation_.BOS_Test_Utils;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.PageObjects;
+using OpenQA.Selenium.Support.UI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,10 +12,10 @@ using System.Threading.Tasks;
 
 namespace BerteloSteen_Automation_.BOS_PageObjects
 {
-    class My_Dealer
+    class My_DealerObjects
     {
         [Obsolete]
-        public My_Dealer()
+        public My_DealerObjects()
         {
             PageFactory.InitElements(Drive.driver, this);
         }
@@ -96,5 +97,46 @@ namespace BerteloSteen_Automation_.BOS_PageObjects
         }
 
 
-     }
+
+        [FindsBy(How = How.XPath, Using = "//mat-select[@id='defaultExternalRentalCarCompanyId']")]
+        public IWebElement selectRCCDropdown { get; set; }
+
+        [FindsBy(How = How.XPath, Using = "//*[@id='defaultExternalRentalCarCompanyId - panel']")]
+        public IWebElement selectRCCDropdownPanel { get; set; }
+
+        [FindsBy(How = How.XPath, Using = "//*[@id='isAddTax']")]
+        public IWebElement AddTax { get; set; }
+
+        string BeforeXpath = "(//mat-option[@role='option']/span)[";
+        string AfterXPathXpath = "]";
+
+        //*[@id="laborPercentage"]
+        //*[@id="partsPercentage"]
+        //*[@id="showPriceDiffPercentage"]
+        //*[@id="minimumMarginForParts"]
+
+        public void SelectRentalCarComp_Dropdown()
+        {
+            AddTax.Click();
+            CustomLib.WaitFortheLoadingIconDisappear5000();
+            CustomLib.FluentWaitbyXPath(Drive.driver, "selectRCCDropdown");
+            selectRCCDropdown.Click();
+            CustomLib.WaitFortheLoadingIconDisappear5000();
+            for (int i = 1; i <= 100; i++)
+            {
+                string ActualXpath = BeforeXpath + i + AfterXPathXpath;
+                IWebElement element = Drive.driver.FindElement(By.XPath(ActualXpath));
+                Console.WriteLine(element.Text);
+                if(element.Text.Equals("HDFC Argo"))
+                {
+                    element.Click();
+                    break;
+                }
+                
+            }
+            
+
+        }
+
+    }
  }

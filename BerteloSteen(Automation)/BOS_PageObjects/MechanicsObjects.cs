@@ -10,10 +10,10 @@ using System.Text;
 
 namespace BerteloSteen_Automation_.BOS_PageObjects
 {
-   public  class Mechanics
+   public  class MechanicsObjects
     {
         [Obsolete]
-        public Mechanics()
+        public MechanicsObjects()
         {
             PageFactory.InitElements(Drive.driver, this);
         }
@@ -290,6 +290,8 @@ namespace BerteloSteen_Automation_.BOS_PageObjects
         public IWebElement StartDate { get; set; }
 
 
+
+
         public void CheckMechanicLeavePageValidations()
         {
             CustomLib.Highlightelement(saveMechanicLeaveBtn);
@@ -311,19 +313,19 @@ namespace BerteloSteen_Automation_.BOS_PageObjects
 
         public void EnterMechanicLeaveDetails()
         {
-             CustomLib.FluentWaitbyXPath(Drive.driver, "AddMechanicLeaves");
-             AddMechanicLeaves.Click();
+             //CustomLib.FluentWaitbyXPath(Drive.driver, "AddMechanicLeaves");
+             //AddMechanicLeaves.Click();
             if (DateRange.Selected)
             {
                 CustomLib.WaitFortheLoadingIconDisappear2000();
                 PassComment.SendKeys("Today I am Not feeling Well.");
-                //StartDate.Click();
-                //CustomLib.HandleCalendar("March", "2021", "22");
-                IJavaScriptExecutor js = (IJavaScriptExecutor)Drive.driver;
-                js.ExecuteScript("document.getElementById('LeaveStartDate').value ='22.3.2021'"); // id has been mentioned into the code of Start date field
-                CustomLib.WaitFortheLoadingIconDisappear2000();
-                js.ExecuteScript("document.getElementById('LeaveEndDate').value ='23.3.2021'"); // id has been mentioned into the code of End date field
-                CustomLib.WaitFortheLoadingIconDisappear5000();
+                StartDate.Click();
+                CustomLib.HandleCalendar("March", "22");
+                //IJavaScriptExecutor js = (IJavaScriptExecutor)Drive.driver;
+                //js.ExecuteScript("document.getElementById('LeaveStartDate').value ='22.3.2021'"); // id has been mentioned into the code of Start date field
+                //CustomLib.WaitFortheLoadingIconDisappear2000();
+                //js.ExecuteScript("document.getElementById('LeaveEndDate').value ='23.3.2021'"); // id has been mentioned into the code of End date field
+                //CustomLib.WaitFortheLoadingIconDisappear5000();
                 ((IJavaScriptExecutor)Drive.driver).ExecuteScript("window.scrollBy(0,500);");
                 //saveMechanicLeaveBtn.Click();
                 Hardwareworking.Hover(saveMechanicLeaveBtn);
@@ -331,7 +333,13 @@ namespace BerteloSteen_Automation_.BOS_PageObjects
             }
 
         }
-
+            //(//*[@id="toast-container"])//div[@role='alertdialog']
+            //(//mat-option[@role='option']/span)[2]
+            //(//div[@class = 'xdsoft_label xdsoft_month'])[1] click
+            //(//div[@class = 'xdsoft_option ' and @data-value = 'Month_Number'])[1] found the month and click // here 0 to 11 months are there....
+            // (//div[@class='xdsoft_option ' and @data-value='Year_Number'])[1] year selection
+            //(//div[@class= 'xdsoft_calendar'])[1]/table/tbody/tr/td[@data-date ='Date_Number']
+            //(//div[@class= 'xdsoft_calendar'])[1]/table/tbody/tr/td[contains(@class , 'disabled')]
 
 
         ////Xpath for the Close Mechanicspop Page 
@@ -493,9 +501,7 @@ namespace BerteloSteen_Automation_.BOS_PageObjects
         }
 
 
-
-
-        //Xpath for the Mechanics Slider Page Close Button 
+        //Xpath for the Mechanics SliderPage Close Button 
         [FindsBy(How = How.XPath, Using = "//a[@id='closeButton']/i")]
         public IWebElement ExitFromMechanicAdditionalDetailsPage { get; set; }
 
@@ -504,10 +510,7 @@ namespace BerteloSteen_Automation_.BOS_PageObjects
             CustomLib.Highlightelement(ExitFromMechanicAdditionalDetailsPage);
             CustomLib.WaitFortheLoadingIconDisappear5000();
             Hardwareworking.Hover(ExitFromMechanicAdditionalDetailsPage);
-            //CustomLib.FluentWaitbyXPath(Drive.driver, "ExitFromMechanicAdditionalDetailsPage");
-            //IJavaScriptExecutor executor = (IJavaScriptExecutor)Drive.driver;
-            //executor.ExecuteScript("arguments[0].scrollIntoView(true);", ExitFromMechanicAdditionalDetailsPage);
-            //ExitFromMechanicAdditionalDetailsPage.Click();
+            
         }
 
     }
