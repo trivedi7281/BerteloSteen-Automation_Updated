@@ -1,13 +1,14 @@
-﻿using BerteloSteen_Automation_.BOS_PageObjects;
+﻿using DARS.Automation_.PageObjectsModels;
 using NUnit.Framework;
 using System;
 
 
-namespace BerteloSteen_Automation_.BOS_TestScripts
+namespace DARS.Automation_.TestScripts
 {
     [TestFixture]
-    class BOS_My_Dealer : OnetimeSetup
+    class My_Dealer : OnetimeSetup
     {
+
         public My_DealerObjects Dealer ;
 
         [Test, Order(1)]
@@ -25,7 +26,15 @@ namespace BerteloSteen_Automation_.BOS_TestScripts
         public void SelectRentalCarCompany()
         {
             Dealer = new My_DealerObjects();
-            Dealer.SelectRentalCarComp_Dropdown();
+            Dealer.SelectRentalCarComp_Dropdown("1" , "10" , "HDFC Argo");
         }
+
+        //[Test, Order(3)]
+        //[Obsolete]
+        //public void ValidateCheckboxes()
+        //{
+        //    Dealer = new My_DealerObjects();
+        //    Dealer.ValidateAllCheckBoxes();
+        //}
     }
 }

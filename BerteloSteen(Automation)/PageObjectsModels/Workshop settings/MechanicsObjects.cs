@@ -1,16 +1,14 @@
-﻿using BerteloSteen_Automation_.BOS_GETSET;
-using BerteloSteen_Automation_.BOS_Test_Utils;
+﻿using DARS.Automation_.GetSet;
+using DARS.Automation_.Utilities;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.PageObjects;
-using OpenQA.Selenium.Support.UI;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace BerteloSteen_Automation_.BOS_PageObjects
+namespace DARS.Automation_.PageObjectsModels
 {
-   public  class MechanicsObjects
+
+    class MechanicsObjects
     {
         [Obsolete]
         public MechanicsObjects()
@@ -320,7 +318,7 @@ namespace BerteloSteen_Automation_.BOS_PageObjects
                 CustomLib.WaitFortheLoadingIconDisappear2000();
                 PassComment.SendKeys("Today I am Not feeling Well.");
                 StartDate.Click();
-                CustomLib.HandleCalendar("March", "22");
+                CustomLib.HandleCalendar("April","20");
                 //IJavaScriptExecutor js = (IJavaScriptExecutor)Drive.driver;
                 //js.ExecuteScript("document.getElementById('LeaveStartDate').value ='22.3.2021'"); // id has been mentioned into the code of Start date field
                 //CustomLib.WaitFortheLoadingIconDisappear2000();
@@ -478,7 +476,7 @@ namespace BerteloSteen_Automation_.BOS_PageObjects
                 CustomLib.WaitFortheLoadingIconDisappear2000();
                 AddDescription.SendKeys("Business absence at Monday and Wednesday");
                 Hardwareworking.Hover(saveMechanicBusinessAbsenceBtn);
-                CustomLib.WaitFortheLoadingIconDisappear5000();
+                CustomLib.WaitFortheLoadingIconDisappear2000();
             }
             //else if(TypeWeeklyinMechanicAbsencePage.Selected)
             //{
@@ -508,7 +506,7 @@ namespace BerteloSteen_Automation_.BOS_PageObjects
         public void ExitFromMechanicDetailsPage()
         {
             CustomLib.Highlightelement(ExitFromMechanicAdditionalDetailsPage);
-            CustomLib.WaitFortheLoadingIconDisappear5000();
+            CustomLib.WaitFortheLoadingIconDisappear2000();
             Hardwareworking.Hover(ExitFromMechanicAdditionalDetailsPage);
             
         }

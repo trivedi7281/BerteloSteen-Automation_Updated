@@ -10,7 +10,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BerteloSteen_Automation_.BOS_Test_Utils { 
+namespace DARS.Automation_.Utilities
+{ 
 [TestClass]
 public class TestLogger
     {

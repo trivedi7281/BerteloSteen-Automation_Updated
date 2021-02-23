@@ -1,12 +1,12 @@
-﻿using BerteloSteen_Automation_.BOS_GETSET;
-using BerteloSteen_Automation_.BOS_Test_Utils;
+﻿using DARS.Automation_.GetSet;
+using DARS.Automation_.Utilities;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.PageObjects;
 using System;
 
 
-namespace BerteloSteen_Automation_.BOS_PageObjects
+namespace DARS.Automation_.PageObjectsModels
 {
     class GetPropertiesObjects
     {
@@ -14,20 +14,19 @@ namespace BerteloSteen_Automation_.BOS_PageObjects
         public GetPropertiesObjects()
         {
             PageFactory.InitElements(Drive.driver, this);
-            
         }
 
-        
+
 
         [FindsBy(How = How.XPath, Using = "//*[@id='engli']")]
         public IWebElement EngLanguage { get; set; }
 
-        
-       
+
+
         public void GetDetails()
         {
-            CustomLib.Highlightelement(EngLanguage);
-            CustomLib.FluentWaitbyXPath(Drive.driver , "EngLanguage");
+            EngLanguage.Highlightelement();
+            CustomLib.FluentWaitbyXPath(Drive.driver, "EngLanguage");
             EngLanguage.Clicks();
             CustomLib.FluentWaitbyXPath(Drive.driver, "EngLanguage");
             string title = Drive.driver.Title;

@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BerteloSteen_Automation_.BOS_GETSET
+namespace DARS.Automation_.GetSet
 {
     public static class SetMethod
     {
@@ -16,7 +16,7 @@ namespace BerteloSteen_Automation_.BOS_GETSET
         /// </summary>
         /// <param name="element"></param>
         /// <param name="Locator_Value"></param>
-        public static void EnterText(this IWebElement element, String Locator_Value)
+        public static void EnterText(this IWebElement element, string Locator_Value)
         {
             element.SendKeys(Locator_Value);
 
@@ -38,7 +38,7 @@ namespace BerteloSteen_Automation_.BOS_GETSET
         /// </summary>
         /// <param name="element"></param>
         /// <param name="Locator_Value"></param>
-        public static void SelectDropDown(this IWebElement element, String Locator_Value)
+        public static void SelectDropDown(this IWebElement element, string Locator_Value)
         {
 
             new SelectElement(element).SelectByText(Locator_Value);

@@ -2,7 +2,7 @@
 using OpenQA.Selenium.Interactions;
 
 
-namespace BerteloSteen_Automation_.BOS_Test_Utils
+namespace DARS.Automation_.Utilities
 {
     public static class Hardwareworking
     {
@@ -10,7 +10,7 @@ namespace BerteloSteen_Automation_.BOS_Test_Utils
         public static void Hover(IWebElement element)
         {
             Actions action = new Actions(Drive.driver);
-            System.Threading.Thread.Sleep(2000);
+            System.Threading.Thread.Sleep(1000);
             action.MoveToElement(element).Click(element).Build().Perform();
             
         }

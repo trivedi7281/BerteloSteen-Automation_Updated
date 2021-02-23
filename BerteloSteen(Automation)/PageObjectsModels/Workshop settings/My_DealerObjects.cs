@@ -1,24 +1,22 @@
-﻿using BerteloSteen_Automation_.BOS_GETSET;
-using BerteloSteen_Automation_.BOS_Test_Utils;
+﻿using DARS.Automation_.GetSet;
+using DARS.Automation_.Utilities;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.PageObjects;
 using OpenQA.Selenium.Support.UI;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BerteloSteen_Automation_.BOS_PageObjects
+namespace DARS.Automation_.PageObjectsModels
 {
     class My_DealerObjects
     {
         [Obsolete]
-        public My_DealerObjects()
-        {
-            PageFactory.InitElements(Drive.driver, this);
-        }
+        public My_DealerObjects() => PageFactory.InitElements(Drive.driver, this);
 
         [FindsBy(How = How.XPath, Using = "//li[@id='engli']")]
         public IWebElement engLanguage { get; set; }
@@ -93,8 +91,27 @@ namespace BerteloSteen_Automation_.BOS_PageObjects
             selectDealers.SendKeys(DealerName);
             CustomLib.FluentWaitbyXPath(Drive.driver, "EnteredselectedDealer");
             EnteredselectedDealer.Click();
+            CustomLib.WaitFortheLoadingIconDisappear2000();
         
         }
+
+
+
+
+
+        //AddTax.Click();
+        //CustomLib.WaitFortheLoadingIconDisappear5000();
+        //*[@id="laborPercentage"]
+        //*[@id="partsPercentage"]
+        //*[@id="showPriceDiffPercentage"]
+        //*[@id="minimumMarginForParts"]
+
+
+        [FindsBy(How = How.XPath, Using = "//*[@id='isAddTax']")]
+        public IWebElement AddTax { get; set; }
+
+        [FindsBy(How = How.XPath, Using = " //*[@id='laborPercentage']")]
+        public IWebElement laborPercentage { get; set; }
 
 
 
@@ -104,39 +121,40 @@ namespace BerteloSteen_Automation_.BOS_PageObjects
         [FindsBy(How = How.XPath, Using = "//*[@id='defaultExternalRentalCarCompanyId - panel']")]
         public IWebElement selectRCCDropdownPanel { get; set; }
 
-        [FindsBy(How = How.XPath, Using = "//*[@id='isAddTax']")]
-        public IWebElement AddTax { get; set; }
-
         string BeforeXpath = "(//mat-option[@role='option']/span)[";
         string AfterXPathXpath = "]";
 
-        //*[@id="laborPercentage"]
-        //*[@id="partsPercentage"]
-        //*[@id="showPriceDiffPercentage"]
-        //*[@id="minimumMarginForParts"]
+     
 
-        public void SelectRentalCarComp_Dropdown()
+        public void SelectRentalCarComp_Dropdown(string startIndex , string EndIndex , string value)
         {
-            AddTax.Click();
-            CustomLib.WaitFortheLoadingIconDisappear5000();
+            
             CustomLib.FluentWaitbyXPath(Drive.driver, "selectRCCDropdown");
             selectRCCDropdown.Click();
             CustomLib.WaitFortheLoadingIconDisappear5000();
-            for (int i = 1; i <= 100; i++)
+            for (int i=Int32.Parse(startIndex); i<=Int32.Parse(EndIndex); i++)
             {
                 string ActualXpath = BeforeXpath + i + AfterXPathXpath;
                 IWebElement element = Drive.driver.FindElement(By.XPath(ActualXpath));
                 Console.WriteLine(element.Text);
-                if(element.Text.Equals("HDFC Argo"))
+                if(element.Text.Equals(value))
                 {
                     element.Click();
                     break;
                 }
                 
             }
-            
-
+      
         }
 
+
+        //[FindsBy(How = How.XPath, Using = "//div/input[@type ='checkbox']")]
+        //public IWebElement AllCheckBoxes { get; set; }
+
+        public void ValidateAllCheckBoxes()
+        {
+          
+
+        }
     }
- }
+}

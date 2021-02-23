@@ -10,8 +10,8 @@
     <ProjectGuid>{5C8EE204-9785-4EB8-B671-0E470E0B2098}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>BerteloSteen_Automation_</RootNamespace>
-    <AssemblyName>BerteloSteen%28Automation%29</AssemblyName>
+    <RootNamespace>DARS.Automation_</RootNamespace>
+    <AssemblyName>DARS%28Automation%29</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -282,6 +282,9 @@
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
+    <Reference Include="System.Configuration.ConfigurationManager, Version=4.0.1.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Configuration.ConfigurationManager.4.5.0\lib\net461\System.Configuration.ConfigurationManager.dll</HintPath>
+    </Reference>
     <Reference Include="System.Console, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Console.4.3.0\lib\net46\System.Console.dll</HintPath>
       <Private>True</Private>
@@ -460,29 +463,30 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BOS_GETSET\GetMethod.cs" />
-    <Compile Include="BOS_GETSET\SetMethod.cs" />
-    <Compile Include="BOS_PageObjects\MechanicsObjects.cs" />
-    <Compile Include="BOS_PageObjects\GetPropertiesObjects.cs" />
-    <Compile Include="BOS_PageObjects\LoginPageObjects.cs" />
-    <Compile Include="BOS_PageObjects\My_DealerObjects.cs" />
-    <Compile Include="BOS_Test Utils\CustomLib.cs" />
-    <Compile Include="BOS_Test Utils\Drive.cs" />
-    <Compile Include="BOS_Test Utils\EcryptDecrypt.cs" />
-    <Compile Include="BOS_Test Utils\ExcelLibrary.cs" />
-    <Compile Include="BOS_Test Utils\Hardwareworking.cs" />
-    <Compile Include="BOS_Test Utils\TestLogger.cs" />
-    <Compile Include="BOS_Test Utils\TableUtil.cs" />
-    <Compile Include="BOS_TestScripts\Base Classes\BaseClass.cs" />
-    <Compile Include="BOS_TestScripts\BOS_GET_Title_Url.cs" />
-    <Compile Include="BOS_TestScripts\BOS_Mechanics.cs" />
-    <Compile Include="BOS_TestScripts\Base Classes\OnetimeSetup.cs" />
-    <Compile Include="BOS_TestScripts\BOS_My_Dealer.cs" />
+    <Compile Include="GetSet\GetMethod.cs" />
+    <Compile Include="GetSet\SetMethod.cs" />
+    <Compile Include="PageObjectsModels\Workshop settings\MechanicsObjects.cs" />
+    <Compile Include="PageObjectsModels\Login\GetPropertiesObjects.cs" />
+    <Compile Include="PageObjectsModels\Login\LoginPageObjects.cs" />
+    <Compile Include="PageObjectsModels\Workshop settings\My_DealerObjects.cs" />
+    <Compile Include="Utilities\CustomLib.cs" />
+    <Compile Include="Utilities\CustomWait.cs" />
+    <Compile Include="Utilities\Drive.cs" />
+    <Compile Include="Utilities\EcryptDecrypt.cs" />
+    <Compile Include="Utilities\ExcelLibrary.cs" />
+    <Compile Include="Utilities\Hardwareworking.cs" />
+    <Compile Include="Utilities\TestLogger.cs" />
+    <Compile Include="Utilities\TableUtil.cs" />
+    <Compile Include="TestScripts\Base Classes\BaseClass.cs" />
+    <Compile Include="TestScripts\Title Url\GET_Title_Url.cs" />
+    <Compile Include="TestScripts\Workshop settings\Mechanics.cs" />
+    <Compile Include="TestScripts\Base Classes\OnetimeSetup.cs" />
+    <Compile Include="TestScripts\Workshop settings\My_Dealer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="BOS_Config\DataTable.xlsx" />
+    <None Include="Configuration\DataTable.xlsx" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

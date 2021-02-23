@@ -1,10 +1,10 @@
-﻿using BerteloSteen_Automation_.BOS_GETSET;
-using BerteloSteen_Automation_.BOS_Test_Utils;
+﻿using DARS.Automation_.GetSet;
+using DARS.Automation_.Utilities;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.PageObjects;
 using System;
 
-namespace BerteloSteen_Automation_.BOS_PageObjects
+namespace DARS.Automation_.PageObjectsModels
 {
     class LoginPageObjects
     {
@@ -12,8 +12,8 @@ namespace BerteloSteen_Automation_.BOS_PageObjects
         public LoginPageObjects()
         {
             PageFactory.InitElements(Drive.driver, this);
-            
         }
+
 
         [FindsBy(How = How.XPath, Using = "//input[@placeholder='Email, phone, or Skype']")]
         public IWebElement txtUserName { get; set; }
@@ -21,8 +21,6 @@ namespace BerteloSteen_Automation_.BOS_PageObjects
         [FindsBy(How = How.XPath, Using = "//div[@class='inline-block']/input[@value='Next']")]
         public IWebElement submitBtn { get; set; }
 
-        
-        
         public void EnterUserName(string userName)
         {
             //Enter UserName
@@ -40,16 +38,15 @@ namespace BerteloSteen_Automation_.BOS_PageObjects
         [FindsBy(How = How.XPath, Using = "//input[@placeholder='Password']")]
         public IWebElement txtPassword { get; set; }
 
+
         [FindsBy(How = How.XPath, Using = "//div[@class='inline-block']/input[@value='Sign in']")]
         public IWebElement signIn { get; set; }
 
-        [Obsolete]
         public void EnterPassword(string password)
         {
-            //Enter Password
-            CustomLib.Highlightelement(txtPassword);
             CustomLib.FluentWaitbyXPath(Drive.driver, "txtPassword");
-            txtPassword.SendKeys(password);
+            CustomLib.Highlightelement(txtPassword);
+            txtPassword.SendKeys(password);//Enter Password
             CustomLib.Highlightelement(signIn);
             //Click on LoginBtn
             CustomLib.FluentWaitbyXPath(Drive.driver, "signIn");

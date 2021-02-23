@@ -1,29 +1,26 @@
-﻿using BerteloSteen_Automation_.BOS_PageObjects;
-using BerteloSteen_Automation_.BOS_Test_Utils;
+﻿
+using DARS.Automation_.PageObjectsModels;
+using DARS.Automation_.Utilities;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace BerteloSteen_Automation_.BOS_TestScripts
-{/// <summary>
-/// This class is for when you want to login only one time 
-/// and check the whole Page without any TearDown
-/// </summary>
-    public class OnetimeSetup
+namespace DARS.Automation_.TestScripts
+{
+    public class BaseClass
     {
-        [OneTimeSetUp]
+
+
+        [SetUp]
         [Obsolete]
         public void Login()
         {
+
             ChromeOptions options = new ChromeOptions();
             options.AddArgument("no-sandbox");
             Drive.driver = new ChromeDriver(ChromeDriverService.CreateDefaultService(), options, TimeSpan.FromMinutes(3));
-            Drive.driver.Manage().Timeouts().PageLoad.Add(System.TimeSpan.FromSeconds(30));
+            Drive.driver.Manage().Timeouts().PageLoad.Add(TimeSpan.FromSeconds(30));
             //naviate to Url
             Drive.driver.Manage().Window.Maximize();
             Drive.driver.Manage().Cookies.DeleteAllCookies();
@@ -44,7 +41,7 @@ namespace BerteloSteen_Automation_.BOS_TestScripts
         }
 
 
-        [OneTimeTearDown]
+        [TearDown]
         public void Close()
         {
             (Drive.driver as IJavaScriptExecutor).ExecuteScript("sessionStorage.clear();");
