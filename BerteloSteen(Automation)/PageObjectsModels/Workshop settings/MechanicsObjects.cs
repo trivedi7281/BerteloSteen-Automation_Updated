@@ -4,6 +4,7 @@ using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.PageObjects;
 using System;
+using System.Linq;
 
 namespace DARS.Automation_.PageObjectsModels
 {
@@ -288,6 +289,7 @@ namespace DARS.Automation_.PageObjectsModels
         public IWebElement StartDate { get; set; }
 
 
+      
 
 
         public void CheckMechanicLeavePageValidations()
@@ -318,7 +320,36 @@ namespace DARS.Automation_.PageObjectsModels
                 CustomWait.WaitFortheLoadingIconDisappear2000();
                 PassComment.SendKeys("Today I am Not feeling Well.");
                 StartDate.Click();
-                CustomLib.HandleCalendar("April","20");
+                CustomWait.WaitFortheLoadingIconDisappear2000();
+                //CustomLib.HandleCalendar("April","20");
+                int RowNumbers = Drive.driver.FindElements(By.XPath("(//div[@class='xdsoft_calendar'])[1]/table/tbody/tr")).Count();
+                Console.WriteLine("Rows are: " + RowNumbers);
+                int ColumnNumbers = Drive.driver.FindElements(By.XPath(" (//div[@class='xdsoft_calendar'])[1]/table/tbody/tr[1]/td")).Count();
+                Console.WriteLine("Columns are: " + ColumnNumbers);
+
+                string firstPart = "(//div[@class='xdsoft_calendar'])[1]/table/tbody/tr[";
+                string secondPart = "]/td[";
+                string thirdPart = "]";
+
+                for(int i=1;  i<=RowNumbers;  i++)
+                {
+                    for(int j=1;  j<=ColumnNumbers;  j++)
+                    {
+                        string finalPart = firstPart + i + secondPart + j + thirdPart;
+                        Console.WriteLine(finalPart);
+                        string dates = Drive.driver.FindElement(By.XPath(finalPart)).Text;
+                        Console.WriteLine(dates);
+
+                    }
+                }
+
+
+                string RowData = Drive.driver.FindElement(By.XPath(" (//div[@class='xdsoft_calendar'])[1]/table/tbody/tr[1]/td[4]")).Text;
+                Console.WriteLine("RowData by Static Method is: " + RowData);
+                string RowDatadynamic = Drive.driver.FindElement(By.XPath("(//td[@data-date='1'])[1]/div")).Text;
+                Console.WriteLine("RowData by dynamic Method is: " + RowDatadynamic);
+
+                
                 //IJavaScriptExecutor js = (IJavaScriptExecutor)Drive.driver;
                 //js.ExecuteScript("document.getElementById('LeaveStartDate').value ='22.3.2021'"); // id has been mentioned into the code of Start date field
                 //CustomLib.WaitFortheLoadingIconDisappear2000();

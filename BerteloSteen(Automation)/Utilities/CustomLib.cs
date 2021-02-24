@@ -15,20 +15,9 @@ namespace DARS.Automation_.Utilities
        
         public static void Highlightelement(this IWebElement element)
         {
-            try
-            {
                 IJavaScriptExecutor js = (IJavaScriptExecutor)Drive.driver;
                 js.ExecuteScript("arguments[0].setAttribute('style','border:2px solid transparent;border-image:linear-gradient(-45deg,red,yellow);border-image-slice:1;');", element);
-                Thread.Sleep(1000);
-                js.ExecuteScript("arguments[0].style.border='border:2px solid Grey;'", element);
-                Thread.Sleep(500);
-                js.ExecuteScript("arguments[0].style.border=''", element , "");
-
-            }
-            catch (Exception e)
-            {
-                Debug.WriteLine("Some Error:" + e.Message);
-            }
+          
         }
 
         //-------------------------Highlight the Element--------------------------------------//
