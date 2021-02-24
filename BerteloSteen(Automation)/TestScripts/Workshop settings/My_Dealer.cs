@@ -6,7 +6,7 @@ using System;
 namespace DARS.Automation_.TestScripts
 {
     [TestFixture]
-    class My_Dealer : OnetimeSetup
+    class My_Dealer : StaticBaseClass
     {
 
         public My_DealerObjects Dealer ;

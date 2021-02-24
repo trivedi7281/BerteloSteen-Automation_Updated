@@ -3,7 +3,7 @@ using log4net.Appender;
 using log4net.Config;
 using log4net.Core;
 using log4net.Layout;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,14 +12,14 @@ using System.Threading.Tasks;
 
 namespace DARS.Automation_.Utilities
 { 
-[TestClass]
+[TestFixture]
 public class TestLogger
     {
         //1. to create the layout of the logger.
         //2. Use this layout in the appender.
         //3. Inititalize the Configuration.
         //4. Get the Instance of the Logger.
-        [TestMethod]
+        [TestCase]
         public void Log4Net() { 
         
             var patterLayout = new PatternLayout();

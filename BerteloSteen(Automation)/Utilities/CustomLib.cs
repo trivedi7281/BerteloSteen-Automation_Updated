@@ -11,96 +11,29 @@ namespace DARS.Automation_.Utilities
 {
     public static class CustomLib
     {
-        public static void WaitFortheLoadingIconDisappear10000()
-        {
-            System.Threading.Thread.Sleep(10000);
-        }
-
-        public static void WaitFortheLoadingIconDisappear5000()
-        {
-            System.Threading.Thread.Sleep(5000);
-        }
-
-        public static void WaitFortheLoadingIconDisappear2000()
-        {
-            System.Threading.Thread.Sleep(2000);
-        }
-
-        public static void WaitFortheLoadingIconDisappear1000()
-        {
-            System.Threading.Thread.Sleep(1000);
-        }
-
-        public static IWebElement FluentWaitbyXPath(IWebDriver driver, string elementName)
-        {
-            try
-            {
-                DefaultWait<IWebDriver> fluentWait = new DefaultWait<IWebDriver>(Drive.driver);
-                fluentWait.Timeout = TimeSpan.FromSeconds(1.5);
-                fluentWait.PollingInterval = TimeSpan.FromMilliseconds(100);
-                fluentWait.IgnoreExceptionTypes(typeof(NoSuchElementException));
-                fluentWait.IgnoreExceptionTypes(typeof(ElementNotVisibleException));
-                IWebElement searchElementbyXPath = fluentWait.Until(x => x.FindElement(By.XPath(elementName)));
-                return searchElementbyXPath;
-
-            }
-            catch (Exception e)
-            {
-                Debug.WriteLine("Some Error:" + e.Message);
-                return null;
-
-            }
-        }
-
-
-        public static IWebElement FluentWaitbyName(IWebDriver driver, string elementName)
-        {
-            try
-            {
-                DefaultWait<IWebDriver> fluentWait = new DefaultWait<IWebDriver>(driver);
-                fluentWait.Timeout = TimeSpan.FromSeconds(1.5);
-
-                fluentWait.PollingInterval = TimeSpan.FromMilliseconds(100);
-                fluentWait.IgnoreExceptionTypes(typeof(NoSuchElementException));
-                fluentWait.IgnoreExceptionTypes(typeof(ElementNotVisibleException));
-                IWebElement searchElementbyName = fluentWait.Until(x => x.FindElement(By.Name(elementName)));
-                return searchElementbyName;
-
-            }
-            catch (Exception e)
-            {
-                Debug.WriteLine("Some Error:" + e.Message);
-                return null;
-            }
-        }
-
-
-        public static IWebElement FluentWaitbyCSS(IWebDriver driver, string elementName)
-        {
-            try
-            {
-                DefaultWait<IWebDriver> fluentWait = new DefaultWait<IWebDriver>(driver);
-                fluentWait.Timeout = TimeSpan.FromSeconds(1.5);
-                fluentWait.PollingInterval = TimeSpan.FromMilliseconds(100);
-                fluentWait.IgnoreExceptionTypes(typeof(NoSuchElementException));
-                fluentWait.IgnoreExceptionTypes(typeof(ElementNotVisibleException));
-                IWebElement searchElementbyCSS = fluentWait.Until(x => x.FindElement(By.CssSelector(elementName)));
-                return searchElementbyCSS;
-            }
-            catch (Exception e)
-            {
-                Debug.WriteLine("Some Error:" + e.Message);
-                return null;
-            }
-        }
-
-      
+        //-------------------------Highlight the Element--------------------------------------//
+       
         public static void Highlightelement(this IWebElement element)
         {
-           IJavaScriptExecutor js = (IJavaScriptExecutor)Drive.driver;
-           js.ExecuteScript("arguments[0].setAttribute('style', arguments[1]);",element, "color: #00FFFF; border:2px solid black;");
+            try
+            {
+                IJavaScriptExecutor js = (IJavaScriptExecutor)Drive.driver;
+                js.ExecuteScript("arguments[0].setAttribute('style','border:2px solid transparent;border-image:linear-gradient(-45deg,red,yellow);border-image-slice:1;');", element);
+                Thread.Sleep(1000);
+                js.ExecuteScript("arguments[0].style.border='border:2px solid Grey;'", element);
+                Thread.Sleep(500);
+                js.ExecuteScript("arguments[0].style.border=''", element , "");
+
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine("Some Error:" + e.Message);
+            }
         }
 
+        //-------------------------Highlight the Element--------------------------------------//
+
+        //-------------------------------------Handle Calender------------------------------------------//
         public static void HandleCalendar(this string month, string selectdate)
         {
             string Beforedate = "(//div[@class='xdsoft_calendar'])[1]/table/tbody[1]/tr/td[@data-date='+"; //Dates in Number
@@ -113,10 +46,10 @@ namespace DARS.Automation_.Utilities
             {
 
                 Drive.driver.FindElement(By.XPath(nextBtn)).Click();
-                break;
+                
 
             }
-            for (int i = 0; i <= 31; i++)
+            for (int i = 1; i <= 31; i++)
             {
                 string ActualXpath = Beforedate + i + AfterDate;
                 IWebElement element = Drive.driver.FindElement(By.XPath(ActualXpath));
@@ -126,13 +59,14 @@ namespace DARS.Automation_.Utilities
                     Actions action = new Actions(Drive.driver);
                     Thread.Sleep(1000);
                     action.MoveToElement(element).Click(element).Build().Perform();
-                    break;
+                    
                 }
             }
 
 
         }
 
+        //-------------------------------------Handle Calender------------------------------------------//
 
         public static void CheckBoxesList()
         {
@@ -163,5 +97,28 @@ namespace DARS.Automation_.Utilities
             }
 
         }
+        //-------------------------------------ScreenShots------------------------------------------//
+
+        public static void ScreenShots()
+        {
+            string PathToFolder = "C:\\Users\\akash.trivedi\\Source\\Repos\\BerteloSteen-Automation\\BerteloSteen(Automation)\\ScreenPrints\\";
+            string fileName = PathToFolder + DateTime.Now.ToString("HHmmss") + ".jpeg";
+            ITakesScreenshot ts = Drive.driver as ITakesScreenshot;
+            Screenshot screenshot = ts.GetScreenshot();
+            screenshot.SaveAsFile(fileName, ScreenshotImageFormat.Jpeg);
+
+        }
+
+        //-------------------------------------ScreenShots------------------------------------------//
+
+        //-------------------------------------ExtentReport----------------------------------------//
+
+
+
+
+
+
+        //-------------------------------------ExtentReport--------------------------------------//
+
     }
 }

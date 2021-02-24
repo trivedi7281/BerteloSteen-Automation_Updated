@@ -1,4 +1,5 @@
-﻿using DARS.Automation_.PageObjectsModels;
+﻿using DARS.Automation_.eReport;
+using DARS.Automation_.PageObjectsModels;
 using NUnit.Framework;
 using System;
 
@@ -6,7 +7,7 @@ using System;
 namespace DARS.Automation_.TestScripts
 {
     [TestFixture]
-    class Mechanics : OnetimeSetup
+    class Mechanics : StaticBaseClass
     {
         
         public MechanicsObjects Mech;

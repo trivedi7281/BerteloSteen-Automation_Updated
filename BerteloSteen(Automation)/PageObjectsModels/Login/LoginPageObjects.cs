@@ -25,11 +25,11 @@ namespace DARS.Automation_.PageObjectsModels
         {
             //Enter UserName
             CustomLib.Highlightelement(txtUserName);
-            CustomLib.FluentWaitbyXPath(Drive.driver, "txtUserName");
+            CustomWait.FluentWaitbyXPath(Drive.driver, "txtUserName");
             txtUserName.SendKeys(userName);
             //Click on LoginBtn
             CustomLib.Highlightelement(submitBtn);
-            CustomLib.FluentWaitbyXPath(Drive.driver, "submitBtn");
+            CustomWait.FluentWaitbyXPath(Drive.driver, "submitBtn");
             submitBtn.Clicks();
 
         }
@@ -44,12 +44,12 @@ namespace DARS.Automation_.PageObjectsModels
 
         public void EnterPassword(string password)
         {
-            CustomLib.FluentWaitbyXPath(Drive.driver, "txtPassword");
+            CustomWait.FluentWaitbyXPath(Drive.driver, "txtPassword");
             CustomLib.Highlightelement(txtPassword);
             txtPassword.SendKeys(password);//Enter Password
             CustomLib.Highlightelement(signIn);
             //Click on LoginBtn
-            CustomLib.FluentWaitbyXPath(Drive.driver, "signIn");
+            CustomWait.FluentWaitbyXPath(Drive.driver, "signIn");
             signIn.Clicks();
 
         }
@@ -68,7 +68,7 @@ namespace DARS.Automation_.PageObjectsModels
             CustomLib.Highlightelement(staySignedIn);
             staySignedIn.Clicks();
             CustomLib.Highlightelement(yes);
-            CustomLib.FluentWaitbyXPath(Drive.driver, "yes");
+            CustomWait.FluentWaitbyXPath(Drive.driver, "yes");
             yes.Clicks();
             //Return to the GetProperties
             return new GetPropertiesObjects();

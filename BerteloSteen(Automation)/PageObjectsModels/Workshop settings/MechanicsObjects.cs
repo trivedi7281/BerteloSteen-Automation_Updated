@@ -41,14 +41,14 @@ namespace DARS.Automation_.PageObjectsModels
         public void ClickonDARS()
         {
             Drive.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
-            CustomLib.FluentWaitbyXPath(Drive.driver, "engLanguage");
+            CustomWait.FluentWaitbyXPath(Drive.driver, "engLanguage");
             CustomLib.Highlightelement(engLanguage);
             engLanguage.Clicks();
             //Click on DARS Tab
             CustomLib.Highlightelement(DARSHighlight);
-            CustomLib.FluentWaitbyXPath(Drive.driver, "clickonDARS");
+            CustomWait.FluentWaitbyXPath(Drive.driver, "clickonDARS");
             clickonDARS.Click();
-            CustomLib.FluentWaitbyXPath(Drive.driver, "clickonMechanicsTab");
+            CustomWait.FluentWaitbyXPath(Drive.driver, "clickonMechanicsTab");
             CustomLib.Highlightelement(clickonMechanicsTab);
             clickonMechanicsTab.Click();
 
@@ -60,7 +60,7 @@ namespace DARS.Automation_.PageObjectsModels
         /// </summary>
         public void GetPageTitle()
         {
-            CustomLib.FluentWaitbyXPath(Drive.driver, "clickonMechanicsTab");
+            CustomWait.FluentWaitbyXPath(Drive.driver, "clickonMechanicsTab");
             string title = Drive.driver.Title;
             Console.WriteLine("Title is:" + title);
             Assert.AreEqual("Mechanics", title);
@@ -86,10 +86,10 @@ namespace DARS.Automation_.PageObjectsModels
         /// <param name="DealerName"></param>
         public void SelectDealer(string DealerName, string DealerName2 = null)
         {
-            CustomLib.FluentWaitbyXPath(Drive.driver, "selectDealers");
+            CustomWait.FluentWaitbyXPath(Drive.driver, "selectDealers");
             selectDealers.Clear();
             selectDealers.SendKeys(DealerName);
-            CustomLib.FluentWaitbyXPath(Drive.driver, "EnteredselectedDealer");
+            CustomWait.FluentWaitbyXPath(Drive.driver, "EnteredselectedDealer");
             EnteredselectedDealer.Click();
 
 
@@ -118,7 +118,7 @@ namespace DARS.Automation_.PageObjectsModels
         /// <param name="SearchItem"></param>
         public void SearchBar(string SearchItem)
         {
-            CustomLib.FluentWaitbyXPath(Drive.driver, "ClickOnSearchBar");
+            CustomWait.FluentWaitbyXPath(Drive.driver, "ClickOnSearchBar");
             ClickOnSearchBar.SendKeys(SearchItem);
             ClickOnSearchBtn.Click();
 
@@ -131,9 +131,9 @@ namespace DARS.Automation_.PageObjectsModels
 
         public void clickToCreatePDF()
         {
-            CustomLib.FluentWaitbyXPath(Drive.driver, "PDF");
+            CustomWait.FluentWaitbyXPath(Drive.driver, "PDF");
             PDF.Clicks();
-            CustomLib.WaitFortheLoadingIconDisappear2000();
+            CustomWait.WaitFortheLoadingIconDisappear2000();
             //Here we have to compare PDF Data with our Page Source Data.
         }
 
@@ -145,9 +145,9 @@ namespace DARS.Automation_.PageObjectsModels
 
         public void clickToCreateExcel()
         {
-            CustomLib.FluentWaitbyXPath(Drive.driver, "Excel");
+            CustomWait.FluentWaitbyXPath(Drive.driver, "Excel");
             Excel.Clicks();
-            CustomLib.WaitFortheLoadingIconDisappear5000();
+            CustomWait.WaitFortheLoadingIconDisappear5000();
             //Here we have to compare Excel Data with our Page Source Data.
         }
 
@@ -159,9 +159,9 @@ namespace DARS.Automation_.PageObjectsModels
         public void CheckTablefoundtheSearchData()
         {
             Drive.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(6);
-            CustomLib.FluentWaitbyXPath(Drive.driver, "Mechanicstable");
+            CustomWait.FluentWaitbyXPath(Drive.driver, "Mechanicstable");
             TableUtil.ReadTable(Mechanicstable);
-            CustomLib.FluentWaitbyXPath(Drive.driver, "Mechanicstable");
+            CustomWait.FluentWaitbyXPath(Drive.driver, "Mechanicstable");
             string VerifyName = TableUtil.ReadCell("Name", 1);
             Console.WriteLine("Name in Table cell : " + VerifyName);
             Assert.AreEqual("Alexander Almeland Jensen", VerifyName);
@@ -174,10 +174,10 @@ namespace DARS.Automation_.PageObjectsModels
 
         public void clickintoActionBtn()
         {
-            CustomLib.FluentWaitbyXPath(Drive.driver, "EditButton");
+            CustomWait.FluentWaitbyXPath(Drive.driver, "EditButton");
             CustomLib.Highlightelement(EditButton);
             EditButton.Click();
-            CustomLib.WaitFortheLoadingIconDisappear5000();
+            CustomWait.WaitFortheLoadingIconDisappear5000();
 
         }
 
@@ -212,19 +212,19 @@ namespace DARS.Automation_.PageObjectsModels
 
         public void GeneralInfoTab()
         {
-            CustomLib.FluentWaitbyXPath(Drive.driver, "MechanicsAdditionalDetails");
+            CustomWait.FluentWaitbyXPath(Drive.driver, "MechanicsAdditionalDetails");
             string PageHeader = MechanicsAdditionalDetails.Text;
             Assert.AreEqual("Mechanics", PageHeader);
             Console.WriteLine("Page Header is :" + PageHeader);
-            CustomLib.WaitFortheLoadingIconDisappear5000();
-            CustomLib.FluentWaitbyXPath(Drive.driver, "GeneralInfo");
+            CustomWait.WaitFortheLoadingIconDisappear5000();
+            CustomWait.FluentWaitbyXPath(Drive.driver, "GeneralInfo");
             GeneralInfo.Click();
 
         }
 
         public void AssociateBrandsTab()
         {
-            CustomLib.WaitFortheLoadingIconDisappear2000();
+            CustomWait.WaitFortheLoadingIconDisappear2000();
             AssociateBrands.Click();
         }
 
@@ -236,21 +236,21 @@ namespace DARS.Automation_.PageObjectsModels
 
         public void MechanicLeavesTab()
         {
-            CustomLib.FluentWaitbyXPath(Drive.driver, "MechanicLeaves");
+            CustomWait.FluentWaitbyXPath(Drive.driver, "MechanicLeaves");
             MechanicLeaves.Click();
-            CustomLib.FluentWaitbyXPath(Drive.driver, "AddMechanicLeaves");
+            CustomWait.FluentWaitbyXPath(Drive.driver, "AddMechanicLeaves");
         }
 
         public void AddMechanicLeavesTab()
         {
 
             AddMechanicLeaves.Click();
-            CustomLib.FluentWaitbyXPath(Drive.driver, "VerifyMechanicLeavesHeader");
+            CustomWait.FluentWaitbyXPath(Drive.driver, "VerifyMechanicLeavesHeader");
             string MechanicLeavePageHeader = VerifyMechanicLeavesHeader.Text;
             Assert.AreEqual("Mechanic Leave", MechanicLeavePageHeader);
             Console.WriteLine("Page Header is :" + MechanicLeavePageHeader);
 
-            CustomLib.FluentWaitbyXPath(Drive.driver, "VerifyMechanicName");
+            CustomWait.FluentWaitbyXPath(Drive.driver, "VerifyMechanicName");
             string MechanicName = VerifyMechanicName.Text;
             Assert.AreEqual("Alexander Almeland Jensen", MechanicName);
             Console.WriteLine("Mechanic Name is :" + MechanicName);
@@ -294,15 +294,15 @@ namespace DARS.Automation_.PageObjectsModels
         {
             CustomLib.Highlightelement(saveMechanicLeaveBtn);
             saveMechanicLeaveBtn.Click();
-            CustomLib.FluentWaitbyXPath(Drive.driver, "StartDateError");
+            CustomWait.FluentWaitbyXPath(Drive.driver, "StartDateError");
             string StartDateErrorText = StartDateError.Text;
             Assert.AreEqual("Start date is required", StartDateErrorText);
             Console.WriteLine("Start Date Error is :" + StartDateErrorText);
-            CustomLib.FluentWaitbyXPath(Drive.driver, "EndDateError");
+            CustomWait.FluentWaitbyXPath(Drive.driver, "EndDateError");
             string EndDateErrorText = EndDateError.Text;
             Assert.AreEqual("End date is required", EndDateErrorText);
             Console.WriteLine("End Date Error is :" + EndDateErrorText);
-            CustomLib.FluentWaitbyXPath(Drive.driver, "CancelMechanicLeavePage");
+            CustomWait.FluentWaitbyXPath(Drive.driver, "CancelMechanicLeavePage");
             CustomLib.Highlightelement(CancelMechanicLeavePage);
             CancelMechanicLeavePage.Click();
 
@@ -315,7 +315,7 @@ namespace DARS.Automation_.PageObjectsModels
              //AddMechanicLeaves.Click();
             if (DateRange.Selected)
             {
-                CustomLib.WaitFortheLoadingIconDisappear2000();
+                CustomWait.WaitFortheLoadingIconDisappear2000();
                 PassComment.SendKeys("Today I am Not feeling Well.");
                 StartDate.Click();
                 CustomLib.HandleCalendar("April","20");
@@ -327,7 +327,7 @@ namespace DARS.Automation_.PageObjectsModels
                 ((IJavaScriptExecutor)Drive.driver).ExecuteScript("window.scrollBy(0,500);");
                 //saveMechanicLeaveBtn.Click();
                 Hardwareworking.Hover(saveMechanicLeaveBtn);
-                CustomLib.WaitFortheLoadingIconDisappear10000();
+                CustomWait.WaitFortheLoadingIconDisappear10000();
             }
 
         }
@@ -415,21 +415,21 @@ namespace DARS.Automation_.PageObjectsModels
 
         public void mechanicBusinessAbsenceTab()
         {
-            CustomLib.FluentWaitbyXPath(Drive.driver, "mechanicBusinessAbsence");
+            CustomWait.FluentWaitbyXPath(Drive.driver, "mechanicBusinessAbsence");
             mechanicBusinessAbsence.Click();
-            CustomLib.FluentWaitbyXPath(Drive.driver, "addMechanicBusinessAbsenceBtn");
+            CustomWait.FluentWaitbyXPath(Drive.driver, "addMechanicBusinessAbsenceBtn");
         }
 
         public void addMechanicBusinessAbsenceTab()
         {
 
             addMechanicBusinessAbsenceBtn.Click();
-            CustomLib.FluentWaitbyXPath(Drive.driver, "VerifymechanicBusinessAbsenceHeader");
+            CustomWait.FluentWaitbyXPath(Drive.driver, "VerifymechanicBusinessAbsenceHeader");
             string MechanicBusinessAbsenceHeader = VerifymechanicBusinessAbsenceHeader.Text;
             Assert.AreEqual("Mechanic Business Absence", MechanicBusinessAbsenceHeader);
             Console.WriteLine("Page Header is :" + MechanicBusinessAbsenceHeader);
 
-            CustomLib.FluentWaitbyXPath(Drive.driver, "VerifyMechanicNameinMBAPOPPage");
+            CustomWait.FluentWaitbyXPath(Drive.driver, "VerifyMechanicNameinMBAPOPPage");
             string MBAPOPPageMechanicName = VerifyMechanicNameinMBAPOPPage.Text;
             Assert.AreEqual("Alexander Almeland Jensen", MBAPOPPageMechanicName);
             Console.WriteLine("Mechanic Name is :" + MBAPOPPageMechanicName);
@@ -441,22 +441,22 @@ namespace DARS.Automation_.PageObjectsModels
         {
             CustomLib.Highlightelement(saveMechanicBusinessAbsenceBtn);
             saveMechanicBusinessAbsenceBtn.Click();
-            CustomLib.FluentWaitbyXPath(Drive.driver, "StartDateValidation");
+            CustomWait.FluentWaitbyXPath(Drive.driver, "StartDateValidation");
             string StartDateValidationText = StartDateValidation.Text;
             Assert.AreEqual("Start date is required", StartDateValidationText);
             Console.WriteLine("Start Date Error is :" + StartDateValidationText);
 
-            CustomLib.FluentWaitbyXPath(Drive.driver, "EndDateValidation");
+            CustomWait.FluentWaitbyXPath(Drive.driver, "EndDateValidation");
             string EndDateValidationText = EndDateValidation.Text;
             Assert.AreEqual("End date is required", EndDateValidationText);
             Console.WriteLine("End Date Error is :" + EndDateValidationText);
 
-            CustomLib.FluentWaitbyXPath(Drive.driver, "DescriptionValidation");
+            CustomWait.FluentWaitbyXPath(Drive.driver, "DescriptionValidation");
             string DescriptionValidationText = DescriptionValidation.Text;
             Assert.AreEqual("Description is Required", DescriptionValidationText);
             Console.WriteLine("Description error text is :" + DescriptionValidationText);
 
-            CustomLib.FluentWaitbyXPath(Drive.driver, "CancelMechanicBusinessAbsencePage");
+            CustomWait.FluentWaitbyXPath(Drive.driver, "CancelMechanicBusinessAbsencePage");
             ((IJavaScriptExecutor)Drive.driver).ExecuteScript("window.scrollBy(0,200)");
             CustomLib.Highlightelement(CancelMechanicBusinessAbsencePage);
             CancelMechanicBusinessAbsencePage.Click();
@@ -467,16 +467,16 @@ namespace DARS.Automation_.PageObjectsModels
         {
             if (NoneinMechanicAbsencePage.Selected)
             {
-                CustomLib.FluentWaitbyXPath(Drive.driver, "addMechanicBusinessAbsenceBtn");
+                CustomWait.FluentWaitbyXPath(Drive.driver, "addMechanicBusinessAbsenceBtn");
                 addMechanicBusinessAbsenceBtn.Click();
                 IJavaScriptExecutor js = (IJavaScriptExecutor)Drive.driver;
                 js.ExecuteScript("document.getElementById('AbsenceStartDate').value ='20.3.2021 20:25'"); // id has been mentioned into the code of Start date field
-                CustomLib.WaitFortheLoadingIconDisappear2000();
+                CustomWait.WaitFortheLoadingIconDisappear2000();
                 js.ExecuteScript("document.getElementById('AbsenceEndDate').value ='21.3.2021 20:25'"); // id has been mentioned into the code of End date field
-                CustomLib.WaitFortheLoadingIconDisappear2000();
+                CustomWait.WaitFortheLoadingIconDisappear2000();
                 AddDescription.SendKeys("Business absence at Monday and Wednesday");
                 Hardwareworking.Hover(saveMechanicBusinessAbsenceBtn);
-                CustomLib.WaitFortheLoadingIconDisappear2000();
+                CustomWait.WaitFortheLoadingIconDisappear2000();
             }
             //else if(TypeWeeklyinMechanicAbsencePage.Selected)
             //{
@@ -493,7 +493,7 @@ namespace DARS.Automation_.PageObjectsModels
 
         public void MechanicRecipientListTab()
         {
-            CustomLib.FluentWaitbyXPath(Drive.driver, "mechanicCommunication");
+            CustomWait.FluentWaitbyXPath(Drive.driver, "mechanicCommunication");
             mechanicCommunication.Click();
 
         }
@@ -506,7 +506,7 @@ namespace DARS.Automation_.PageObjectsModels
         public void ExitFromMechanicDetailsPage()
         {
             CustomLib.Highlightelement(ExitFromMechanicAdditionalDetailsPage);
-            CustomLib.WaitFortheLoadingIconDisappear2000();
+            CustomWait.WaitFortheLoadingIconDisappear2000();
             Hardwareworking.Hover(ExitFromMechanicAdditionalDetailsPage);
             
         }

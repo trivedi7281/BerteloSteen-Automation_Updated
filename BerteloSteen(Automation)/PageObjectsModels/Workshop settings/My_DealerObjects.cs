@@ -43,14 +43,14 @@ namespace DARS.Automation_.PageObjectsModels
         public void ClickonDARS()
         {
             Drive.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
-            CustomLib.FluentWaitbyXPath(Drive.driver, "engLanguage");
+            CustomWait.FluentWaitbyXPath(Drive.driver, "engLanguage");
             CustomLib.Highlightelement(engLanguage);
             engLanguage.Clicks();
             //Click on DARS Tab
             CustomLib.Highlightelement(DARSHighlight);
-            CustomLib.FluentWaitbyXPath(Drive.driver, "clickonDARS");
+            CustomWait.FluentWaitbyXPath(Drive.driver, "clickonDARS");
             clickonDARS.Click();
-            CustomLib.FluentWaitbyXPath(Drive.driver, "clickonMyDealerTab");
+            CustomWait.FluentWaitbyXPath(Drive.driver, "clickonMyDealerTab");
             CustomLib.Highlightelement(clickonMyDealerTab);
             clickonMyDealerTab.Click();
 
@@ -62,7 +62,7 @@ namespace DARS.Automation_.PageObjectsModels
         /// </summary>
         public void GetPageTitle()
         {
-            CustomLib.FluentWaitbyXPath(Drive.driver, "clickonMyDealerTab");
+            CustomWait.FluentWaitbyXPath(Drive.driver, "clickonMyDealerTab");
             string title = Drive.driver.Title;
             Console.WriteLine("Title is:" + title);
             Assert.AreEqual("My Dealer", title);
@@ -86,12 +86,12 @@ namespace DARS.Automation_.PageObjectsModels
         /// <param name="DealerName"></param>
         public void SelectDealer(string DealerName, string DealerName2 = null)
         {
-            CustomLib.FluentWaitbyXPath(Drive.driver, "selectDealers");
+            CustomWait.FluentWaitbyXPath(Drive.driver, "selectDealers");
             selectDealers.Clear();
             selectDealers.SendKeys(DealerName);
-            CustomLib.FluentWaitbyXPath(Drive.driver, "EnteredselectedDealer");
+            CustomWait.FluentWaitbyXPath(Drive.driver, "EnteredselectedDealer");
             EnteredselectedDealer.Click();
-            CustomLib.WaitFortheLoadingIconDisappear2000();
+            CustomWait.WaitFortheLoadingIconDisappear2000();
         
         }
 
@@ -128,10 +128,10 @@ namespace DARS.Automation_.PageObjectsModels
 
         public void SelectRentalCarComp_Dropdown(string startIndex , string EndIndex , string value)
         {
-            
-            CustomLib.FluentWaitbyXPath(Drive.driver, "selectRCCDropdown");
+
+            CustomWait.FluentWaitbyXPath(Drive.driver, "selectRCCDropdown");
             selectRCCDropdown.Click();
-            CustomLib.WaitFortheLoadingIconDisappear5000();
+            CustomWait.WaitFortheLoadingIconDisappear5000();
             for (int i=Int32.Parse(startIndex); i<=Int32.Parse(EndIndex); i++)
             {
                 string ActualXpath = BeforeXpath + i + AfterXPathXpath;
@@ -142,6 +142,7 @@ namespace DARS.Automation_.PageObjectsModels
                     element.Click();
                     break;
                 }
+                Assert.AreEqual("HDFC Argo", element.Text);
                 
             }
       

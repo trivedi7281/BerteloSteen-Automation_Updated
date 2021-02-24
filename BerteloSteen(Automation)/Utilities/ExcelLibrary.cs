@@ -85,6 +85,7 @@ namespace DARS.Automation_.Utilities
             }
             catch (Exception e)
             {
+                Console.WriteLine(e.Message);
                 return null;
             }
         }

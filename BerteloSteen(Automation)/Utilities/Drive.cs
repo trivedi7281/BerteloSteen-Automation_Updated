@@ -2,21 +2,19 @@
 using Protractor;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace DARS.Automation_.Utilities
 {
-     class Drive
+    class Drive
     {
 
         public static IWebDriver driver { get; set; }
 
-       public static NgWebDriver ngdriver { get; set; }
-
-
-
+        public static NgWebDriver ngdriver { get; set; }
 
 
 
@@ -29,7 +27,15 @@ namespace DARS.Automation_.Utilities
             CssName,
             ClassName,
             Selector
-            
+
         }
+
     }
 }
+
+
+    
+        
+         
+        
+    
