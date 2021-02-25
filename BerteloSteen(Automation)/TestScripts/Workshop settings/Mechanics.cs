@@ -21,7 +21,7 @@ namespace DARS.Automation_.TestScripts.Workshop_settings
             Mech = new MechanicsObjects();
             Mech.ClickonDARS();
             Mech.GetPageTitle();
-            Mech.SelectDealer("15");
+            Mech.SelectDealer("0" , "031");
         }
 
         [Test, Order(2)]
@@ -29,7 +29,7 @@ namespace DARS.Automation_.TestScripts.Workshop_settings
         public void CheckSearchBar()
         {
             Mech = new MechanicsObjects();
-            Mech.SearchBar("Alexander Almeland Jensen");
+            Mech.SearchBar("Arvid Jensen");
             Mech.CheckTablefoundtheSearchData();
         }
 
@@ -109,8 +109,9 @@ namespace DARS.Automation_.TestScripts.Workshop_settings
         public void EnterMechanicLeaveDetails()
         {
             Mech = new MechanicsObjects();
-            Mech.EnterMechanicLeaveDetails();
-
+            Mech.EnterStartDateMechanicLeaveDetails(1,"September" , "2022" , "1");
+            Mech.EnterEndDateMechanicLeaveDetails(2, "September", "2022", "3");
+            Mech.MechanicTablesRC();
         }
 
         //[Test, Order(12)]

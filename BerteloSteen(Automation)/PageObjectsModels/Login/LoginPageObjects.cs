@@ -12,6 +12,7 @@ namespace DARS.Automation_.PageObjectsModels.Login
         public LoginPageObjects()
         {
             PageFactory.InitElements(Drive.driver, this);
+            Drive.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(2);
         }
 
 
@@ -65,6 +66,7 @@ namespace DARS.Automation_.PageObjectsModels.Login
         [Obsolete]
         public GetPropertiesObjects StaySignedIN()
         {
+            CustomWait.FluentWaitbyXPath(Drive.driver, "staySignedIn");
             CustomLib.Highlightelement(staySignedIn);
             staySignedIn.Clicks();
             CustomLib.Highlightelement(yes);

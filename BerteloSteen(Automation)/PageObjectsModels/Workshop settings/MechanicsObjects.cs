@@ -2,6 +2,7 @@
 using DARS.Automation_.Utilities;
 using NUnit.Framework;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Support.Events;
 using OpenQA.Selenium.Support.PageObjects;
 using System;
 using System.Linq;
@@ -11,10 +12,13 @@ namespace DARS.Automation_.PageObjectsModels.Workshop_settings
 
     class MechanicsObjects
     {
+
+
         [Obsolete]
         public MechanicsObjects()
         {
             PageFactory.InitElements(Drive.driver, this);
+            Drive.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
         }
 
         [FindsBy(How = How.XPath, Using = "//li[@id='engli']")]
@@ -27,7 +31,7 @@ namespace DARS.Automation_.PageObjectsModels.Workshop_settings
 
         [FindsBy(How = How.XPath, Using = "//li[@id='darsdealer ']")]
         public IWebElement DARSHighlight { get; set; }
-        
+
 
 
         [FindsBy(How = How.XPath, Using = "//a[@href='/en-US/Administration/Mechanics/List']")]
@@ -41,7 +45,6 @@ namespace DARS.Automation_.PageObjectsModels.Workshop_settings
 
         public void ClickonDARS()
         {
-            Drive.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
             CustomWait.FluentWaitbyXPath(Drive.driver, "engLanguage");
             CustomLib.Highlightelement(engLanguage);
             engLanguage.Clicks();
@@ -69,15 +72,8 @@ namespace DARS.Automation_.PageObjectsModels.Workshop_settings
 
 
         [FindsBy(How = How.XPath, Using = "//input[@placeholder='Select Dealer']")]
-        public IWebElement selectDealers { get; set; }
+        public IWebElement SelectDealers { get; set; }
 
-        //Here this xpath have been changed as per we select any other dealer
-        [FindsBy(How = How.XPath, Using = "//mat-option[@id='1']")]
-        public IWebElement EnteredselectedDealer { get; set; }
-
-
-        [FindsBy(How = How.XPath, Using = "//mat-option[@id='109']")]
-        public IWebElement SelectAnotherDealer { get; set; }
 
         /// <summary>
         /// Select Dealer
@@ -85,14 +81,30 @@ namespace DARS.Automation_.PageObjectsModels.Workshop_settings
         /// dealer dropdown and then enter entry on it and select that dealer.
         /// </summary>
         /// <param name="DealerName"></param>
-        public void SelectDealer(string DealerName, string DealerName2 = null)
+        public void SelectDealer(string RandomNumber, string ActualDealerNumber)
         {
             CustomWait.FluentWaitbyXPath(Drive.driver, "selectDealers");
-            selectDealers.Clear();
-            selectDealers.SendKeys(DealerName);
-            CustomWait.FluentWaitbyXPath(Drive.driver, "EnteredselectedDealer");
-            EnteredselectedDealer.Click();
-
+            SelectDealers.Clear();
+            SelectDealers.SendKeys(RandomNumber);
+            CustomWait.WaitFortheLoadingIconDisappear2000();
+            int DealersCount = Drive.driver.FindElements(By.XPath("(//mat-option[@name='advSearchDealer']/span/span)")).Count();
+            Console.WriteLine("TotalDealers are: " + DealersCount);
+            string firstPart = "(//mat-option[@name='advSearchDealer']/span/span)[";
+            string secondPart = "]";
+            for (int i = 1; i <= DealersCount; i++)
+            {
+                string finalPart = firstPart + i + secondPart;
+                Console.WriteLine(finalPart);
+                IWebElement dealerName = Drive.driver.FindElement(By.XPath(finalPart));
+                Console.WriteLine(dealerName.Text);
+                if (dealerName.Text.Contains(ActualDealerNumber))
+                {
+                    dealerName.Click();
+                    break;
+                }
+            }
+            //CustomWait.FluentWaitbyXPath(Drive.driver, "EnteredselectedDealer");
+            //EnteredselectedDealer.Click();
 
             //selectDealers.Clear();
             //selectDealers.SendKeys(DealerName2);
@@ -159,13 +171,13 @@ namespace DARS.Automation_.PageObjectsModels.Workshop_settings
 
         public void CheckTablefoundtheSearchData()
         {
-            Drive.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(6);
+
             CustomWait.FluentWaitbyXPath(Drive.driver, "Mechanicstable");
             TableUtil.ReadTable(Mechanicstable);
             CustomWait.FluentWaitbyXPath(Drive.driver, "Mechanicstable");
             string VerifyName = TableUtil.ReadCell("Name", 1);
             Console.WriteLine("Name in Table cell : " + VerifyName);
-            Assert.AreEqual("Alexander Almeland Jensen", VerifyName);
+            Assert.AreEqual("Arvid Jensen", VerifyName);
         }
 
         //Xpath for the Mechanics Table cell (Edit Button) 
@@ -178,7 +190,7 @@ namespace DARS.Automation_.PageObjectsModels.Workshop_settings
             CustomWait.FluentWaitbyXPath(Drive.driver, "EditButton");
             CustomLib.Highlightelement(EditButton);
             EditButton.Click();
-            CustomWait.WaitFortheLoadingIconDisappear5000();
+            CustomWait.WaitFortheLoadingIconDisappear2000();
 
         }
 
@@ -253,7 +265,7 @@ namespace DARS.Automation_.PageObjectsModels.Workshop_settings
 
             CustomWait.FluentWaitbyXPath(Drive.driver, "VerifyMechanicName");
             string MechanicName = VerifyMechanicName.Text;
-            Assert.AreEqual("Alexander Almeland Jensen", MechanicName);
+            Assert.AreEqual("Arvid Jensen", MechanicName);
             Console.WriteLine("Mechanic Name is :" + MechanicName);
         }
 
@@ -275,22 +287,6 @@ namespace DARS.Automation_.PageObjectsModels.Workshop_settings
         [FindsBy(How = How.XPath, Using = "//span[@id='LeaveEndDateRequired']")]
         public IWebElement EndDateError { get; set; }
 
-        //Xpath for the SaveBtn
-        [FindsBy(How = How.CssSelector, Using = "#saveMechanicLeave")]
-        public IWebElement saveMechanicLeaveBtn { get; set; }
-
-        //Xpath for the CancelBtn
-        [FindsBy(How = How.XPath, Using = "//*[@id='mechanicLeavePopup']/div/div[3]/div[8]/button[2]")]
-        public IWebElement CancelMechanicLeavePage { get; set; }
-
-
-        //Xpath for the StartDate
-        [FindsBy(How = How.XPath, Using = "//input[@id='LeaveStartDate']")]
-        public IWebElement StartDate { get; set; }
-
-
-      
-
 
         public void CheckMechanicLeavePageValidations()
         {
@@ -311,64 +307,81 @@ namespace DARS.Automation_.PageObjectsModels.Workshop_settings
 
         }
 
-        public void EnterMechanicLeaveDetails()
+        //Xpath for the SaveBtn
+        [FindsBy(How = How.CssSelector, Using = "#saveMechanicLeave")]
+        public IWebElement saveMechanicLeaveBtn { get; set; }
+
+        //Xpath for the CancelBtn
+        [FindsBy(How = How.XPath, Using = "//*[@id='mechanicLeavePopup']/div/div[3]/div[8]/button[2]")]
+        public IWebElement CancelMechanicLeavePage { get; set; }
+        //Xpath for the StartDate
+        [FindsBy(How = How.XPath, Using = "//input[@id='LeaveStartDate']")]
+        public IWebElement StartDate { get; set; }
+
+        //Xpath for the EndDate
+        [FindsBy(How = How.XPath, Using = "//input[@id='LeaveEndDate']")]
+        public IWebElement EndDate { get; set; }
+
+        public void EnterStartDateMechanicLeaveDetails(int index, string selectMonth, string selectYear, string selectdate)
         {
-             //CustomLib.FluentWaitbyXPath(Drive.driver, "AddMechanicLeaves");
-             //AddMechanicLeaves.Click();
+            //CustomLib.FluentWaitbyXPath(Drive.driver, "AddMechanicLeaves");
+            //AddMechanicLeaves.Click();
             if (DateRange.Selected)
             {
                 CustomWait.WaitFortheLoadingIconDisappear2000();
                 PassComment.SendKeys("Today I am Not feeling Well.");
                 StartDate.Click();
                 CustomWait.WaitFortheLoadingIconDisappear2000();
-                //CustomLib.HandleCalendar("April","20");
-                int RowNumbers = Drive.driver.FindElements(By.XPath("(//div[@class='xdsoft_calendar'])[1]/table/tbody/tr")).Count();
-                Console.WriteLine("Rows are: " + RowNumbers);
-                int ColumnNumbers = Drive.driver.FindElements(By.XPath(" (//div[@class='xdsoft_calendar'])[1]/table/tbody/tr[1]/td")).Count();
-                Console.WriteLine("Columns are: " + ColumnNumbers);
+                CustomLib.HandleCalendar(index, selectMonth, selectYear, selectdate);
 
-                string firstPart = "(//div[@class='xdsoft_calendar'])[1]/table/tbody/tr[";
-                string secondPart = "]/td[";
-                string thirdPart = "]";
-
-                for(int i=1;  i<=RowNumbers;  i++)
-                {
-                    for(int j=1;  j<=ColumnNumbers;  j++)
-                    {
-                        string finalPart = firstPart + i + secondPart + j + thirdPart;
-                        Console.WriteLine(finalPart);
-                        string dates = Drive.driver.FindElement(By.XPath(finalPart)).Text;
-                        Console.WriteLine(dates);
-
-                    }
-                }
-
-
-                string RowData = Drive.driver.FindElement(By.XPath(" (//div[@class='xdsoft_calendar'])[1]/table/tbody/tr[1]/td[4]")).Text;
-                Console.WriteLine("RowData by Static Method is: " + RowData);
-                string RowDatadynamic = Drive.driver.FindElement(By.XPath("(//td[@data-date='1'])[1]/div")).Text;
-                Console.WriteLine("RowData by dynamic Method is: " + RowDatadynamic);
-
-                
-                //IJavaScriptExecutor js = (IJavaScriptExecutor)Drive.driver;
-                //js.ExecuteScript("document.getElementById('LeaveStartDate').value ='22.3.2021'"); // id has been mentioned into the code of Start date field
-                //CustomLib.WaitFortheLoadingIconDisappear2000();
-                //js.ExecuteScript("document.getElementById('LeaveEndDate').value ='23.3.2021'"); // id has been mentioned into the code of End date field
-                //CustomLib.WaitFortheLoadingIconDisappear5000();
-                ((IJavaScriptExecutor)Drive.driver).ExecuteScript("window.scrollBy(0,500);");
-                //saveMechanicLeaveBtn.Click();
-                Hardwareworking.Hover(saveMechanicLeaveBtn);
-                CustomWait.WaitFortheLoadingIconDisappear10000();
             }
 
         }
-            //(//*[@id="toast-container"])//div[@role='alertdialog']
-            //(//mat-option[@role='option']/span)[2]
-            //(//div[@class = 'xdsoft_label xdsoft_month'])[1] click
-            //(//div[@class = 'xdsoft_option ' and @data-value = 'Month_Number'])[1] found the month and click // here 0 to 11 months are there....
-            // (//div[@class='xdsoft_option ' and @data-value='Year_Number'])[1] year selection
-            //(//div[@class= 'xdsoft_calendar'])[1]/table/tbody/tr/td[@data-date ='Date_Number']
-            //(//div[@class= 'xdsoft_calendar'])[1]/table/tbody/tr/td[contains(@class , 'disabled')]
+
+        public void EnterEndDateMechanicLeaveDetails(int index, string selectMonth, string selectYear, string selectdate)
+        {
+            CustomWait.WaitFortheLoadingIconDisappear2000();
+            EndDate.Click();
+            CustomWait.WaitFortheLoadingIconDisappear2000();
+            CustomLib.HandleCalendar(index, selectMonth, selectYear, selectdate);
+            CustomWait.WaitFortheLoadingIconDisappear2000();
+            saveMechanicLeaveBtn.Click();
+            CustomWait.WaitFortheLoadingIconDisappear10000();
+        }
+
+
+        public void MechanicTablesRC()
+        {
+            string MechanicsTable1 = "//*[@id='mechanicLeaves']/div/div[2]/div[2]/table/tbody/tr[";
+            string MechanicsTable2 = "]/td[";
+            string MechanicsTable3 = "]";
+            int RCount = Drive.driver.FindElements(By.XPath("//*[@id='mechanicLeaves']/div/div[2]/div[2]/table/tbody/tr")).Count();
+            Console.WriteLine("Rcount is:" + RCount);
+            int CCount = Drive.driver.FindElements(By.XPath("//*[@id='mechanicLeaves']/div/div[2]/div[2]/table/tbody/tr[1]/td")).Count();
+            Console.WriteLine("Rcount is:" + CCount);
+            for (int i = 1; i <= RCount; i++)
+            {
+                for (int j = 1; j <= CCount; j++)
+                {
+                    string finalPart = MechanicsTable1 + i + MechanicsTable2 + j + MechanicsTable3;
+                    IWebElement RowDataofMechanicTable = Drive.driver.FindElement(By.XPath(finalPart));
+                    Console.WriteLine("RowData: " + RowDataofMechanicTable.Text);
+                }
+            }
+
+
+        }
+
+
+        //Hardwareworking.Hover(saveMechanicLeaveBtn);
+        //CustomWait.WaitFortheLoadingIconDisappear10000();
+        //(//*[@id="toast-container"])//div[@role='alertdialog']
+        //(//mat-option[@role='option']/span)[2]
+        //(//div[@class = 'xdsoft_label xdsoft_month'])[1] click
+        //(//div[@class = 'xdsoft_option ' and @data-value = 'Month_Number'])[1] found the month and click // here 0 to 11 months are there....
+        // (//div[@class='xdsoft_option ' and @data-value='Year_Number'])[1] year selection
+        //(//div[@class= 'xdsoft_calendar'])[1]/table/tbody/tr/td[@data-date ='Date_Number']
+        //(//div[@class= 'xdsoft_calendar'])[1]/table/tbody/tr/td[contains(@class , 'disabled')]
 
 
         ////Xpath for the Close Mechanicspop Page 
@@ -440,9 +453,9 @@ namespace DARS.Automation_.PageObjectsModels.Workshop_settings
         [FindsBy(How = How.XPath, Using = "//*[@id='mechanicBusinessAbsencePopup']/div/div[3]/div[10]/button[2]")]
         public IWebElement CancelMechanicBusinessAbsencePage { get; set; }
 
-        
-        
-        
+
+
+
 
         public void mechanicBusinessAbsenceTab()
         {
@@ -462,7 +475,7 @@ namespace DARS.Automation_.PageObjectsModels.Workshop_settings
 
             CustomWait.FluentWaitbyXPath(Drive.driver, "VerifyMechanicNameinMBAPOPPage");
             string MBAPOPPageMechanicName = VerifyMechanicNameinMBAPOPPage.Text;
-            Assert.AreEqual("Alexander Almeland Jensen", MBAPOPPageMechanicName);
+            Assert.AreEqual("Arvid Jensen", MBAPOPPageMechanicName);
             Console.WriteLine("Mechanic Name is :" + MBAPOPPageMechanicName);
         }
 
@@ -539,7 +552,7 @@ namespace DARS.Automation_.PageObjectsModels.Workshop_settings
             CustomLib.Highlightelement(ExitFromMechanicAdditionalDetailsPage);
             CustomWait.WaitFortheLoadingIconDisappear2000();
             Hardwareworking.Hover(ExitFromMechanicAdditionalDetailsPage);
-            
+
         }
 
     }

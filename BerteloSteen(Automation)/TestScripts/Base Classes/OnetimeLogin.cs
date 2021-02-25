@@ -61,7 +61,7 @@ namespace DARS.Automation_.TestScripts.Base_Classes
                 Drive.driver.Manage().Window.Maximize();
                 Drive.driver.Manage().Cookies.DeleteAllCookies();
                 Drive.driver.Navigate().GoToUrl(information.baseURL);
-                Drive.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
+                Drive.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(2.50);
                 Console.WriteLine("Navigated to the 'demo Home Page' URL Sucessfully");
                 //Intitialize the page by calling it reference
                 LoginPageObjects loginpage = new LoginPageObjects();
