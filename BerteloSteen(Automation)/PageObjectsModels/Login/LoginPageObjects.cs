@@ -1,10 +1,10 @@
-﻿using DARS.Automation_.GetSet;
+﻿using DARS.Automation_.Helper;
 using DARS.Automation_.Utilities;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.PageObjects;
 using System;
 
-namespace DARS.Automation_.PageObjectsModels
+namespace DARS.Automation_.PageObjectsModels.Login
 {
     class LoginPageObjects
     {

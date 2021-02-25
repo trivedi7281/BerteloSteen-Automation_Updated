@@ -54,10 +54,7 @@ public class TestLogger
             logger.Info("This is Info Information");
             logger.Warn("This is Warn Information");
             logger.Error("This is Error Information");
-            logger.Fatal("This is Fatal Information");
-
-
-           
+            logger.Fatal("This is Fatal Information"); 
 
         }
     }

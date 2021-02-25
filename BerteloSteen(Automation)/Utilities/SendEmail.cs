@@ -31,7 +31,7 @@ namespace DARS.Automation_.Utilities
                 mail.Body = contentBody;
                 mail.IsBodyHtml = true;
                 mail.Attachments.Add(new Attachment(@Report));
-                SmtpClient smtp = new SmtpClient("smtp.live.com", 587);
+                SmtpClient smtp = new SmtpClient("mail.thegatewaydigital.com", 587);
                 smtp.Credentials = new NetworkCredential(FromEmail, password);
                 smtp.EnableSsl = true;
                 smtp.Send(mail);

@@ -40,9 +40,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="eReport\reporting.cs" />
-    <Compile Include="GetSet\GetMethod.cs" />
-    <Compile Include="GetSet\SetMethod.cs" />
+    <Compile Include="Helper\GetMethod.cs" />
+    <Compile Include="Helper\SetMethod.cs" />
     <Compile Include="PageObjectsModels\Workshop settings\Dealer_Service.cs" />
     <Compile Include="PageObjectsModels\Workshop settings\MechanicsObjects.cs" />
     <Compile Include="PageObjectsModels\Login\GetPropertiesObjects.cs" />
@@ -58,10 +57,10 @@
     <Compile Include="Utilities\SendEmail.cs" />
     <Compile Include="Utilities\TestLogger.cs" />
     <Compile Include="Utilities\TableUtil.cs" />
-    <Compile Include="TestScripts\Base Classes\BaseClass.cs" />
+    <Compile Include="TestScripts\Base Classes\TestWiseLogin.cs" />
     <Compile Include="TestScripts\Title Url\GET_Title_Url.cs" />
     <Compile Include="TestScripts\Workshop settings\Mechanics.cs" />
-    <Compile Include="TestScripts\Base Classes\StaticBaseClass.cs" />
+    <Compile Include="TestScripts\Base Classes\OnetimeLogin.cs" />
     <Compile Include="TestScripts\Workshop settings\My_Dealer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -88,6 +87,9 @@
     </PackageReference>
     <PackageReference Include="log4net">
       <Version>2.0.12</Version>
+    </PackageReference>
+    <PackageReference Include="NPOI">
+      <Version>2.5.2</Version>
     </PackageReference>
     <PackageReference Include="NUnit">
       <Version>3.13.1</Version>

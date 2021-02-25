@@ -1,28 +1,19 @@
 ﻿using AventStack.ExtentReports;
-using AventStack.ExtentReports.MarkupUtils;
 using AventStack.ExtentReports.Reporter;
-using DARS.Automation_.eReport;
 using DARS.Automation_.PageObjectsModels;
+using DARS.Automation_.PageObjectsModels.Login;
 using DARS.Automation_.Utilities;
 using NUnit.Framework;
 using NUnit.Framework.Interfaces;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
-namespace DARS.Automation_.TestScripts
-{/// <summary>
-/// This class is for when you want to login only one time 
-/// and check the whole Page without any TearDown
-/// </summary>
-    [TestFixture]
-    public class StaticBaseClass 
+namespace DARS.Automation_.TestScripts.Base_Classes
+{
+    public class TestWiseLogin
     {
         protected ExtentReports _extent;
         protected ExtentTest _test;
@@ -39,7 +30,7 @@ namespace DARS.Automation_.TestScripts
                 _extent = new ExtentReports();
                 var dir = AppDomain.CurrentDomain.BaseDirectory.Replace("\\bin\\Debug", "\\Test_Execution_Reports");
                 DirectoryInfo di = Directory.CreateDirectory(dir + "\\Test_Execution_Reports");
-                var htmlReporter = new ExtentHtmlReporter(dir + "\\Test_Execution_Reports\\DARS_"+ currentTime + ".html");
+                var htmlReporter = new ExtentHtmlReporter(dir + "\\Test_Execution_Reports\\DARS_" + currentTime + ".html");
                 htmlReporter.Config.Theme = AventStack.ExtentReports.Reporter.Configuration.Theme.Dark;
                 _extent.AddSystemInfo("Application Name", "DARS");
                 _extent.AddSystemInfo("Environment", "QA");
@@ -65,13 +56,12 @@ namespace DARS.Automation_.TestScripts
                 Drive.driver.Manage().Window.Maximize();
                 Drive.driver.Manage().Cookies.DeleteAllCookies();
                 Drive.driver.Navigate().GoToUrl(information.baseURL);
+                Drive.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
                 Console.WriteLine("Navigated to the 'demo Home Page' URL Sucessfully");
                 //Intitialize the page by calling it reference
-                Drive.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
                 LoginPageObjects loginpage = new LoginPageObjects();
                 loginpage.EnterUserName(information.username);
                 Console.WriteLine("UserName Entered");
-                Drive.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
                 loginpage.EnterPassword(information.password);
                 Console.WriteLine("Password Entered");
                 Console.WriteLine("Stay Logged In");
@@ -84,7 +74,7 @@ namespace DARS.Automation_.TestScripts
                 Console.WriteLine(e.Message);
                 throw;
             }
-            
+
 
         }
 
@@ -179,5 +169,8 @@ namespace DARS.Automation_.TestScripts
             }
             return localpath;
         }
+
+
+
     }
 }

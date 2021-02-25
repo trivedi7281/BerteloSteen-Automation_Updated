@@ -1,4 +1,4 @@
-﻿using DARS.Automation_.GetSet;
+﻿using DARS.Automation_.Helper;
 using DARS.Automation_.Utilities;
 using NUnit.Framework;
 using OpenQA.Selenium;
@@ -11,7 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DARS.Automation_.PageObjectsModels
+namespace DARS.Automation_.PageObjectsModels.Workshop_settings
 {
     class My_DealerObjects
     {

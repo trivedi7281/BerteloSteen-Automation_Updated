@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DARS.Automation_.GetSet
+namespace DARS.Automation_.Helper
 {
     public static class SetMethod
     {
