@@ -14,15 +14,11 @@ namespace DARS.Automation_.Utilities
     public static class CustomLib
     {
         //-------------------------Highlight the Element--------------------------------------//
-
         public static void Highlightelement(this IWebElement element)
         {
             IJavaScriptExecutor js = (IJavaScriptExecutor)Drive.driver;
             js.ExecuteScript("arguments[0].setAttribute('style','border:1px solid transparent;border-image:linear-gradient(-45deg,red,blue,green);border-image-slice:1;');", element);
-            
-
         }
-
         //-------------------------Highlight the Element--------------------------------------//
 
         //-------------------------------------Handle Calender------------------------------------------//
@@ -113,9 +109,9 @@ namespace DARS.Automation_.Utilities
             }
 
         }
-
         //-------------------------------------Handle Calender------------------------------------------//
 
+        //-------------------------------------CheckBoxList------------------------------------------//
         public static void CheckBoxesList()
         {
             ReadOnlyCollection<IWebElement> Checklist = Drive.driver.FindElements(By.XPath("(//div[contains(@class,'input-field')]/input[@type='checkbox'])"));
@@ -145,8 +141,9 @@ namespace DARS.Automation_.Utilities
             }
 
         }
-        //-------------------------------------ScreenShots------------------------------------------//
+        //-------------------------------------CheckBoxList------------------------------------------//
 
+        //-------------------------------------ScreenShots------------------------------------------//
         public static void ScreenShots()
         {
             string PathToFolder = "C:\\Users\\akash.trivedi\\Source\\Repos\\BerteloSteen-Automation\\BerteloSteen(Automation)\\ScreenPrints\\";
@@ -156,11 +153,9 @@ namespace DARS.Automation_.Utilities
             screenshot.SaveAsFile(fileName, ScreenshotImageFormat.Jpeg);
 
         }
-
         //-------------------------------------ScreenShots------------------------------------------//
 
         //-------------------------------------DeleteRecordfromMechanicLeaves----------------------------------------//
-
         public static void DeleteMechanicLeaves(int startDate, int endDate, int Month, int Year)
         {
             int a = Year;

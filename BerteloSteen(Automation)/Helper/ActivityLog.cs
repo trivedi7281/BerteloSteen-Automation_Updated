@@ -28,8 +28,6 @@ namespace DARS.Automation_.Helper
         }
 
    
-
-
         private static PatternLayout GetPatternLayout()
         {
             var patterLayout = new PatternLayout()

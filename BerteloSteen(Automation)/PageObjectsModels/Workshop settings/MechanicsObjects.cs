@@ -22,18 +22,14 @@ namespace DARS.Automation_.PageObjectsModels.Workshop_settings
 
         }
 
-        [FindsBy(How = How.XPath, Using = "//li[@id='engli']")]
+        [FindsBy(How = How.XPath, Using = "//ul/li[@id='engli']/a")]
         public IWebElement engLanguage { get; set; }
-
 
         [FindsBy(How = How.CssSelector, Using = "#darsdealer\\  > a")]
         public IWebElement clickonDARS { get; set; }
 
-
         [FindsBy(How = How.XPath, Using = "//li[@id='darsdealer ']")]
         public IWebElement DARSHighlight { get; set; }
-
-
 
         [FindsBy(How = How.XPath, Using = "//a[@href='/en-US/Administration/Mechanics/List']")]
         public IWebElement clickonMechanicsTab { get; set; }

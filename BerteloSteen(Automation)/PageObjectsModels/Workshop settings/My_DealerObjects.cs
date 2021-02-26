@@ -18,7 +18,7 @@ namespace DARS.Automation_.PageObjectsModels.Workshop_settings
         [Obsolete]
         public My_DealerObjects() => PageFactory.InitElements(Drive.driver, this);
 
-        [FindsBy(How = How.XPath, Using = "//li[@id='engli']")]
+        [FindsBy(How = How.XPath, Using = "//ul/li[@id='engli']/a")]
         public IWebElement engLanguage { get; set; }
 
 
