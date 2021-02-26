@@ -40,6 +40,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Helper\ActivityLog.cs" />
     <Compile Include="Helper\GetMethod.cs" />
     <Compile Include="Helper\SetMethod.cs" />
     <Compile Include="PageObjectsModels\Workshop settings\Dealer_Service.cs" />

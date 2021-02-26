@@ -1,5 +1,6 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
+using OpenQA.Selenium.Support.PageObjects;
 using OpenQA.Selenium.Support.UI;
 using System;
 using System.Collections.Generic;
@@ -17,9 +18,8 @@ namespace DARS.Automation_.Utilities
         public static void Highlightelement(this IWebElement element)
         {
             IJavaScriptExecutor js = (IJavaScriptExecutor)Drive.driver;
-            js.ExecuteScript("arguments[0].setAttribute('style','border:2px solid transparent;border-image:linear-gradient(-45deg,red,yellow);border-image-slice:1;');", element);
-            System.Threading.Thread.Sleep(1500);
-            js.ExecuteScript("arguments[0].setAttribute('style','');", element);
+            js.ExecuteScript("arguments[0].setAttribute('style','border:1px solid transparent;border-image:linear-gradient(-45deg,red,blue,green);border-image-slice:1;');", element);
+            
 
         }
 
@@ -40,7 +40,6 @@ namespace DARS.Automation_.Utilities
             string secondCountPartMonth = "]//div[contains(@class,'xdsoft_option ')]";
             string ActualcountMonthPart = firstCountPartMonth + index + secondCountPartMonth;
             int CalendarMonths = Drive.driver.FindElements(By.XPath(ActualcountMonthPart)).Count();
-            Console.WriteLine("Calender months counts is: " + CalendarMonths);
             //select month
             string firstmonthPart = "(//div[@class='xdsoft_label xdsoft_month'])[";
             string secondmonthPart = "]//div[contains(@class , 'xdsoft_option ')and @data-value='";
@@ -113,8 +112,6 @@ namespace DARS.Automation_.Utilities
                 }
             }
 
-
-
         }
 
         //-------------------------------------Handle Calender------------------------------------------//
@@ -162,14 +159,48 @@ namespace DARS.Automation_.Utilities
 
         //-------------------------------------ScreenShots------------------------------------------//
 
-        //-------------------------------------ExtentReport----------------------------------------//
+        //-------------------------------------DeleteRecordfromMechanicLeaves----------------------------------------//
 
+        public static void DeleteMechanicLeaves(int startDate, int endDate, int Month, int Year)
+        {
+            int a = Year;
+            int b = Month;
+            int c = startDate;
+            int d = endDate;
+            string firstPartition = "(//tr/td[contains(text(),'";
+            string secondPartition = "')])[1]";
+            string thirdPartition = "/following-sibling::td[5]//a";
+            string fourthPartition = "/following-sibling::td[2]//span";
+            string delConfirmBtn = "//button[@id='btnSaveComments'and @type='button']";
+            DateTime begindate = new DateTime(a, b, d);
+            DateTime enddate = new DateTime(a, b, c);
+            for (; begindate.Date >= enddate.Date; begindate = begindate.AddDays(-1))
+            {
+                string date = begindate.Date.ToString("dd.MM.yyyy");
+                string finalPartition = firstPartition + date + secondPartition;
+                IWebElement SelectStartDate = Drive.driver.FindElement(By.XPath(finalPartition));
+                //((IJavaScriptExecutor)Drive.driver).ExecuteScript("arguments[0].scrollIntoView(true);", SelectStartDate);
+                if (SelectStartDate.Text.Contains(date))
+                {
+                    CustomWait.WaitFortheLoadingIconDisappear2000();
+                    string InsSource = firstPartition + date + secondPartition + fourthPartition;
+                    IWebElement SourceVerify = Drive.driver.FindElement(By.XPath(InsSource));
+                    Console.WriteLine(SourceVerify.Displayed);
+                    Console.WriteLine(SourceVerify.Text);
+                    CustomWait.WaitFortheLoadingIconDisappear2000();
+                    string finalclick = firstPartition + date + secondPartition + thirdPartition;
+                    IWebElement delPencilBtn = Drive.driver.FindElement(By.XPath(finalclick));
+                    delPencilBtn.Click();
+                    CustomWait.WaitFortheLoadingIconDisappear5000();
+                    IWebElement DelYesBtn = Drive.driver.FindElement(By.XPath(delConfirmBtn));
+                    DelYesBtn.Click();
+                    CustomWait.WaitFortheLoadingIconDisappear5000();
 
+                }
+            }
 
-
-
-
-        //-------------------------------------ExtentReport--------------------------------------//
+        }
+        //-------------------------------------DeleteRecordfromMechanicLeaves--------------------------------------//
 
     }
 }

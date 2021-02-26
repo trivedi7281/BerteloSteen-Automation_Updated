@@ -6,6 +6,7 @@ using OpenQA.Selenium.Support.Events;
 using OpenQA.Selenium.Support.PageObjects;
 using System;
 using System.Linq;
+using System.Text;
 
 namespace DARS.Automation_.PageObjectsModels.Workshop_settings
 {
@@ -18,7 +19,7 @@ namespace DARS.Automation_.PageObjectsModels.Workshop_settings
         public MechanicsObjects()
         {
             PageFactory.InitElements(Drive.driver, this);
-            Drive.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
+
         }
 
         [FindsBy(How = How.XPath, Using = "//li[@id='engli']")]
@@ -45,6 +46,7 @@ namespace DARS.Automation_.PageObjectsModels.Workshop_settings
 
         public void ClickonDARS()
         {
+            Drive.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
             CustomWait.FluentWaitbyXPath(Drive.driver, "engLanguage");
             CustomLib.Highlightelement(engLanguage);
             engLanguage.Clicks();
@@ -315,11 +317,11 @@ namespace DARS.Automation_.PageObjectsModels.Workshop_settings
         [FindsBy(How = How.XPath, Using = "//*[@id='mechanicLeavePopup']/div/div[3]/div[8]/button[2]")]
         public IWebElement CancelMechanicLeavePage { get; set; }
         //Xpath for the StartDate
-        [FindsBy(How = How.XPath, Using = "//input[@id='LeaveStartDate']")]
+        [FindsBy(How = How.XPath, Using = "//label[@id='lblStartDate']/parent::*//input[@id='LeaveStartDate' and @name='StartDate']")]
         public IWebElement StartDate { get; set; }
 
         //Xpath for the EndDate
-        [FindsBy(How = How.XPath, Using = "//input[@id='LeaveEndDate']")]
+        [FindsBy(How = How.XPath, Using = "//label[@id='lblEndDate']/parent::*//input[@id='LeaveEndDate' and @name='EndDate']")]
         public IWebElement EndDate { get; set; }
 
         public void EnterStartDateMechanicLeaveDetails(int index, string selectMonth, string selectYear, string selectdate)
@@ -333,6 +335,7 @@ namespace DARS.Automation_.PageObjectsModels.Workshop_settings
                 StartDate.Click();
                 CustomWait.WaitFortheLoadingIconDisappear2000();
                 CustomLib.HandleCalendar(index, selectMonth, selectYear, selectdate);
+                CustomWait.WaitFortheLoadingIconDisappear5000();
 
             }
 
@@ -350,25 +353,10 @@ namespace DARS.Automation_.PageObjectsModels.Workshop_settings
         }
 
 
-        public void MechanicTablesRC()
-        {
-            string MechanicsTable1 = "//*[@id='mechanicLeaves']/div/div[2]/div[2]/table/tbody/tr[";
-            string MechanicsTable2 = "]/td[";
-            string MechanicsTable3 = "]";
-            int RCount = Drive.driver.FindElements(By.XPath("//*[@id='mechanicLeaves']/div/div[2]/div[2]/table/tbody/tr")).Count();
-            Console.WriteLine("Rcount is:" + RCount);
-            int CCount = Drive.driver.FindElements(By.XPath("//*[@id='mechanicLeaves']/div/div[2]/div[2]/table/tbody/tr[1]/td")).Count();
-            Console.WriteLine("Rcount is:" + CCount);
-            for (int i = 1; i <= RCount; i++)
-            {
-                for (int j = 1; j <= CCount; j++)
-                {
-                    string finalPart = MechanicsTable1 + i + MechanicsTable2 + j + MechanicsTable3;
-                    IWebElement RowDataofMechanicTable = Drive.driver.FindElement(By.XPath(finalPart));
-                    Console.WriteLine("RowData: " + RowDataofMechanicTable.Text);
-                }
-            }
 
+        public void MechanicTablesLeaveDelete(int startDate, int endDate, int Month, int Year)
+        {
+            CustomLib.DeleteMechanicLeaves(startDate, endDate, Month , Year);
 
         }
 
@@ -394,13 +382,13 @@ namespace DARS.Automation_.PageObjectsModels.Workshop_settings
         //    CancelMechanicLeavePage.Click();
 
         //}
-        //<!-------------------------------********-------------------------------Mechanics Tab------------------------------------------**********------------------------------------->
+        //<!----------------------********-------------------------------Mechanics Tab------------------------------------**********--------------------------------->
 
 
 
 
 
-        //<!--------------------------------------------------------------mechanicBusinessAbsence Tab------------------------------------------------------------------------------->
+        //<!----------------------------------------------------------mechanicBusinessAbsenceTab------------------------------------------------------------->
         //Xpath for the mechanicBusinessAbsence Info Tab
         [FindsBy(How = How.XPath, Using = "//*[@id='addMechanicsDetails']/div[2]/ul/li/a[@aria-controls = 'mechanicBusinessAbsence']")]
         public IWebElement mechanicBusinessAbsence { get; set; }
@@ -452,9 +440,6 @@ namespace DARS.Automation_.PageObjectsModels.Workshop_settings
         //Xpath for the CancelMechanicBusinessAbsencePage
         [FindsBy(How = How.XPath, Using = "//*[@id='mechanicBusinessAbsencePopup']/div/div[3]/div[10]/button[2]")]
         public IWebElement CancelMechanicBusinessAbsencePage { get; set; }
-
-
-
 
 
         public void mechanicBusinessAbsenceTab()

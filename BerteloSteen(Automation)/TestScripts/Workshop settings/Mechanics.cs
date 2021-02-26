@@ -86,14 +86,14 @@ namespace DARS.Automation_.TestScripts.Workshop_settings
         }
 
 
-        [Test, Order(9)]
-        [Obsolete]
-        public void ClickintoAddMechanicLeavesTab()
-        {
-            Mech = new MechanicsObjects();
-            Mech.AddMechanicLeavesTab();
+        //[Test, Order(9)]
+        //[Obsolete]
+        //public void ClickintoAddMechanicLeavesTab()
+        //{
+        //    Mech = new MechanicsObjects();
+        //    Mech.AddMechanicLeavesTab();
 
-        }
+        //}
 
         //[Test, Order(10)]
         //[Obsolete]
@@ -109,9 +109,9 @@ namespace DARS.Automation_.TestScripts.Workshop_settings
         public void EnterMechanicLeaveDetails()
         {
             Mech = new MechanicsObjects();
-            Mech.EnterStartDateMechanicLeaveDetails(1,"September" , "2022" , "1");
-            Mech.EnterEndDateMechanicLeaveDetails(2, "September", "2022", "3");
-            Mech.MechanicTablesRC();
+            //Mech.EnterStartDateMechanicLeaveDetails(1,"September","2022","1");
+            //Mech.EnterEndDateMechanicLeaveDetails(2,"September","2022","2");
+            Mech.MechanicTablesLeaveDelete(26,27,02,2021);
         }
 
         //[Test, Order(12)]

@@ -1,11 +1,6 @@
 ﻿using OpenQA.Selenium;
 using Protractor;
-using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace DARS.Automation_.Utilities
 {
@@ -29,7 +24,6 @@ namespace DARS.Automation_.Utilities
             Selector
 
         }
-
     }
 }
 
