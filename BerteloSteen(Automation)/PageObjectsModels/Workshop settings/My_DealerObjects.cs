@@ -3,13 +3,9 @@ using DARS.Automation_.Utilities;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.PageObjects;
-using OpenQA.Selenium.Support.UI;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DARS.Automation_.PageObjectsModels.Workshop_settings
 {
@@ -30,10 +26,14 @@ namespace DARS.Automation_.PageObjectsModels.Workshop_settings
         public IWebElement DARSHighlight { get; set; }
 
 
-
         [FindsBy(How = How.XPath, Using = "//a[@href='/en-US/Workplace/MyDealer/Index']")]
         public IWebElement clickonMyDealerTab { get; set; }
 
+        [FindsBy(How = How.XPath, Using = "//button[@id='save']")]
+        public IWebElement SaveBtn { get; set; }
+
+        [FindsBy(How = How.XPath, Using = "//button[@id='reset']")]
+        public IWebElement ResetBtn { get; set; }
 
         /// <summary>
         /// Navigate to Mechanics
@@ -43,14 +43,14 @@ namespace DARS.Automation_.PageObjectsModels.Workshop_settings
         public void ClickonDARS()
         {
             Drive.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
-            CustomWait.FluentWaitbyXPath(Drive.driver, "engLanguage");
+            CustomWait.FluentWaitbyXPath("engLanguage");
             CustomLib.Highlightelement(engLanguage);
             engLanguage.Clicks();
             //Click on DARS Tab
             CustomLib.Highlightelement(DARSHighlight);
-            CustomWait.FluentWaitbyXPath(Drive.driver, "clickonDARS");
+            CustomWait.FluentWaitbyXPath("clickonDARS");
             clickonDARS.Click();
-            CustomWait.FluentWaitbyXPath(Drive.driver, "clickonMyDealerTab");
+            CustomWait.FluentWaitbyXPath("clickonMyDealerTab");
             CustomLib.Highlightelement(clickonMyDealerTab);
             clickonMyDealerTab.Click();
 
@@ -62,21 +62,18 @@ namespace DARS.Automation_.PageObjectsModels.Workshop_settings
         /// </summary>
         public void GetPageTitle()
         {
-            CustomWait.FluentWaitbyXPath(Drive.driver, "clickonMyDealerTab");
+            CustomWait.FluentWaitbyXPath("clickonMyDealerTab");
             string title = Drive.driver.Title;
             Console.WriteLine("Title is:" + title);
             Assert.AreEqual("My Dealer", title);
         }
 
-        
-      
 
         [FindsBy(How = How.XPath, Using = "//input[@data-placeholder='Select Dealer']")]
         public IWebElement selectDealers { get; set; }
 
-        //Here this xpath have been changed as per we select any other dealer
-        [FindsBy(How = How.XPath, Using = "//mat-option[@id='1']")]
-        public IWebElement EnteredselectedDealer { get; set; }
+
+        string MyDealerDropDown = "(//mat-option[@name='searchDealer']/span/span)";
 
         /// <summary>
         /// Select Dealer
@@ -84,28 +81,15 @@ namespace DARS.Automation_.PageObjectsModels.Workshop_settings
         /// dealer dropdown and then enter entry on it and select that dealer.
         /// </summary>
         /// <param name="DealerName"></param>
-        public void SelectDealer(string DealerName, string DealerName2 = null)
+        public void SelectDealer(string RandomNumber, string ActualDealerNumber)
         {
-            CustomWait.FluentWaitbyXPath(Drive.driver, "selectDealers");
+            CustomWait.FluentWaitbyXPath("selectDealers");
             selectDealers.Clear();
-            selectDealers.SendKeys(DealerName);
-            CustomWait.FluentWaitbyXPath(Drive.driver, "EnteredselectedDealer");
-            EnteredselectedDealer.Click();
+            selectDealers.SendKeys(RandomNumber);
+            CustomLib.DealerDropDown(ActualDealerNumber, MyDealerDropDown);
             CustomWait.WaitFortheLoadingIconDisappear2000();
-        
+
         }
-
-
-
-
-
-        //AddTax.Click();
-        //CustomLib.WaitFortheLoadingIconDisappear5000();
-        //*[@id="laborPercentage"]
-        //*[@id="partsPercentage"]
-        //*[@id="showPriceDiffPercentage"]
-        //*[@id="minimumMarginForParts"]
-
 
         [FindsBy(How = How.XPath, Using = "//*[@id='isAddTax']")]
         public IWebElement AddTax { get; set; }
@@ -118,44 +102,54 @@ namespace DARS.Automation_.PageObjectsModels.Workshop_settings
         [FindsBy(How = How.XPath, Using = "//mat-select[@id='defaultExternalRentalCarCompanyId']")]
         public IWebElement selectRCCDropdown { get; set; }
 
-        [FindsBy(How = How.XPath, Using = "//*[@id='defaultExternalRentalCarCompanyId - panel']")]
-        public IWebElement selectRCCDropdownPanel { get; set; }
 
-        string BeforeXpath = "(//mat-option[@role='option']/span)[";
-        string AfterXPathXpath = "]";
+        string FirstPart = "(//div[@id = 'defaultExternalRentalCarCompanyId-panel']/mat-option[@role='option']/span)";
 
-     
 
-        public void SelectRentalCarComp_Dropdown(string startIndex , string EndIndex , string value)
+        [FindsBy(How = How.XPath, Using = "(//div[@id = 'defaultExternalRentalCarCompanyId-panel']/mat-option[@role='option']/span)[1]")]
+        public IWebElement selectRentalCarDefaultDropdownValue { get; set; }
+
+
+        public void SelectRentalCarComp_Dropdown(string value)
         {
 
-            CustomWait.FluentWaitbyXPath(Drive.driver, "selectRCCDropdown");
+            CustomWait.FluentWaitbyXPath("selectRCCDropdown");
             selectRCCDropdown.Click();
-            CustomWait.WaitFortheLoadingIconDisappear5000();
-            for (int i=Int32.Parse(startIndex); i<=Int32.Parse(EndIndex); i++)
-            {
-                string ActualXpath = BeforeXpath + i + AfterXPathXpath;
-                IWebElement element = Drive.driver.FindElement(By.XPath(ActualXpath));
-                Console.WriteLine(element.Text);
-                if(element.Text.Equals(value))
-                {
-                    element.Click();
-                    break;
-                }
-                Assert.AreEqual("HDFC Argo", element.Text);
-                
-            }
-      
+            CustomWait.WaitFortheLoadingIconDisappear3000();
+            CustomLib.DropDownbyName(value, FirstPart);
+
         }
 
 
-        //[FindsBy(How = How.XPath, Using = "//div/input[@type ='checkbox']")]
-        //public IWebElement AllCheckBoxes { get; set; }
+        [FindsBy(How = How.XPath, Using = "//*[@id='communicationNotificationBlock']")]
+        public IWebElement NotificationsDetails { get; set; }
 
-        public void ValidateAllCheckBoxes()
+        public void EnterNotificationDetail()
         {
-          
+            CustomWait.WaitFortheLoadingIconDisappear2000();
+            ((IJavaScriptExecutor)Drive.driver).ExecuteScript("arguments[0].scrollIntoView(true);", NotificationsDetails);
+            NotificationsDetails.Click();
 
         }
+
+
+        [FindsBy(How = How.XPath, Using = "//*[@id='dealerShiftDetailsBlock']")]
+        public IWebElement DealerHours { get; set; }
+
+        public void EnterDealerHours()
+        {
+            CustomWait.WaitFortheLoadingIconDisappear2000();
+            ((IJavaScriptExecutor)Drive.driver).ExecuteScript("arguments[0].scrollIntoView(true);", DealerHours);
+            DealerHours.Click();
+            IList<IWebElement> els = Drive.driver.FindElements(By.XPath("(//*[@id='containerData']//input[@type='checkbox'])"));
+            Console.WriteLine(els.Count());
+
+
+        }
+
+        
+
+
+
     }
 }

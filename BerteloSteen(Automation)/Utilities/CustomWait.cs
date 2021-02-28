@@ -21,6 +21,10 @@ namespace DARS.Automation_.Utilities
         {
             System.Threading.Thread.Sleep(5000);
         }
+        public static void WaitFortheLoadingIconDisappear3000()
+        {
+            System.Threading.Thread.Sleep(3000);
+        }
 
         public static void WaitFortheLoadingIconDisappear2000()
         {
@@ -48,7 +52,7 @@ namespace DARS.Automation_.Utilities
             }
         }
 
-        public static IWebElement FluentWaitbyXPath(IWebDriver driver, string elementName)
+        public static IWebElement FluentWaitbyXPath(this string elementName)
         {
             try
             {
@@ -70,11 +74,11 @@ namespace DARS.Automation_.Utilities
         }
 
 
-        public static IWebElement FluentWaitbyName(IWebDriver driver, string elementName)
+        public static IWebElement FluentWaitbyName(this string elementName)
         {
             try
             {
-                DefaultWait<IWebDriver> fluentWait = new DefaultWait<IWebDriver>(driver);
+                DefaultWait<IWebDriver> fluentWait = new DefaultWait<IWebDriver>(Drive.driver);
                 fluentWait.Timeout = TimeSpan.FromSeconds(1.5);
 
                 fluentWait.PollingInterval = TimeSpan.FromMilliseconds(100);
@@ -92,11 +96,11 @@ namespace DARS.Automation_.Utilities
         }
 
 
-        public static IWebElement FluentWaitbyCSS(IWebDriver driver, string elementName)
+        public static IWebElement FluentWaitbyCSS(this string elementName)
         {
             try
             {
-                DefaultWait<IWebDriver> fluentWait = new DefaultWait<IWebDriver>(driver);
+                DefaultWait<IWebDriver> fluentWait = new DefaultWait<IWebDriver>(Drive.driver);
                 fluentWait.Timeout = TimeSpan.FromSeconds(1.5);
                 fluentWait.PollingInterval = TimeSpan.FromMilliseconds(100);
                 fluentWait.IgnoreExceptionTypes(typeof(NoSuchElementException));
@@ -110,7 +114,6 @@ namespace DARS.Automation_.Utilities
                 return null;
             }
         }
-
 
     }
 }

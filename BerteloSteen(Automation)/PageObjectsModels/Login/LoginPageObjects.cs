@@ -12,25 +12,26 @@ namespace DARS.Automation_.PageObjectsModels.Login
         public LoginPageObjects()
         {
             PageFactory.InitElements(Drive.driver, this);
-            Drive.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(2);
+           
         }
 
 
         [FindsBy(How = How.XPath, Using = "//input[@placeholder='Email, phone, or Skype']")]
-        public IWebElement txtUserName { get; set; }
+        public IWebElement TxtUserName { get; set; }
 
         [FindsBy(How = How.XPath, Using = "//div[@class='inline-block']/input[@value='Next']")]
         public IWebElement submitBtn { get; set; }
 
         public void EnterUserName(string userName)
         {
+            Drive.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(3);
             //Enter UserName
-            CustomLib.Highlightelement(txtUserName);
-            CustomWait.FluentWaitbyXPath(Drive.driver, "txtUserName");
-            txtUserName.SendKeys(userName);
+            CustomLib.Highlightelement(TxtUserName);
+            CustomWait.FluentWaitbyXPath("txtUserName");
+            TxtUserName.SendKeys(userName);
             //Click on LoginBtn
             CustomLib.Highlightelement(submitBtn);
-            CustomWait.FluentWaitbyXPath(Drive.driver, "submitBtn");
+            CustomWait.FluentWaitbyXPath("submitBtn");
             submitBtn.Clicks();
 
         }
@@ -45,12 +46,12 @@ namespace DARS.Automation_.PageObjectsModels.Login
 
         public void EnterPassword(string password)
         {
-            CustomWait.FluentWaitbyXPath(Drive.driver, "txtPassword");
             CustomLib.Highlightelement(txtPassword);
+            CustomWait.FluentWaitbyXPath( "txtPassword");
             txtPassword.SendKeys(password);//Enter Password
             CustomLib.Highlightelement(signIn);
             //Click on LoginBtn
-            CustomWait.FluentWaitbyXPath(Drive.driver, "signIn");
+            CustomWait.FluentWaitbyXPath("signIn");
             signIn.Clicks();
 
         }
@@ -66,11 +67,11 @@ namespace DARS.Automation_.PageObjectsModels.Login
         [Obsolete]
         public GetPropertiesObjects StaySignedIN()
         {
-            CustomWait.FluentWaitbyXPath(Drive.driver, "staySignedIn");
             CustomLib.Highlightelement(staySignedIn);
+            CustomWait.FluentWaitbyXPath("staySignedIn");
             staySignedIn.Clicks();
             CustomLib.Highlightelement(yes);
-            CustomWait.FluentWaitbyXPath(Drive.driver, "yes");
+            CustomWait.FluentWaitbyXPath("yes");
             yes.Clicks();
             //Return to the GetProperties
             return new GetPropertiesObjects();

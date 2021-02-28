@@ -26,9 +26,9 @@ namespace DARS.Automation_.PageObjectsModels.Login
         public void GetDetails()
         {
             EngLanguage.Highlightelement();
-            CustomWait.FluentWaitbyXPath(Drive.driver, "EngLanguage");
+            CustomWait.FluentWaitbyXPath("EngLanguage");
             EngLanguage.Clicks();
-            CustomWait.FluentWaitbyXPath(Drive.driver, "EngLanguage");
+            CustomWait.WaitFortheLoadingIconDisappear2000();
             string title = Drive.driver.Title;
             Console.WriteLine("Title is:" + title);
             Assert.AreEqual("Appointment", title);

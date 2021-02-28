@@ -35,14 +35,14 @@ namespace DARS.Automation_.PageObjectsModels.Workshop_settings
         public void ClickonDARS()
         {
             Drive.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
-            CustomWait.FluentWaitbyXPath(Drive.driver, "engLanguage");
+            CustomWait.FluentWaitbyXPath("engLanguage");
             CustomLib.Highlightelement(engLanguage);
             engLanguage.Clicks();
             //Click on DARS Tab
             CustomLib.Highlightelement(DARSHighlight);
-            CustomWait.FluentWaitbyXPath(Drive.driver, "clickonDARS");
+            CustomWait.FluentWaitbyXPath("clickonDARS");
             clickonDARS.Click();
-            CustomWait.FluentWaitbyXPath(Drive.driver, "clickonMyDealerTab");
+            CustomWait.FluentWaitbyXPath("clickonMyDealerTab");
             CustomLib.Highlightelement(clickonDealerServiceTab);
             clickonDealerServiceTab.Clicks();
 
@@ -54,7 +54,7 @@ namespace DARS.Automation_.PageObjectsModels.Workshop_settings
         /// </summary>
         public void GetPageTitle()
         {
-            CustomWait.FluentWaitbyXPath(Drive.driver, "clickonDealerServiceTab");
+            CustomWait.FluentWaitbyXPath("clickonDealerServiceTab");
             string title = Drive.driver.Title;
             Console.WriteLine("Title is:" + title);
             Assert.AreEqual("Dealer service", title);

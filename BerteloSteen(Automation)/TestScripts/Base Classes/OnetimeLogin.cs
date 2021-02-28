@@ -1,6 +1,5 @@
 ﻿using AventStack.ExtentReports;
 using AventStack.ExtentReports.Reporter;
-using DARS.Automation_.PageObjectsModels;
 using DARS.Automation_.PageObjectsModels.Login;
 using DARS.Automation_.Utilities;
 using NUnit.Framework;
@@ -41,7 +40,7 @@ namespace DARS.Automation_.TestScripts.Base_Classes
                 _extent.AddSystemInfo("Environment", "QA");
                 _extent.AddSystemInfo("Machine", Environment.MachineName);
                 _extent.AddSystemInfo("OS", Environment.OSVersion.VersionString);
-                _extent.AddSystemInfo("UserName", "Akash");
+                _extent.AddSystemInfo("Engineer Name", "Akash");
                 _extent.AttachReporter(htmlReporter);
             }
             catch (Exception e)

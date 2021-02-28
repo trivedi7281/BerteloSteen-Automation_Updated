@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using NUnit.Framework;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.PageObjects;
 using OpenQA.Selenium.Support.UI;
@@ -23,7 +24,7 @@ namespace DARS.Automation_.Utilities
 
         //-------------------------------------Handle Calender------------------------------------------//
         public static void HandleCalendar(this int index, string selectMonth, string selectYear, string selectdate)
-        {   
+        {
             //click on month dd 
             CustomWait.WaitFortheLoadingIconDisappear2000();
             string firstPartMonth = "(//div[@class='xdsoft_label xdsoft_month'])[";
@@ -174,7 +175,6 @@ namespace DARS.Automation_.Utilities
                 string date = begindate.Date.ToString("dd.MM.yyyy");
                 string finalPartition = firstPartition + date + secondPartition;
                 IWebElement SelectStartDate = Drive.driver.FindElement(By.XPath(finalPartition));
-                //((IJavaScriptExecutor)Drive.driver).ExecuteScript("arguments[0].scrollIntoView(true);", SelectStartDate);
                 if (SelectStartDate.Text.Contains(date))
                 {
                     CustomWait.WaitFortheLoadingIconDisappear2000();
@@ -196,6 +196,53 @@ namespace DARS.Automation_.Utilities
 
         }
         //-------------------------------------DeleteRecordfromMechanicLeaves--------------------------------------//
+
+
+        public static void DealerDropDown(this string ActualDealerNumber, string element)
+        {
+            int DealersCount = Drive.driver.FindElements(By.XPath(element)).Count();
+            Console.WriteLine("TotalDealers are: " + DealersCount);
+            string firstPart = element + "[";
+            string secondPart = "]";
+            for (int i = 1; i <= DealersCount; i++)
+            {
+                string finalPart = firstPart + i + secondPart;
+                Console.WriteLine(finalPart);
+                IWebElement dealerName = Drive.driver.FindElement(By.XPath(finalPart));
+                Console.WriteLine(dealerName.Text);
+                if (dealerName.Text.Contains(ActualDealerNumber))
+                {
+                    dealerName.Click();
+                    break;
+                }
+            }
+
+        }
+
+
+        public static void DropDownbyName(string value, string element)
+        {
+            string secondDDN = element + "[";
+            string thirdDDN = "]";
+
+            int DDName = Drive.driver.FindElements(By.XPath(element)).Count();
+            Console.WriteLine(DDName);
+            for (int i = 2; i <= DDName; i++)
+            {
+                string ActualDDNpath = secondDDN + i + thirdDDN;
+                IWebElement ActualPath = Drive.driver.FindElement(By.XPath(ActualDDNpath));
+                ((IJavaScriptExecutor)Drive.driver).ExecuteScript("arguments[0].scrollIntoView(true);", ActualPath);
+                Console.WriteLine(ActualPath.Text);
+                CustomWait.WaitFortheLoadingIconDisappear2000();
+                if (ActualPath.Text.Contains(value))
+                {
+                    ActualPath.Click();
+                    break;
+                }
+                
+            }
+          
+        }
 
     }
 }

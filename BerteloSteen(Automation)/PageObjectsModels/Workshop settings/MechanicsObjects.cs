@@ -43,14 +43,14 @@ namespace DARS.Automation_.PageObjectsModels.Workshop_settings
         public void ClickonDARS()
         {
             Drive.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
-            CustomWait.FluentWaitbyXPath(Drive.driver, "engLanguage");
+            CustomWait.FluentWaitbyXPath("engLanguage");
             CustomLib.Highlightelement(engLanguage);
             engLanguage.Clicks();
             //Click on DARS Tab
             CustomLib.Highlightelement(DARSHighlight);
-            CustomWait.FluentWaitbyXPath(Drive.driver, "clickonDARS");
+            CustomWait.FluentWaitbyXPath("clickonDARS");
             clickonDARS.Click();
-            CustomWait.FluentWaitbyXPath(Drive.driver, "clickonMechanicsTab");
+            CustomWait.FluentWaitbyXPath("clickonMechanicsTab");
             CustomLib.Highlightelement(clickonMechanicsTab);
             clickonMechanicsTab.Click();
 
@@ -62,7 +62,7 @@ namespace DARS.Automation_.PageObjectsModels.Workshop_settings
         /// </summary>
         public void GetPageTitle()
         {
-            CustomWait.FluentWaitbyXPath(Drive.driver, "clickonMechanicsTab");
+            CustomWait.FluentWaitbyXPath("clickonMechanicsTab");
             string title = Drive.driver.Title;
             Console.WriteLine("Title is:" + title);
             Assert.AreEqual("Mechanics", title);
@@ -73,34 +73,23 @@ namespace DARS.Automation_.PageObjectsModels.Workshop_settings
         public IWebElement SelectDealers { get; set; }
 
 
+        string MechanicDealerDropDown = " (//mat-option[@name='advSearchDealer']/span/span)";
+
+
+
         /// <summary>
         /// Select Dealer
         /// : here we can check the functionality that once we click on 
         /// dealer dropdown and then enter entry on it and select that dealer.
         /// </summary>
         /// <param name="DealerName"></param>
-        public void SelectDealer(string RandomNumber, string ActualDealerNumber)
+        public void SelectDealer(string RandomNumber, string ActualDealerNumber )
         {
-            CustomWait.FluentWaitbyXPath(Drive.driver, "selectDealers");
+            CustomWait.FluentWaitbyXPath( "selectDealers");
             SelectDealers.Clear();
             SelectDealers.SendKeys(RandomNumber);
             CustomWait.WaitFortheLoadingIconDisappear2000();
-            int DealersCount = Drive.driver.FindElements(By.XPath("(//mat-option[@name='advSearchDealer']/span/span)")).Count();
-            Console.WriteLine("TotalDealers are: " + DealersCount);
-            string firstPart = "(//mat-option[@name='advSearchDealer']/span/span)[";
-            string secondPart = "]";
-            for (int i = 1; i <= DealersCount; i++)
-            {
-                string finalPart = firstPart + i + secondPart;
-                Console.WriteLine(finalPart);
-                IWebElement dealerName = Drive.driver.FindElement(By.XPath(finalPart));
-                Console.WriteLine(dealerName.Text);
-                if (dealerName.Text.Contains(ActualDealerNumber))
-                {
-                    dealerName.Click();
-                    break;
-                }
-            }
+            CustomLib.DealerDropDown(ActualDealerNumber, MechanicDealerDropDown);
             //CustomWait.FluentWaitbyXPath(Drive.driver, "EnteredselectedDealer");
             //EnteredselectedDealer.Click();
 
@@ -129,7 +118,7 @@ namespace DARS.Automation_.PageObjectsModels.Workshop_settings
         /// <param name="SearchItem"></param>
         public void SearchBar(string SearchItem)
         {
-            CustomWait.FluentWaitbyXPath(Drive.driver, "ClickOnSearchBar");
+            CustomWait.FluentWaitbyXPath("ClickOnSearchBar");
             ClickOnSearchBar.SendKeys(SearchItem);
             ClickOnSearchBtn.Click();
 
@@ -142,7 +131,7 @@ namespace DARS.Automation_.PageObjectsModels.Workshop_settings
 
         public void clickToCreatePDF()
         {
-            CustomWait.FluentWaitbyXPath(Drive.driver, "PDF");
+            CustomWait.FluentWaitbyXPath("PDF");
             PDF.Clicks();
             CustomWait.WaitFortheLoadingIconDisappear2000();
             //Here we have to compare PDF Data with our Page Source Data.
@@ -156,7 +145,7 @@ namespace DARS.Automation_.PageObjectsModels.Workshop_settings
 
         public void clickToCreateExcel()
         {
-            CustomWait.FluentWaitbyXPath(Drive.driver, "Excel");
+            CustomWait.FluentWaitbyXPath("Excel");
             Excel.Clicks();
             CustomWait.WaitFortheLoadingIconDisappear5000();
             //Here we have to compare Excel Data with our Page Source Data.
@@ -170,9 +159,9 @@ namespace DARS.Automation_.PageObjectsModels.Workshop_settings
         public void CheckTablefoundtheSearchData()
         {
 
-            CustomWait.FluentWaitbyXPath(Drive.driver, "Mechanicstable");
+            CustomWait.FluentWaitbyXPath("Mechanicstable");
             TableUtil.ReadTable(Mechanicstable);
-            CustomWait.FluentWaitbyXPath(Drive.driver, "Mechanicstable");
+            CustomWait.FluentWaitbyXPath("Mechanicstable");
             string VerifyName = TableUtil.ReadCell("Name", 1);
             Console.WriteLine("Name in Table cell : " + VerifyName);
             Assert.AreEqual("Arvid Jensen", VerifyName);
@@ -185,7 +174,7 @@ namespace DARS.Automation_.PageObjectsModels.Workshop_settings
 
         public void clickintoActionBtn()
         {
-            CustomWait.FluentWaitbyXPath(Drive.driver, "EditButton");
+            CustomWait.FluentWaitbyXPath("EditButton");
             CustomLib.Highlightelement(EditButton);
             EditButton.Click();
             CustomWait.WaitFortheLoadingIconDisappear2000();
@@ -223,12 +212,12 @@ namespace DARS.Automation_.PageObjectsModels.Workshop_settings
 
         public void GeneralInfoTab()
         {
-            CustomWait.FluentWaitbyXPath(Drive.driver, "MechanicsAdditionalDetails");
+            CustomWait.FluentWaitbyXPath("MechanicsAdditionalDetails");
             string PageHeader = MechanicsAdditionalDetails.Text;
             Assert.AreEqual("Mechanics", PageHeader);
             Console.WriteLine("Page Header is :" + PageHeader);
             CustomWait.WaitFortheLoadingIconDisappear5000();
-            CustomWait.FluentWaitbyXPath(Drive.driver, "GeneralInfo");
+            CustomWait.FluentWaitbyXPath("GeneralInfo");
             GeneralInfo.Click();
 
         }
@@ -247,21 +236,21 @@ namespace DARS.Automation_.PageObjectsModels.Workshop_settings
 
         public void MechanicLeavesTab()
         {
-            CustomWait.FluentWaitbyXPath(Drive.driver, "MechanicLeaves");
+            CustomWait.FluentWaitbyXPath("MechanicLeaves");
             MechanicLeaves.Click();
-            CustomWait.FluentWaitbyXPath(Drive.driver, "AddMechanicLeaves");
+            CustomWait.FluentWaitbyXPath("AddMechanicLeaves");
         }
 
         public void AddMechanicLeavesTab()
         {
 
             AddMechanicLeaves.Click();
-            CustomWait.FluentWaitbyXPath(Drive.driver, "VerifyMechanicLeavesHeader");
+            CustomWait.FluentWaitbyXPath("VerifyMechanicLeavesHeader");
             string MechanicLeavePageHeader = VerifyMechanicLeavesHeader.Text;
             Assert.AreEqual("Mechanic Leave", MechanicLeavePageHeader);
             Console.WriteLine("Page Header is :" + MechanicLeavePageHeader);
 
-            CustomWait.FluentWaitbyXPath(Drive.driver, "VerifyMechanicName");
+            CustomWait.FluentWaitbyXPath("VerifyMechanicName");
             string MechanicName = VerifyMechanicName.Text;
             Assert.AreEqual("Arvid Jensen", MechanicName);
             Console.WriteLine("Mechanic Name is :" + MechanicName);
@@ -290,15 +279,15 @@ namespace DARS.Automation_.PageObjectsModels.Workshop_settings
         {
             CustomLib.Highlightelement(saveMechanicLeaveBtn);
             saveMechanicLeaveBtn.Click();
-            CustomWait.FluentWaitbyXPath(Drive.driver, "StartDateError");
+            CustomWait.FluentWaitbyXPath("StartDateError");
             string StartDateErrorText = StartDateError.Text;
             Assert.AreEqual("Start date is required", StartDateErrorText);
             Console.WriteLine("Start Date Error is :" + StartDateErrorText);
-            CustomWait.FluentWaitbyXPath(Drive.driver, "EndDateError");
+            CustomWait.FluentWaitbyXPath("EndDateError");
             string EndDateErrorText = EndDateError.Text;
             Assert.AreEqual("End date is required", EndDateErrorText);
             Console.WriteLine("End Date Error is :" + EndDateErrorText);
-            CustomWait.FluentWaitbyXPath(Drive.driver, "CancelMechanicLeavePage");
+            CustomWait.FluentWaitbyXPath("CancelMechanicLeavePage");
             CustomLib.Highlightelement(CancelMechanicLeavePage);
             CancelMechanicLeavePage.Click();
 
@@ -440,21 +429,21 @@ namespace DARS.Automation_.PageObjectsModels.Workshop_settings
 
         public void mechanicBusinessAbsenceTab()
         {
-            CustomWait.FluentWaitbyXPath(Drive.driver, "mechanicBusinessAbsence");
+            CustomWait.FluentWaitbyXPath("mechanicBusinessAbsence");
             mechanicBusinessAbsence.Click();
-            CustomWait.FluentWaitbyXPath(Drive.driver, "addMechanicBusinessAbsenceBtn");
+            CustomWait.FluentWaitbyXPath( "addMechanicBusinessAbsenceBtn");
         }
 
         public void addMechanicBusinessAbsenceTab()
         {
 
             addMechanicBusinessAbsenceBtn.Click();
-            CustomWait.FluentWaitbyXPath(Drive.driver, "VerifymechanicBusinessAbsenceHeader");
+            CustomWait.FluentWaitbyXPath( "VerifymechanicBusinessAbsenceHeader");
             string MechanicBusinessAbsenceHeader = VerifymechanicBusinessAbsenceHeader.Text;
             Assert.AreEqual("Mechanic Business Absence", MechanicBusinessAbsenceHeader);
             Console.WriteLine("Page Header is :" + MechanicBusinessAbsenceHeader);
 
-            CustomWait.FluentWaitbyXPath(Drive.driver, "VerifyMechanicNameinMBAPOPPage");
+            CustomWait.FluentWaitbyXPath("VerifyMechanicNameinMBAPOPPage");
             string MBAPOPPageMechanicName = VerifyMechanicNameinMBAPOPPage.Text;
             Assert.AreEqual("Arvid Jensen", MBAPOPPageMechanicName);
             Console.WriteLine("Mechanic Name is :" + MBAPOPPageMechanicName);
@@ -466,22 +455,22 @@ namespace DARS.Automation_.PageObjectsModels.Workshop_settings
         {
             CustomLib.Highlightelement(saveMechanicBusinessAbsenceBtn);
             saveMechanicBusinessAbsenceBtn.Click();
-            CustomWait.FluentWaitbyXPath(Drive.driver, "StartDateValidation");
+            CustomWait.FluentWaitbyXPath("StartDateValidation");
             string StartDateValidationText = StartDateValidation.Text;
             Assert.AreEqual("Start date is required", StartDateValidationText);
             Console.WriteLine("Start Date Error is :" + StartDateValidationText);
 
-            CustomWait.FluentWaitbyXPath(Drive.driver, "EndDateValidation");
+            CustomWait.FluentWaitbyXPath("EndDateValidation");
             string EndDateValidationText = EndDateValidation.Text;
             Assert.AreEqual("End date is required", EndDateValidationText);
             Console.WriteLine("End Date Error is :" + EndDateValidationText);
 
-            CustomWait.FluentWaitbyXPath(Drive.driver, "DescriptionValidation");
+            CustomWait.FluentWaitbyXPath("DescriptionValidation");
             string DescriptionValidationText = DescriptionValidation.Text;
             Assert.AreEqual("Description is Required", DescriptionValidationText);
             Console.WriteLine("Description error text is :" + DescriptionValidationText);
 
-            CustomWait.FluentWaitbyXPath(Drive.driver, "CancelMechanicBusinessAbsencePage");
+            CustomWait.FluentWaitbyXPath( "CancelMechanicBusinessAbsencePage");
             ((IJavaScriptExecutor)Drive.driver).ExecuteScript("window.scrollBy(0,200)");
             CustomLib.Highlightelement(CancelMechanicBusinessAbsencePage);
             CancelMechanicBusinessAbsencePage.Click();
@@ -492,7 +481,7 @@ namespace DARS.Automation_.PageObjectsModels.Workshop_settings
         {
             if (NoneinMechanicAbsencePage.Selected)
             {
-                CustomWait.FluentWaitbyXPath(Drive.driver, "addMechanicBusinessAbsenceBtn");
+                CustomWait.FluentWaitbyXPath("addMechanicBusinessAbsenceBtn");
                 addMechanicBusinessAbsenceBtn.Click();
                 IJavaScriptExecutor js = (IJavaScriptExecutor)Drive.driver;
                 js.ExecuteScript("document.getElementById('AbsenceStartDate').value ='20.3.2021 20:25'"); // id has been mentioned into the code of Start date field
@@ -518,7 +507,7 @@ namespace DARS.Automation_.PageObjectsModels.Workshop_settings
 
         public void MechanicRecipientListTab()
         {
-            CustomWait.FluentWaitbyXPath(Drive.driver, "mechanicCommunication");
+            CustomWait.FluentWaitbyXPath("mechanicCommunication");
             mechanicCommunication.Click();
 
         }
