@@ -14,7 +14,6 @@ namespace DARS.Automation_.PageObjectsModels.Workshop_settings
     class MechanicsObjects
     {
 
-
         [Obsolete]
         public MechanicsObjects()
         {
@@ -83,9 +82,9 @@ namespace DARS.Automation_.PageObjectsModels.Workshop_settings
         /// dealer dropdown and then enter entry on it and select that dealer.
         /// </summary>
         /// <param name="DealerName"></param>
-        public void SelectDealer(string RandomNumber, string ActualDealerNumber )
+        public void SelectDealer(string RandomNumber, string ActualDealerNumber)
         {
-            CustomWait.FluentWaitbyXPath( "selectDealers");
+            CustomWait.FluentWaitbyXPath("selectDealers");
             SelectDealers.Clear();
             SelectDealers.SendKeys(RandomNumber);
             CustomWait.WaitFortheLoadingIconDisappear2000();
@@ -341,7 +340,7 @@ namespace DARS.Automation_.PageObjectsModels.Workshop_settings
 
         public void MechanicTablesLeaveDelete(int startDate, int endDate, int Month, int Year)
         {
-            CustomLib.DeleteMechanicLeaves(startDate, endDate, Month , Year);
+            CustomLib.DeleteMechanicLeaves(startDate, endDate, Month, Year);
 
         }
 
@@ -431,14 +430,14 @@ namespace DARS.Automation_.PageObjectsModels.Workshop_settings
         {
             CustomWait.FluentWaitbyXPath("mechanicBusinessAbsence");
             mechanicBusinessAbsence.Click();
-            CustomWait.FluentWaitbyXPath( "addMechanicBusinessAbsenceBtn");
+            CustomWait.FluentWaitbyXPath("addMechanicBusinessAbsenceBtn");
         }
 
         public void addMechanicBusinessAbsenceTab()
         {
 
             addMechanicBusinessAbsenceBtn.Click();
-            CustomWait.FluentWaitbyXPath( "VerifymechanicBusinessAbsenceHeader");
+            CustomWait.FluentWaitbyXPath("VerifymechanicBusinessAbsenceHeader");
             string MechanicBusinessAbsenceHeader = VerifymechanicBusinessAbsenceHeader.Text;
             Assert.AreEqual("Mechanic Business Absence", MechanicBusinessAbsenceHeader);
             Console.WriteLine("Page Header is :" + MechanicBusinessAbsenceHeader);
@@ -470,7 +469,7 @@ namespace DARS.Automation_.PageObjectsModels.Workshop_settings
             Assert.AreEqual("Description is Required", DescriptionValidationText);
             Console.WriteLine("Description error text is :" + DescriptionValidationText);
 
-            CustomWait.FluentWaitbyXPath( "CancelMechanicBusinessAbsencePage");
+            CustomWait.FluentWaitbyXPath("CancelMechanicBusinessAbsencePage");
             ((IJavaScriptExecutor)Drive.driver).ExecuteScript("window.scrollBy(0,200)");
             CustomLib.Highlightelement(CancelMechanicBusinessAbsencePage);
             CancelMechanicBusinessAbsencePage.Click();
@@ -505,12 +504,13 @@ namespace DARS.Automation_.PageObjectsModels.Workshop_settings
 
         //<!-----------------------------*****---------------------------------mechanicBusinessAbsence Tab-----------------------------------------*****-------------------------------------->
 
-        public void MechanicRecipientListTab()
+        public void MechanicRecipientListTab(string value)
         {
             CustomWait.FluentWaitbyXPath("mechanicCommunication");
             mechanicCommunication.Click();
-
+            
         }
+
 
 
         //Xpath for the Mechanics SliderPage Close Button 

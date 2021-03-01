@@ -76,14 +76,14 @@ namespace DARS.Automation_.TestScripts.Workshop_settings
         //}
 
 
-        [Test, Order(8)]
-        [Obsolete]
-        public void EnterIntoMechanicsLeaveTab()
-        {
-            Mech = new MechanicsObjects();
-            Mech.MechanicLeavesTab();
+        //[Test, Order(8)]
+        //[Obsolete]
+        //public void EnterIntoMechanicsLeaveTab()
+        //{
+        //    Mech = new MechanicsObjects();
+        //    Mech.MechanicLeavesTab();
 
-        }
+        //}
 
 
         //[Test, Order(9)]
@@ -104,15 +104,15 @@ namespace DARS.Automation_.TestScripts.Workshop_settings
 
         //}
 
-        [Test, Order(11)]
-        [Obsolete]
-        public void EnterMechanicLeaveDetails()
-        {
-            Mech = new MechanicsObjects();
-            //Mech.EnterStartDateMechanicLeaveDetails(1,"September","2022","1");
-            //Mech.EnterEndDateMechanicLeaveDetails(2,"September","2022","2");
-            Mech.MechanicTablesLeaveDelete(26,27,02,2021);
-        }
+        //[Test, Order(11)]
+        //[Obsolete]
+        //public void EnterMechanicLeaveDetails()
+        //{
+        //    Mech = new MechanicsObjects();
+        //    //Mech.EnterStartDateMechanicLeaveDetails(1,"September","2022","1");
+        //    //Mech.EnterEndDateMechanicLeaveDetails(2,"September","2022","2");
+        //    Mech.MechanicTablesLeaveDelete(26,27,02,2021);
+        //}
 
         //[Test, Order(12)]
         //[Obsolete]
@@ -150,13 +150,13 @@ namespace DARS.Automation_.TestScripts.Workshop_settings
         //}
 
 
-        //[Test, Order(16)]
-        //[Obsolete]
-        //public void ClickintoMechanicRecipientListTab()
-        //{
-        //    Mech = new MechanicsObjects();
-        //    Mech.MechanicRecipientListTab();
-        //}
+        [Test, Order(16)]
+        [Obsolete]
+        public void ClickintoMechanicRecipientListTab()
+        {
+            Mech = new MechanicsObjects();
+            Mech.MechanicRecipientListTab("7987156822");
+        }
 
 
         //[Test, Order(17)]

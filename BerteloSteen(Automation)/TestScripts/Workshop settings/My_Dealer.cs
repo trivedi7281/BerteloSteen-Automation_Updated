@@ -23,28 +23,30 @@ namespace DARS.Automation_.TestScripts.Workshop_settings
             Dealer.SelectDealer("0", "031");
         }
 
-        [Test, Order(2)]
-        [Obsolete]
-        public void SelectRentalCarCompany()
-        {
-            Dealer = new My_DealerObjects();
-            Dealer.SelectRentalCarComp_Dropdown("");
-        }
+        //[Test, Order(2)]
+        //[Obsolete]
+        //public void SelectRentalCarCompany()
+        //{
+        //    Dealer = new My_DealerObjects();
+        //    Dealer.SelectRentalCarComp_Dropdown("");
+        //}
 
         [Test, Order(3)]
-        [Obsolete]
-        public void OpenNotification_EnterData()
-        {
-            Dealer = new My_DealerObjects();
-            Dealer.EnterNotificationDetail();
-        }
-
-        [Test, Order(4)]
         [Obsolete]
         public void OpenDealerHours_EnterData()
         {
             Dealer = new My_DealerObjects();
             Dealer.EnterDealerHours();
         }
+
+
+        //[Test, Order(4)]
+        //[Obsolete]
+        //public void OpenNotification_EnterData()
+        //{
+        //    Dealer = new My_DealerObjects();
+        //    Dealer.EnterNotificationDetail();
+        //}
+
     }
 }

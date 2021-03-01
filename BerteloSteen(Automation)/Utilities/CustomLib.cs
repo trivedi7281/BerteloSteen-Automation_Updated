@@ -201,15 +201,12 @@ namespace DARS.Automation_.Utilities
         public static void DealerDropDown(this string ActualDealerNumber, string element)
         {
             int DealersCount = Drive.driver.FindElements(By.XPath(element)).Count();
-            Console.WriteLine("TotalDealers are: " + DealersCount);
             string firstPart = element + "[";
             string secondPart = "]";
             for (int i = 1; i <= DealersCount; i++)
             {
                 string finalPart = firstPart + i + secondPart;
-                Console.WriteLine(finalPart);
                 IWebElement dealerName = Drive.driver.FindElement(By.XPath(finalPart));
-                Console.WriteLine(dealerName.Text);
                 if (dealerName.Text.Contains(ActualDealerNumber))
                 {
                     dealerName.Click();
@@ -227,7 +224,7 @@ namespace DARS.Automation_.Utilities
 
             int DDName = Drive.driver.FindElements(By.XPath(element)).Count();
             Console.WriteLine(DDName);
-            for (int i = 2; i <= DDName; i++)
+            for (int i = 2; i<= DDName; i++)
             {
                 string ActualDDNpath = secondDDN + i + thirdDDN;
                 IWebElement ActualPath = Drive.driver.FindElement(By.XPath(ActualDDNpath));

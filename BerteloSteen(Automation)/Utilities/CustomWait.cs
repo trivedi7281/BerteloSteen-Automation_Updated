@@ -37,22 +37,7 @@ namespace DARS.Automation_.Utilities
         }
 
 
-        
-        [FindsBy(How = How.XPath, Using = "//div[@class ='loading x32']")]
-        public static List<IWebElement> PageLoading { get; set; }
-
-
-        public static void waitforPageLoader(this int seconds)
-        {
-            int i = 0;
-            while (PageLoading.Count()!= 0 && i < 10)
-            {
-                System.Threading.Thread.Sleep(seconds*500);
-                i++;
-            }
-        }
-
-        public static IWebElement FluentWaitbyXPath(this string elementName)
+        public static IWebElement FluentWaitbyXPath(this string element)
         {
             try
             {
@@ -61,7 +46,7 @@ namespace DARS.Automation_.Utilities
                 fluentWait.PollingInterval = TimeSpan.FromMilliseconds(100);
                 fluentWait.IgnoreExceptionTypes(typeof(NoSuchElementException));
                 fluentWait.IgnoreExceptionTypes(typeof(ElementNotVisibleException));
-                IWebElement searchElementbyXPath = fluentWait.Until(x => x.FindElement(By.XPath(elementName)));
+                IWebElement searchElementbyXPath = fluentWait.Until(x => x.FindElement(By.XPath(element)));
                 return searchElementbyXPath;
 
             }
@@ -73,11 +58,12 @@ namespace DARS.Automation_.Utilities
             }
         }
 
-
+      
         public static IWebElement FluentWaitbyName(this string elementName)
         {
             try
             {
+                Drive.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
                 DefaultWait<IWebDriver> fluentWait = new DefaultWait<IWebDriver>(Drive.driver);
                 fluentWait.Timeout = TimeSpan.FromSeconds(1.5);
 
@@ -100,6 +86,7 @@ namespace DARS.Automation_.Utilities
         {
             try
             {
+                Drive.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
                 DefaultWait<IWebDriver> fluentWait = new DefaultWait<IWebDriver>(Drive.driver);
                 fluentWait.Timeout = TimeSpan.FromSeconds(1.5);
                 fluentWait.PollingInterval = TimeSpan.FromMilliseconds(100);
