@@ -89,19 +89,6 @@ namespace DARS.Automation_.PageObjectsModels.Workshop_settings
             SelectDealers.SendKeys(RandomNumber);
             CustomWait.WaitFortheLoadingIconDisappear2000();
             CustomLib.DealerDropDown(ActualDealerNumber, MechanicDealerDropDown);
-            //CustomWait.FluentWaitbyXPath(Drive.driver, "EnteredselectedDealer");
-            //EnteredselectedDealer.Click();
-
-            //selectDealers.Clear();
-            //selectDealers.SendKeys(DealerName2);
-            //CustomLib.FluentWaitbyXPath(Drive.driver, "SelectAnotherDealer");
-            //SelectAnotherDealer.Click();
-
-            //selectDealers.Clear();
-            //selectDealers.SendKeys(DealerName);
-            //CustomLib.FluentWaitbyXPath(Drive.driver, "EnteredselectedDealer");
-            //EnteredselectedDealer.Click();
-
         }
 
 
@@ -508,7 +495,7 @@ namespace DARS.Automation_.PageObjectsModels.Workshop_settings
         {
             CustomWait.FluentWaitbyXPath("mechanicCommunication");
             mechanicCommunication.Click();
-            
+
         }
 
 

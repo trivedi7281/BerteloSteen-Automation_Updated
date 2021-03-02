@@ -43,11 +43,13 @@
     <Compile Include="Helper\ActivityLog.cs" />
     <Compile Include="Helper\GetMethod.cs" />
     <Compile Include="Helper\SetMethod.cs" />
-    <Compile Include="PageObjectsModels\Workshop settings\Dealer_Service.cs" />
+    <Compile Include="PageObjectsModels\Workshop settings\AppointmentObjects.cs" />
+    <Compile Include="PageObjectsModels\Workshop settings\DealerServiceObjects.cs" />
     <Compile Include="PageObjectsModels\Workshop settings\MechanicsObjects.cs" />
     <Compile Include="PageObjectsModels\Login\GetPropertiesObjects.cs" />
     <Compile Include="PageObjectsModels\Login\LoginPageObjects.cs" />
     <Compile Include="PageObjectsModels\Workshop settings\My_DealerObjects.cs" />
+    <Compile Include="TestScripts\Workshop settings\Appointment.cs" />
     <Compile Include="Utilities\CustomLib.cs" />
     <Compile Include="Utilities\CustomWait.cs" />
     <Compile Include="Utilities\Drive.cs" />

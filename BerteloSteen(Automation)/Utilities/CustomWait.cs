@@ -37,6 +37,47 @@ namespace DARS.Automation_.Utilities
         }
 
 
+        public static void WaitforcompletePageLoad()
+        {
+            Boolean ele = Drive.driver.FindElement(By.XPath("//*[@class='d-block fade modal show']//div[@class='loading_wrp']//img")).Displayed;
+            IJavaScriptExecutor js = (IJavaScriptExecutor)Drive.driver;
+            for (int i=1; i<=60; i++)
+            {
+                try
+                {
+                    System.Threading.Thread.Sleep(1000);
+
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.StackTrace);
+                }
+                if (js.ExecuteScript("return document.readyState").ToString().Equals("complete"))
+                {
+                    Console.WriteLine("Page is loaded Completely");
+                    
+                }
+                else if(!ele)
+                {
+                    Console.WriteLine("PageLoader is loaded Completely");
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine("Page loader is Running" + i);
+                }
+            }
+            
+        }
+
+
+
+
+
+
+
+     
+
         public static IWebElement FluentWaitbyXPath(this string element)
         {
             try

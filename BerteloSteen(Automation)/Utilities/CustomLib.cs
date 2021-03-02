@@ -224,7 +224,7 @@ namespace DARS.Automation_.Utilities
 
             int DDName = Drive.driver.FindElements(By.XPath(element)).Count();
             Console.WriteLine(DDName);
-            for (int i = 2; i<= DDName; i++)
+            for (int i = 1; i<= DDName; i++)
             {
                 string ActualDDNpath = secondDDN + i + thirdDDN;
                 IWebElement ActualPath = Drive.driver.FindElement(By.XPath(ActualDDNpath));
