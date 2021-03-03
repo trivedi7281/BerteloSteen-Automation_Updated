@@ -24,7 +24,7 @@ namespace DARS.Automation_.PageObjectsModels.Login
 
         public void EnterUserName(string userName)
         {
-            Drive.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(3);
+            Drive.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
             //Enter UserName
             CustomLib.Highlightelement(TxtUserName);
             CustomWait.FluentWaitbyXPath("txtUserName");

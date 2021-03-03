@@ -82,11 +82,11 @@ namespace DARS.Automation_.PageObjectsModels.Workshop_settings
         /// dealer dropdown and then enter entry on it and select that dealer.
         /// </summary>
         /// <param name="DealerName"></param>
-        public void SelectDealer(string RandomNumber, string ActualDealerNumber)
+        public void SelectDealer(string RandomNumberofActualDealerNumber, string ActualDealerNumber)
         {
             CustomWait.FluentWaitbyXPath("selectDealers");
             SelectDealers.Clear();
-            SelectDealers.SendKeys(RandomNumber);
+            SelectDealers.SendKeys(RandomNumberofActualDealerNumber);
             CustomWait.WaitFortheLoadingIconDisappear2000();
             CustomLib.DealerDropDown(ActualDealerNumber, MechanicDealerDropDown);
         }

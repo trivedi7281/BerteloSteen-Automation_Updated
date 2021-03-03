@@ -50,7 +50,26 @@ namespace DARS.Automation_.TestScripts.Workshop_settings
         public void StatusBarDetails()
         {
             AppObject = new AppointmentObjects();
+            AppObject.AppointmentStatus("All");
+            AppObject.AppointmentType("All");
             AppObject.StatusBarDtl();
         }
+
+        [Test, Order(6)]
+        [Obsolete]
+        public void ClickonCreateAppointment()
+        {
+            AppObject = new AppointmentObjects();
+            AppObject.ClickCreateAppointment();
+            AppObject.SelectWorkOrder("Parts order");
+            AppObject.SelectDealer("0", "031");
+            AppObject.AppointmentSearchVehicle("Search", "DN58600");
+            AppObject.CreateOrSelectBooking("Active", "3361127");
+        }
+
+     
+
+
+
     }
 }

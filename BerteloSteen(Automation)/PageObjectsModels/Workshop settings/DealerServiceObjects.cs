@@ -67,11 +67,11 @@ namespace DARS.Automation_.PageObjectsModels.Workshop_settings
 
 
 
-        public void SelectDealer(string RandomNumber, string ActualDealerNumber)
+        public void SelectDealer(string RandomNumberofActualDealerNumber, string ActualDealerNumber)
         {
             CustomWait.FluentWaitbyXPath("selectDealers");
             SelectDealers.Clear();
-            SelectDealers.SendKeys(RandomNumber);
+            SelectDealers.SendKeys(RandomNumberofActualDealerNumber);
             CustomWait.WaitFortheLoadingIconDisappear2000();
             CustomLib.DealerDropDown(ActualDealerNumber, DealerServiceDropDown);
         }

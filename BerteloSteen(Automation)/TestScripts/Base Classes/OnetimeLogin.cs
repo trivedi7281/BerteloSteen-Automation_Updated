@@ -53,7 +53,11 @@ namespace DARS.Automation_.TestScripts.Base_Classes
             {
                 Info information = new Info();
                 ChromeOptions options = new ChromeOptions();
-                options.AddArgument("no-sandbox");
+                options.AddArguments("no-sandbox");
+                options.AddExcludedArgument("enable-automation");
+                options.AddUserProfilePreference("credentials_enable_service", false);
+                options.AddUserProfilePreference("profile.password_manager_enabled", false);
+                options.AddAdditionalCapability("useAutomationExtension", false);
                 Drive.driver = new ChromeDriver(ChromeDriverService.CreateDefaultService(), options, TimeSpan.FromMinutes(2));
                 Drive.driver.Manage().Timeouts().PageLoad.Add(TimeSpan.FromSeconds(30));
                 //naviate to Url
