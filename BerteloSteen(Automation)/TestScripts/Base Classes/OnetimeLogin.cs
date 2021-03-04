@@ -58,7 +58,7 @@ namespace DARS.Automation_.TestScripts.Base_Classes
                 options.AddUserProfilePreference("credentials_enable_service", false);
                 options.AddUserProfilePreference("profile.password_manager_enabled", false);
                 options.AddAdditionalCapability("useAutomationExtension", false);
-                Drive.driver = new ChromeDriver(ChromeDriverService.CreateDefaultService(), options, TimeSpan.FromMinutes(2));
+                Drive.driver = new ChromeDriver(@information.chrome, options, TimeSpan.FromMinutes(3));
                 Drive.driver.Manage().Timeouts().PageLoad.Add(TimeSpan.FromSeconds(30));
                 //naviate to Url
                 Drive.driver.Manage().Window.Maximize();

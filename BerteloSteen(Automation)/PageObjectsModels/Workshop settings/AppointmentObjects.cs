@@ -118,24 +118,27 @@ namespace DARS.Automation_.PageObjectsModels.Workshop_settings
         [FindsBy(How = How.XPath, Using = "//button[@id='appointmentAddButton']")]
         public IWebElement AppointmentButton { get; set; }
 
-        [FindsBy(How = How.XPath, Using = "//*[@id='SearchVehicleOrCustomerTitle']")]
+        [FindsBy(How = How.XPath, Using = "//div[@id='SearchVehicleOrCustomerTitle']")]
         public IWebElement SearchVehiclePageTitle { get; set; }
 
-        [FindsBy(How = How.XPath, Using = "//input[@placeholder='Select Dealer']")]
+        [FindsBy(How = How.XPath, Using = "(//input[@placeholder='Select Dealer'])[2]")]
         public IWebElement SelectDealers { get; set; }
 
-        string AppointmentDealerDropDown = " (//mat-option[@name='advSearchDealer']/span/span)";
+        string AppointmentDealerDropDown = "(//mat-option[@name='advSearchDealer']/span/span)";
 
         public void ClickCreateAppointment()
         {
+            CustomWait.WaitFortheLoadingIconDisappear3000();
+            CustomWait.FluentWaitbyXPath("AppointmentButton");
             AppointmentButton.Click();
+            CustomWait.WaitFortheLoadingIconDisappear2000();
             Console.WriteLine(SearchVehiclePageTitle.Text);
         }
 
         string WorkOrder1 = "(//label[contains(text(),'";
         string WorkOrder2 = "')])";
 
-        public void SelectWorkOrder(string Work_Order)
+        public void AppointmentSelectWorkOrder(string Work_Order)
         {
             string WorkOrderFinal = WorkOrder1 + Work_Order + WorkOrder2;
             IWebElement WorkOrderType = Drive.driver.FindElement(By.XPath(WorkOrderFinal));
@@ -144,9 +147,10 @@ namespace DARS.Automation_.PageObjectsModels.Workshop_settings
 
         }
 
-        public void SelectDealer(string RandomNumberofActualDealerNumber = null, string ActualDealerNumber = null)
+        public void AppointmentSelectDealer(string RandomNumberofActualDealerNumber = null, string ActualDealerNumber = null)
         {
             SelectDealers.Clear();
+            CustomWait.WaitFortheLoadingIconDisappear2000();
             SelectDealers.SendKeys(RandomNumberofActualDealerNumber);
             CustomWait.WaitFortheLoadingIconDisappear2000();
             CustomLib.DealerDropDown(ActualDealerNumber, AppointmentDealerDropDown);
@@ -182,37 +186,41 @@ namespace DARS.Automation_.PageObjectsModels.Workshop_settings
         [FindsBy(How = How.XPath, Using = "//button[@id='cancelVehicleSearch']")]
         public IWebElement cancelVehicleSearch { get; set; }
 
+        string search = "Search";
+        string advSearch = "AdvanceSearch";
+
 
         public void AppointmentSearchVehicle(string SearchOption, string Vehicle = null, string Advlabel = null)
         {
 
-            if (SearchOption == "Search")
+            if (SearchOption == search)
             {
                 AppointmentGlobalSearch.Clear();
                 AppointmentGlobalSearch.SendKeys(Vehicle);
+                CustomWait.WaitFortheLoadingIconDisappear3000();
                 searchVehicleBtn.Clicks();
                 CustomWait.WaitFortheLoadingIconDisappear3000();
             }
-            else if (SearchOption == "AdvanceSearch")
+            else if (SearchOption == advSearch)
             {
                 string MainLabel = labelPartone + Advlabel + labelParttwo;
                 IWebElement GetLabel = Drive.driver.FindElement(By.XPath(MainLabel));
-                string Label = GetLabel.Text;
+                
                 advVehicleSearch.Click();
                 CustomWait.WaitFortheLoadingIconDisappear1000();
-                if (Label == Advlabel)
+                if (GetLabel.Text == Advlabel)
                 {
                     VehicleLicensePlate.SendKeys(Vehicle);
                 }
-                else if (Label == Advlabel)
+                else if (GetLabel.Text == Advlabel)
                 {
                     VehicleChassisNo.SendKeys(Vehicle);
                 }
-                else if (Label == Advlabel)
+                else if (GetLabel.Text == Advlabel)
                 {
                     VehiclePartNo.SendKeys(Vehicle);
                 }
-                else if (Label == Advlabel)
+                else if (GetLabel.Text == Advlabel)
                 {
                     VehicleSerialNo.SendKeys(Vehicle);
                 }
@@ -231,59 +239,96 @@ namespace DARS.Automation_.PageObjectsModels.Workshop_settings
 
         string OpenActiveBookingCount = "//div[@id='appointmentListScroll']//table[@id='existingWorkOrdersTable']/tbody/tr";
 
-
+        [FindsBy(How = How.XPath, Using = "//*[@id='existingWorkOrdersTable']/tbody/tr[1]/td[15]/div/a")]
+        public IWebElement SelectExistBooking { get; set; }
+        
         [FindsBy(How = How.XPath, Using = "(//div[@id='ExistingWorkOrderDetailsPopup']//a)[1]")]
         public IWebElement CloseActiveBooking { get; set; }
 
         string VehicleTableCount = "(//div[@class='vehicle-customer-box'])[2]//table/tbody/tr";
 
-        public void CreateOrSelectBooking(string SelectOption, string ActiveId = null , string NewLPNo = null)
+        string active = "Active";
+        string New = "New";
+
+
+        public void AppointmentCreateOrSelectBooking(string SelectOption,string NewLPNo = null)
         {
-            if (SelectOption == "Active")
+            if (SelectOption == active)
             {
+                CustomWait.WaitFortheLoadingIconDisappear5000();
                 Console.WriteLine(OpenActiveModalTitle.Text);
                 int ActiveRowCount = Drive.driver.FindElements(By.XPath(OpenActiveBookingCount)).Count();
-                Console.WriteLine(OpenActiveModalTitle.Text + ActiveRowCount);
-                string BeforeRowData = "//td[contains(text(), '";
-                string AfterRowData = "')]/parent::*//td[15]//a[@title = 'Edit']";
-                for (int i = 1; i <= ActiveRowCount; i++)
-                {
-                    string ActualRowData = BeforeRowData + ActiveId + AfterRowData;
-                    IWebElement FinalRowData = Drive.driver.FindElement(By.XPath(ActualRowData));
-                    ((IJavaScriptExecutor)Drive.driver).ExecuteScript("arguments[0].scrollIntoView(true);", FinalRowData);
-                    if (FinalRowData.Text.Contains(ActiveId))
-                    {
-                        FinalRowData.Click();
-                        break;
-                    }
-                    
-                }
-
+                Console.WriteLine(OpenActiveModalTitle.Text + ':' + ActiveRowCount);
+                CustomWait.WaitFortheLoadingIconDisappear3000();
+                SelectExistBooking.Click();
             }
-            else if (SelectOption == "New")
+            else if (SelectOption == New)
             {
-                CustomWait.WaitFortheLoadingIconDisappear2000();
+                CustomWait.WaitFortheLoadingIconDisappear3000();
                 CloseActiveBooking.Click();
                 int VehicleRowCount = Drive.driver.FindElements(By.XPath(VehicleTableCount)).Count();
-                string BeforeVehicle = "((//div[contains(text() , '";
-                string AfterVehicle = "')])/parent::td[contains(@data-th ,'License')])/parent::*/td[@data-th = 'Actions']";
-
-                for (int i = 1; i <= VehicleRowCount; i++)
+                string BeforeVehicle = "((//div[contains(text(),'";
+                string AfterVehicle = "')])/parent::td[contains(@data-th,'License')])/parent::*/td[@data-th='Actions']";
+                for (int i = 1; i<= VehicleRowCount; i++)
                 {
                     string ActualRowData = BeforeVehicle + NewLPNo + AfterVehicle;
                     IWebElement FinalVehicleData = Drive.driver.FindElement(By.XPath(ActualRowData));
                     ((IJavaScriptExecutor)Drive.driver).ExecuteScript("arguments[0].scrollIntoView(true);", FinalVehicleData);
-                    if (FinalVehicleData.Text.Contains(NewLPNo))
-                    {
-                        FinalVehicleData.Click();
-                        break;
-                    }
-                    
+                    CustomWait.WaitFortheLoadingIconDisappear2000();
+                    FinalVehicleData.Click();
                 }
-
 
             }
 
+        }
+
+        [FindsBy(How = How.XPath, Using = "(//*[@id='addAppointmentDetails'])[2]/div[1]/div[1]/div[1]")]
+        public IWebElement EditAppointmentDetailScreen { get; set; }
+
+        [FindsBy(How = How.XPath, Using = "((//div[@id='addAppointmentDetails'])[2]//div/span)[1]")]
+        public IWebElement EditAppointmentDetailScreenID { get; set; }
+
+        [FindsBy(How = How.XPath, Using = "((//div[@id='addAppointmentDetails'])[2]//div/span)[2]")]
+        public IWebElement EditAppointmentDetailScreenVIN { get; set; }
+
+        [FindsBy(How = How.XPath, Using = "((//div[@id='addAppointmentDetails'])[2]//div/span)[3]")]
+        public IWebElement EditAppointmentDetailScreenLP { get; set; }
+
+        [FindsBy(How = How.XPath, Using = "(//*[@id='addAppointmentDetails'])[1]/div[1]/div[1]/div[1]")]
+        public IWebElement CreateAppointmentDetailScreen { get; set; }
+
+        [FindsBy(How = How.XPath, Using = "((//div[@id='addAppointmentDetails'])[1]//div/span)[1]")]
+        public IWebElement CreateAppointmentDetailScreenID { get; set; }
+
+        [FindsBy(How = How.XPath, Using = "((//div[@id='addAppointmentDetails'])[1]//div/span)[2]")]
+        public IWebElement CreateAppointmentDetailScreenVIN { get; set; }
+
+        [FindsBy(How = How.XPath, Using = "((//div[@id='addAppointmentDetails'])[1]//div/span)[3]")]
+        public IWebElement CreateAppointmentDetailScreenLP { get; set; }
+
+
+        public void AppointmentDetailscreen(string SelectOption)
+        {
+            if (SelectOption == active)
+            {
+                CustomWait.WaitFortheLoadingIconDisappear5000();
+                CustomWait.WaitFortheLoadingIconDisappear2000();
+                CustomWait.FluentWaitbyXPath("EditAppointmentDetailScreen");
+                Console.WriteLine(EditAppointmentDetailScreen.Text);
+                Console.WriteLine(EditAppointmentDetailScreenID.Text);
+                Console.WriteLine(EditAppointmentDetailScreenVIN.Text);
+                Console.WriteLine(EditAppointmentDetailScreenLP.Text);
+            }
+            else if (SelectOption == New)
+            {
+                CustomWait.WaitFortheLoadingIconDisappear5000();
+                CustomWait.WaitFortheLoadingIconDisappear2000();
+                CustomWait.FluentWaitbyXPath("CreateAppointmentDetailScreen");
+                Console.WriteLine(CreateAppointmentDetailScreen.Text);
+                Console.WriteLine(CreateAppointmentDetailScreenID.Text);
+                Console.WriteLine(CreateAppointmentDetailScreenVIN.Text);
+                Console.WriteLine(CreateAppointmentDetailScreenLP.Text);
+            }
         }
 
 

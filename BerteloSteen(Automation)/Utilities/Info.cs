@@ -16,12 +16,13 @@ namespace DARS.Automation_.Utilities
         public string baseURL;
         public string username;
         public string password;
+        public string chrome;
         public Info()
         {
             baseURL = ConfigurationManager.AppSettings["url"];
             username = ConfigurationManager.AppSettings["username"];
             password = ConfigurationManager.AppSettings["password"];
-
+            chrome = ConfigurationManager.AppSettings["ChromePath"];
 
         }
 
