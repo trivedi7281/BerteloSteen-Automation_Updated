@@ -66,6 +66,8 @@ namespace DARS.Automation_.TestScripts.Workshop_settings
             AppObject.AppointmentSearchVehicle("AdvanceSearch" , "DN58600" , "License plate");
             AppObject.AppointmentCreateOrSelectBooking("Active", "DN58600");
             AppObject.AppointmentDetailscreen("Active");
+            AppObject.CreateNewDemand("Active");
+            //AppObject.ValidateSDCR("Active");
         }
 
      

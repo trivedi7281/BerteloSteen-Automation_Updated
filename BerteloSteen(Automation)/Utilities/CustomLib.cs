@@ -241,5 +241,17 @@ namespace DARS.Automation_.Utilities
           
         }
 
+
+
+        [FindsBy(How = How.Id, Using = "toast-container")]
+        public static IWebElement AlerttextMessage { get; set; }
+
+        public static void AlertMessage()
+        {
+            CustomWait.WaitFortheLoadingIconDisappear1000();
+            string alerMessage = AlerttextMessage.Text;
+            Console.WriteLine("Alert Message :" + alerMessage);
+        }
+
     }
 }
