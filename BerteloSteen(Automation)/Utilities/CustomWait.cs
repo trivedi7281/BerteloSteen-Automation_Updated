@@ -19,7 +19,7 @@ namespace DARS.Automation_.Utilities
 
         public static void WaitFortheLoadingIconDisappear5000()
         {
-            System.Threading.Thread.Sleep(5000);
+            System.Threading.Thread.Sleep(4500);
         }
         public static void WaitFortheLoadingIconDisappear3000()
         {

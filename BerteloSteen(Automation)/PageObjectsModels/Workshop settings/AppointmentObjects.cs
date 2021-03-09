@@ -205,7 +205,7 @@ namespace DARS.Automation_.PageObjectsModels.Workshop_settings
             {
                 string MainLabel = labelPartone + Advlabel + labelParttwo;
                 IWebElement GetLabel = Drive.driver.FindElement(By.XPath(MainLabel));
-                
+
                 advVehicleSearch.Click();
                 CustomWait.WaitFortheLoadingIconDisappear1000();
                 if (GetLabel.Text == Advlabel)
@@ -241,7 +241,7 @@ namespace DARS.Automation_.PageObjectsModels.Workshop_settings
 
         [FindsBy(How = How.XPath, Using = "//*[@id='existingWorkOrdersTable']/tbody/tr[1]/td[15]/div/a")]
         public IWebElement SelectExistBooking { get; set; }
-        
+
         [FindsBy(How = How.XPath, Using = "(//div[@id='ExistingWorkOrderDetailsPopup']//a)[1]")]
         public IWebElement CloseActiveBooking { get; set; }
 
@@ -251,7 +251,7 @@ namespace DARS.Automation_.PageObjectsModels.Workshop_settings
         string New = "New";
 
 
-        public void AppointmentCreateOrSelectBooking(string SelectOption,string NewLPNo = null)
+        public void AppointmentCreateOrSelectBooking(string SelectOption, string NewLPNo = null)
         {
             if (SelectOption == active)
             {
@@ -274,9 +274,10 @@ namespace DARS.Automation_.PageObjectsModels.Workshop_settings
                     string ActualRowData = BeforeVehicle + NewLPNo + AfterVehicle;
                     IWebElement FinalVehicleData = Drive.driver.FindElement(By.XPath(ActualRowData));
                     ((IJavaScriptExecutor)Drive.driver).ExecuteScript("arguments[0].scrollIntoView(true);", FinalVehicleData);
-                    CustomWait.WaitFortheLoadingIconDisappear2000();
+                    CustomWait.WaitFortheLoadingIconDisappear3000();
                     FinalVehicleData.Click();
-                    CustomLib.AlertMessage();
+                    CustomWait.WaitFortheLoadingIconDisappear2000();
+                    CustomLib.MultipleAlertMessages();
                 }
 
             }
@@ -322,7 +323,7 @@ namespace DARS.Automation_.PageObjectsModels.Workshop_settings
             }
             else if (SelectOption == New)
             {
-                CustomWait.WaitFortheLoadingIconDisappear5000();
+                CustomWait.WaitFortheLoadingIconDisappear3000();
                 CustomWait.WaitFortheLoadingIconDisappear2000();
                 CustomWait.FluentWaitbyXPath("CreateAppointmentDetailScreen");
                 Console.WriteLine(CreateAppointmentDetailScreen.Text);
@@ -334,29 +335,31 @@ namespace DARS.Automation_.PageObjectsModels.Workshop_settings
 
         [FindsBy(How = How.XPath, Using = "(//div[@id='appointmentGeneralInfo']//button[@id='addDemandButton'])[1]")]
         public IWebElement NewAddNewDemand { get; set; }
-        
+
         [FindsBy(How = How.XPath, Using = "(//div[@id='appointmentGeneralInfo']//button[@id='addDemandButton'])[2]")]
         public IWebElement ActiveAddNewDemand { get; set; }
 
         [FindsBy(How = How.XPath, Using = "//*[@id='AppointmentDemandServiceTable']/tbody/tr/td[contains(text(), 'No Record Found')]")]
         public IWebElement NRFinDemands { get; set; }
 
-
+        [FindsBy(How = How.XPath, Using = "//table[@id='AppointmentDemandServiceTable']/tbody/tr/td[@data-th='Short Description']")]
+        public IWebElement ForNewDemand { get; set; }
 
         public void CreateNewDemand(string SelectOption)
         {
             if (SelectOption == active)
             {
-                if (NRFinDemands.Displayed)
-                {
-                    CustomWait.WaitFortheLoadingIconDisappear2000();
-                    ActiveAddNewDemand.Click();
-                }
+                CustomWait.WaitFortheLoadingIconDisappear2000();
+                ActiveAddNewDemand.Click();
             }
             else if (SelectOption == New)
             {
-                CustomWait.WaitFortheLoadingIconDisappear2000();
-                NewAddNewDemand.Click();
+                ((IJavaScriptExecutor)Drive.driver).ExecuteScript("arguments[0].scrollIntoView(true);", ForNewDemand);
+                if (!ForNewDemand.Displayed)
+                {
+                    CustomWait.WaitFortheLoadingIconDisappear2000();
+                    NewAddNewDemand.Click();
+                }
 
             }
         }
@@ -371,14 +374,17 @@ namespace DARS.Automation_.PageObjectsModels.Workshop_settings
         {
             if (SelectOption == active)
             {
+                ((IJavaScriptExecutor)Drive.driver).ExecuteScript("arguments[0].scrollIntoView(true);", ActiveSDCR);
                 CustomWait.WaitFortheLoadingIconDisappear2000();
                 ActiveSDCR.Click();
                 CustomLib.MultipleAlertMessages();
             }
             else if (SelectOption == New)
             {
+                ((IJavaScriptExecutor)Drive.driver).ExecuteScript("arguments[0].scrollIntoView(true);", NewSDCR);
                 CustomWait.WaitFortheLoadingIconDisappear2000();
                 NewSDCR.Click();
+                CustomWait.WaitFortheLoadingIconDisappear2000();
                 CustomLib.MultipleAlertMessages();
 
             }
@@ -390,21 +396,19 @@ namespace DARS.Automation_.PageObjectsModels.Workshop_settings
 
         string BeforeActiveShortDescription = "(//td[@class='csttextareasize']//*[@id='ShortDescriptions";
         string AfterActiveShortDescription = "'])[2]";
-     
-        public void EnterShortDescription(string SelectOption , int Row ,  string ShortDescription)
+
+        public void EnterShortDescription(string SelectOption, int Row, string ShortDescription)
         {
-            string ActualNewShortDescription = BeforeNewShortDescription + Row + AfterNewShortDescription;
-            IWebElement FinalNewShortDescription = Drive.driver.FindElement(By.XPath(ActualNewShortDescription));
-
-            string ActualActiveShortDescription = BeforeActiveShortDescription + Row + AfterActiveShortDescription;
-            IWebElement FinalActiveShortDescription = Drive.driver.FindElement(By.XPath(ActualActiveShortDescription));
-
             if (SelectOption == active)
             {
+                string ActualActiveShortDescription = BeforeActiveShortDescription + Row + AfterActiveShortDescription;
+                IWebElement FinalActiveShortDescription = Drive.driver.FindElement(By.XPath(ActualActiveShortDescription));
                 FinalActiveShortDescription.SendKeys(ShortDescription);
             }
             else if (SelectOption == New)
             {
+                string ActualNewShortDescription = BeforeNewShortDescription + Row + AfterNewShortDescription;
+                IWebElement FinalNewShortDescription = Drive.driver.FindElement(By.XPath(ActualNewShortDescription));
                 FinalNewShortDescription.SendKeys(ShortDescription);
 
             }
@@ -418,73 +422,96 @@ namespace DARS.Automation_.PageObjectsModels.Workshop_settings
 
         public void EnterCustomerRequirement(string SelectOption, int Row, string CustomerRequirement)
         {
-            string ActualNewCustomerRequirement = BeforeNewCustomerRequirement + Row + AfterNewCustomerRequirement;
-            IWebElement FinalNewCustomerRequirement = Drive.driver.FindElement(By.XPath(ActualNewCustomerRequirement));
-
-            string ActualActiveCustomerRequirement = BeforeActiveCustomerRequirement + Row + AfterActiveCustomerRequirement;
-            IWebElement FinalActiveCustomerRequirement = Drive.driver.FindElement(By.XPath(ActualActiveCustomerRequirement));
-
-
-
             if (SelectOption == active)
             {
-                FinalActiveCustomerRequirement.Clear();
+                string ActualActiveCustomerRequirement = BeforeActiveCustomerRequirement + Row + AfterActiveCustomerRequirement;
+                IWebElement FinalActiveCustomerRequirement = Drive.driver.FindElement(By.XPath(ActualActiveCustomerRequirement));
+                CustomWait.WaitFortheLoadingIconDisappear2000();
+                FinalActiveCustomerRequirement.SendKeys(Keys.Control);
+                FinalActiveCustomerRequirement.SendKeys("A");
+                FinalActiveCustomerRequirement.SendKeys(Keys.Delete);
                 FinalActiveCustomerRequirement.SendKeys(CustomerRequirement);
             }
             else if (SelectOption == New)
             {
+                string ActualNewCustomerRequirement = BeforeNewCustomerRequirement + Row + AfterNewCustomerRequirement;
+                IWebElement FinalNewCustomerRequirement = Drive.driver.FindElement(By.XPath(ActualNewCustomerRequirement));
+                CustomWait.WaitFortheLoadingIconDisappear2000();
+                FinalNewCustomerRequirement.SendKeys(Keys.Control);
+                FinalNewCustomerRequirement.SendKeys("A");
+                FinalNewCustomerRequirement.SendKeys(Keys.Delete);
                 FinalNewCustomerRequirement.Clear();
                 FinalNewCustomerRequirement.SendKeys(CustomerRequirement);
-
             }
         }
 
 
-        string BeforeActiveAddActions = "(//*[@id='AppointmentSelectedJobTable']/tbody/tr[";
-        string MiddileActiveAddActions = "]/td[11]/div/ul/li/a[contains(@title,'";
+        string BeforeActiveAddActions = "(//table[@id='AppointmentSelectedJobTable']/tbody/tr/td[contains(text(),'";
+        string MiddileBefActiveAddActions = "')]/parent::*/td[contains(text(),'";
+        string MiddileAfterActiveAddActions = "')]/parent::*/td[11]/div/ul/li/a[contains(@title,'";
         string AfterActiveAddActions = "')])[2]";
 
-        string BeforeNewAddActions = "(//*[@id='AppointmentSelectedJobTable']/tbody/tr[";
-        string MiddileNewAddActions = "]/td[11]/div/ul/li/a[contains(@title,'";
+        string BeforeNewAddActions = "(//table[@id='AppointmentSelectedJobTable']/tbody/tr/td[contains(text(),'";
+        string MiddileBefNewAddActions = "')]/parent::*/td[contains(text(),'";
+        string MiddileAfterNewAddActions = "')]/parent::*/td[11]/div/ul/li/a[contains(@title,'";
         string AfterNewAddActions = "')])[1]";
 
-        public void AddActions(string SelectOption, int Row, string Actions)
+        public void AddActions(string SelectOption, int Demand, int Job, string Actions)
         {
-            string ActualActiveAddActions = BeforeActiveAddActions + Row + MiddileActiveAddActions + Actions + AfterActiveAddActions;
-            IWebElement FinalActiveAddActions = Drive.driver.FindElement(By.XPath(ActualActiveAddActions));
-
-            string ActualNewAddActions = BeforeNewAddActions + Row + MiddileNewAddActions + Actions + AfterNewAddActions;
-            IWebElement FinalNewAddActions = Drive.driver.FindElement(By.XPath(ActualNewAddActions));
-
             if (SelectOption == active)
             {
+                string ActualActiveAddActions = BeforeActiveAddActions + Demand + MiddileBefActiveAddActions + Job + MiddileAfterActiveAddActions + Actions + AfterActiveAddActions;
+                IWebElement FinalActiveAddActions = Drive.driver.FindElement(By.XPath(ActualActiveAddActions));
                 FinalActiveAddActions.Click();
             }
             else if (SelectOption == New)
             {
+                string ActualNewAddActions = BeforeNewAddActions + Demand + MiddileBefNewAddActions + Job + MiddileAfterNewAddActions + Actions + AfterNewAddActions;
+                IWebElement FinalNewAddActions = Drive.driver.FindElement(By.XPath(ActualNewAddActions));
                 FinalNewAddActions.Click();
-
             }
-
         }
-
-
-
-
-
-
-
-
-
-
 
 
         [FindsBy(How = How.XPath, Using = "//*[@id='addPackagePopup']/div/div[1]")]
         public IWebElement AddPackageTitle { get; set; }
 
-        public void ValidateAddPackageTitle()
+        [FindsBy(How = How.XPath, Using = "//span[@id='servicePopupTitle']")]
+        public IWebElement AddServiceTitle { get; set; }
+
+        [FindsBy(How = How.XPath, Using = "//*[@id='addPackagePopup']/div/div[1]")]
+        public IWebElement AddOperationTitle { get; set; }
+
+        [FindsBy(How = How.XPath, Using = "//*[@id='appointmentPartsPopup']/div/div[1]")]
+        public IWebElement AddMaterialTitle { get; set; }
+
+        [FindsBy(How = How.XPath, Using = "//*[@id='appointmentAopPopup']/div/div[1]")]
+        public IWebElement AddAOPTitle { get; set; }
+
+
+        public void ValidateAddPackageTitle(string ModalTitle)
         {
-            Console.WriteLine(AddPackageTitle.Text);
+            if (ModalTitle == "Add Package")
+            {
+                Console.WriteLine(AddPackageTitle.Text);
+            }
+            else if (ModalTitle == "Add Service")
+            {
+                Console.WriteLine(AddServiceTitle.Text);
+            }
+            else if (ModalTitle == "Add Operation")
+            {
+                Console.WriteLine(AddOperationTitle.Text);
+            }
+            else if (ModalTitle == "Add Material")
+            {
+                Console.WriteLine(AddMaterialTitle.Text);
+            }
+            else if (ModalTitle == "Add AOP")
+            {
+                Console.WriteLine(AddAOPTitle.Text);
+            }
+
         }
 
 
@@ -493,36 +520,145 @@ namespace DARS.Automation_.PageObjectsModels.Workshop_settings
 
         string operationgroup = "(//mat-option[@role='option']/span)";
 
-
         [FindsBy(How = How.XPath, Using = "(//*[@id='AppointmentJobTable']/tbody/tr/td[2]//label)[1]")]
         public IWebElement selectJobFromTable { get; set; }
+
+        public void AddingPackage(string selectOperation)
+        {
+            AddOperationGroup.Click();
+            CustomLib.DropDownbyName(selectOperation, operationgroup);
+            selectJobFromTable.Click();
+        }
 
         [FindsBy(How = How.XPath, Using = "//*[@id='addPackage']")]
         public IWebElement AddPackageOkBtn { get; set; }
 
-        public void AddingOperationGroup()
+        [FindsBy(How = How.XPath, Using = "//button[@id='addManualService']")]
+        public IWebElement AddServiceOkBtn { get; set; }
+
+        [FindsBy(How = How.XPath, Using = "//button[@id='saveOperation']")]
+        public IWebElement AddOperationSaveBtn { get; set; }
+
+        [FindsBy(How = How.XPath, Using = "//button[@id='addMaterial']")]
+        public IWebElement AddMaterialOkBtn { get; set; }
+
+        [FindsBy(How = How.XPath, Using = "//button[@id='addAopButton']")]
+        public IWebElement AddAOPOkBtn { get; set; }
+
+        public void AddModal(string ModalTitle)
         {
-            AddOperationGroup.Click();
-            CustomLib.DropDownbyName(" Forrige søk ", operationgroup);
-            selectJobFromTable.Click();
-            AddPackageOkBtn.Click();
+            if (ModalTitle == "Add Package")
+            {
+                AddPackageOkBtn.Click();
+                CustomWait.WaitFortheLoadingIconDisappear3000();
+                CustomLib.MultipleAlertMessages();
+            }
+            else if (ModalTitle == "Add Service")
+            {
+                AddServiceOkBtn.Click();
+                CustomWait.WaitFortheLoadingIconDisappear5000();
+                CustomLib.MultipleAlertMessages();
+            }
+            else if (ModalTitle == "Add Operation")
+            {
+                AddOperationSaveBtn.Click();
+                CustomWait.WaitFortheLoadingIconDisappear5000();
+                CustomLib.MultipleAlertMessages();
+            }
+            else if (ModalTitle == "Add Material")
+            {
+                AddMaterialOkBtn.Click();
+                CustomWait.WaitFortheLoadingIconDisappear5000();
+                CustomLib.MultipleAlertMessages();
+            }
+            else if (ModalTitle == "Add AOP")
+            {
+                AddAOPOkBtn.Click();
+                CustomWait.WaitFortheLoadingIconDisappear5000();
+                CustomLib.MultipleAlertMessages();
+            }
 
         }
 
+        [FindsBy(How = How.XPath, Using = "//button[contains(@class,'cancelPackage')]")]
+        public IWebElement CancelPackageModalBtn { get; set; }
 
+        [FindsBy(How = How.XPath, Using = "//button[contains(@class,'cancelManualService')]")]
+        public IWebElement CancelServiceModalBtn { get; set; }
 
+        [FindsBy(How = How.XPath, Using = "//button[contains(@class,'cancelOperation')]")]
+        public IWebElement CancelOperationModalBtn { get; set; }
 
+        [FindsBy(How = How.XPath, Using = "//button[contains(@class,'cancelAopPopup')]")]
+        public IWebElement CancelMaterialModalBtn { get; set; }
 
-        //Click on Add Services (//a[contains(@title,'Add Service')])[2]
-        // Validate title of Add service Modal //span[@id="servicePopupTitle"]
-        // count of services and name all the labels  //div[@id="bosBillServices"]/ul/li/label
-        // from this only we have to select any one option but validate with selecting two option that what error shows.
-        //Validate Add Operation //*[@id="addPackagePopup"]/div/div[1]
-        // Enter Description in Add Operation //input[@id="operationDescription"]
-        //Add Quantity //input[@id="Time"]
-        // Add with plus button //a[@title = "Add Row"]
-        // delete that add row //a[@title="Delete Row"]
-        // save operation //button[@id="saveOperation"]
+        [FindsBy(How = How.XPath, Using = "//button[contains(@class,'cancelAopPopup')]")]
+        public IWebElement CancelAOPModalBtn { get; set; }
+
+        public void CancelModal(string ModalTitle)
+        {
+            if (ModalTitle == "Add Package")
+            {
+                CancelPackageModalBtn.Click();
+            }
+            else if (ModalTitle == "Add Service")
+            {
+                CancelServiceModalBtn.Click();
+            }
+            else if (ModalTitle == "Add Operation")
+            {
+                CancelOperationModalBtn.Click();
+            }
+            else if (ModalTitle == "Add Material")
+            {
+                CancelMaterialModalBtn.Click();
+            }
+            else if (ModalTitle == "Add AOP")
+            {
+                CancelAOPModalBtn.Click();
+            }
+
+        }
+
+        string OtherServices = "(//div[@id='bosBillServices']/ul/li/label)";
+
+        public void AddingService(string Service)
+        {
+            CustomLib.DropDownbyName(Service, OtherServices);
+        }
+
+        [FindsBy(How = How.XPath, Using = "//input[@id='operationDescription']")]
+        public IWebElement EnterDescription { get; set; }
+
+        [FindsBy(How = How.XPath, Using = "//input[@id='Time']")]
+        public IWebElement EnterQuantity { get; set; }
+
+        [FindsBy(How = How.XPath, Using = "//input[@id='unitPrice']")]
+        public IWebElement UnitPrice { get; set; }
+
+        [FindsBy(How = How.XPath, Using = "//input[@id='salesPriceAmount']")]
+        public IWebElement SalesPriceAmount { get; set; }
+
+        [FindsBy(How = How.XPath, Using = "//a[@title='Add Row']")]
+        public IWebElement AddRowInOperation { get; set; }
+
+        [FindsBy(How = How.XPath, Using = "//a[@title='Delete Row']")]
+        public IWebElement DeleteRowInOperation { get; set; }
+
+        public void AddingOperation(string Description , string Quantity)
+        {
+            EnterDescription.SendKeys(Description);
+            EnterQuantity.Clear();
+            EnterQuantity.SendKeys(Quantity);
+            string unitPrice = UnitPrice.GetText();
+            Console.WriteLine(unitPrice);
+            string salesPriceAmount = SalesPriceAmount.GetText();
+            Console.WriteLine(salesPriceAmount);
+            Assert.AreEqual("3478", salesPriceAmount);
+            CustomWait.WaitFortheLoadingIconDisappear3000();
+            AddRowInOperation.Click();
+            
+        }
 
 
 

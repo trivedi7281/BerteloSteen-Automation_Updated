@@ -1,5 +1,6 @@
 ﻿using DARS.Automation_.PageObjectsModels.Workshop_settings;
 using DARS.Automation_.TestScripts.Base_Classes;
+using DARS.Automation_.Utilities;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
@@ -63,18 +64,60 @@ namespace DARS.Automation_.TestScripts.Workshop_settings
             AppObject.ClickCreateAppointment();
             AppObject.AppointmentSelectWorkOrder("Appointment");
             AppObject.AppointmentSelectDealer("0", "031");
-            AppObject.AppointmentSearchVehicle("AdvanceSearch" , "DN58600" , "License plate");
-            AppObject.AppointmentCreateOrSelectBooking("Active", "DN58600");
-            AppObject.AppointmentDetailscreen("Active");
-            AppObject.CreateNewDemand("Active");
-            AppObject.ValidateSDCR("Active");
-            AppObject.EnterShortDescription("Active" , 1 , "Test Appointment short Description");
-            AppObject.EnterCustomerRequirement("Active", 1, "Test Appointment Customer Requirement");
-            AppObject.AddActions("Active", 1, "Add Package");
-            AppObject.ValidateAddPackageTitle();
+            AppObject.AppointmentSearchVehicle("Search","DN58600");
+            AppObject.AppointmentCreateOrSelectBooking("New","DN58600");
+            AppObject.AppointmentDetailscreen("New");
         }
 
-     
+        [Test, Order(7)]
+        [Obsolete]
+        public void ClickonCreateDemand()
+        {
+            AppObject.CreateNewDemand("New");
+            AppObject.ValidateSDCR("New");
+            AppObject.EnterShortDescription("New", 1, "Test Appointment short Description");
+            AppObject.EnterCustomerRequirement("New", 1, "Test Appointment Customer Requirement");
+        }
+
+        [Test, Order(8)]
+        [Obsolete]
+        public void AddPackage()
+        {
+            AppObject.AddActions("New", 1, 1, "Add Package");
+            AppObject.ValidateAddPackageTitle("Add Package");
+            AppObject.AddingPackage("Forrige søk");
+            AppObject.AddModal("Add Package");
+            CustomWait.WaitFortheLoadingIconDisappear3000();
+        }
+
+        [Test, Order(9)]
+        [Obsolete]
+        public void AddService()
+        {
+            AppObject.AddActions("New", 1, 1, "Add Service");
+            AppObject.ValidateAddPackageTitle("Add Service");
+            AppObject.AddingService("Cool Season");
+            AppObject.AddingService("Service");
+            AppObject.AddModal("Add Service");
+            AppObject.AddingService("Service");
+            AppObject.AddModal("Add Service");
+            CustomWait.WaitFortheLoadingIconDisappear3000();
+        }
+
+        [Test, Order(9)]
+        [Obsolete]
+        public void AddOperation()
+        {
+            AppObject.AddActions("New", 1, 1, "Add Operation");
+            AppObject.ValidateAddPackageTitle("Add Operation");
+            AppObject.AddingOperation("Testing Service" , "2");
+
+
+        }
+
+
+
+
 
 
 

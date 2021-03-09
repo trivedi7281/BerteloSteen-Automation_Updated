@@ -223,7 +223,6 @@ namespace DARS.Automation_.Utilities
             string thirdDDN = "]";
 
             int DDName = Drive.driver.FindElements(By.XPath(element)).Count();
-            Console.WriteLine(DDName);
             for (int i = 1; i<= DDName; i++)
             {
                 string ActualDDNpath = secondDDN + i + thirdDDN;
@@ -242,16 +241,6 @@ namespace DARS.Automation_.Utilities
         }
 
 
-
-        [FindsBy(How = How.Id, Using = "toast-container")]
-        public static IWebElement AlerttextMessage { get; set; }
-
-        public static void AlertMessage()
-        {
-            CustomWait.WaitFortheLoadingIconDisappear1000();
-            string alerMessage = AlerttextMessage.Text;
-            Console.WriteLine("Alert Message :" + alerMessage);
-        }
 
         public static void MultipleAlertMessages()
         {
