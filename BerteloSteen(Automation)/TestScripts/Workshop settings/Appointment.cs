@@ -67,7 +67,11 @@ namespace DARS.Automation_.TestScripts.Workshop_settings
             AppObject.AppointmentCreateOrSelectBooking("Active", "DN58600");
             AppObject.AppointmentDetailscreen("Active");
             AppObject.CreateNewDemand("Active");
-            //AppObject.ValidateSDCR("Active");
+            AppObject.ValidateSDCR("Active");
+            AppObject.EnterShortDescription("Active" , 1 , "Test Appointment short Description");
+            AppObject.EnterCustomerRequirement("Active", 1, "Test Appointment Customer Requirement");
+            AppObject.AddActions("Active", 1, "Add Package");
+            AppObject.ValidateAddPackageTitle();
         }
 
      

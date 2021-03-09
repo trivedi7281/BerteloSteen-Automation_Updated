@@ -338,12 +338,20 @@ namespace DARS.Automation_.PageObjectsModels.Workshop_settings
         [FindsBy(How = How.XPath, Using = "(//div[@id='appointmentGeneralInfo']//button[@id='addDemandButton'])[2]")]
         public IWebElement ActiveAddNewDemand { get; set; }
 
+        [FindsBy(How = How.XPath, Using = "//*[@id='AppointmentDemandServiceTable']/tbody/tr/td[contains(text(), 'No Record Found')]")]
+        public IWebElement NRFinDemands { get; set; }
+
+
+
         public void CreateNewDemand(string SelectOption)
         {
             if (SelectOption == active)
             {
-                CustomWait.WaitFortheLoadingIconDisappear2000();
-                ActiveAddNewDemand.Click();
+                if (NRFinDemands.Displayed)
+                {
+                    CustomWait.WaitFortheLoadingIconDisappear2000();
+                    ActiveAddNewDemand.Click();
+                }
             }
             else if (SelectOption == New)
             {
@@ -365,15 +373,13 @@ namespace DARS.Automation_.PageObjectsModels.Workshop_settings
             {
                 CustomWait.WaitFortheLoadingIconDisappear2000();
                 ActiveSDCR.Click();
-                CustomWait.WaitFortheLoadingIconDisappear2000();
-                CustomLib.AlertMessage();
+                CustomLib.MultipleAlertMessages();
             }
             else if (SelectOption == New)
             {
                 CustomWait.WaitFortheLoadingIconDisappear2000();
                 NewSDCR.Click();
-                CustomWait.WaitFortheLoadingIconDisappear2000();
-                CustomLib.AlertMessage();
+                CustomLib.MultipleAlertMessages();
 
             }
 
@@ -461,13 +467,52 @@ namespace DARS.Automation_.PageObjectsModels.Workshop_settings
             }
 
         }
-        
-        //Click on Add Package (//a[contains(@title,'Add Package')])[2]
-        //validate title of Add Package Modal //*[@id="addPackagePopup"]/div/div[1]
-        //open Operation group //*[@id="ProfileKey"]
-        // first take a count by this cxpath then make function (//mat-option[@role='option']/span)
-        //click on the Package check box (//*[@id="AppointmentJobTable"]/tbody/tr/td[2]//label)[1]
-        //click on Add Package //*[@id="addPackage"]
+
+
+
+
+
+
+
+
+
+
+
+
+        [FindsBy(How = How.XPath, Using = "//*[@id='addPackagePopup']/div/div[1]")]
+        public IWebElement AddPackageTitle { get; set; }
+
+        public void ValidateAddPackageTitle()
+        {
+            Console.WriteLine(AddPackageTitle.Text);
+        }
+
+
+        [FindsBy(How = How.XPath, Using = "//*[@id='ProfileKey']")]
+        public IWebElement AddOperationGroup { get; set; }
+
+        string operationgroup = "(//mat-option[@role='option']/span)";
+
+
+        [FindsBy(How = How.XPath, Using = "(//*[@id='AppointmentJobTable']/tbody/tr/td[2]//label)[1]")]
+        public IWebElement selectJobFromTable { get; set; }
+
+        [FindsBy(How = How.XPath, Using = "//*[@id='addPackage']")]
+        public IWebElement AddPackageOkBtn { get; set; }
+
+        public void AddingOperationGroup()
+        {
+            AddOperationGroup.Click();
+            CustomLib.DropDownbyName(" Forrige søk ", operationgroup);
+            selectJobFromTable.Click();
+            AddPackageOkBtn.Click();
+
+        }
+
+
+
+
+
         //Click on Add Services (//a[contains(@title,'Add Service')])[2]
         // Validate title of Add service Modal //span[@id="servicePopupTitle"]
         // count of services and name all the labels  //div[@id="bosBillServices"]/ul/li/label

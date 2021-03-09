@@ -253,5 +253,20 @@ namespace DARS.Automation_.Utilities
             Console.WriteLine("Alert Message :" + alerMessage);
         }
 
+        public static void MultipleAlertMessages()
+        {
+            int AlertCount = Drive.driver.FindElements(By.XPath("(//div[@id='toast-container']//div[@role='alertdialog'])")).Count();
+            Console.WriteLine(AlertCount);
+            for (int i = 1; i <=AlertCount; i++)
+            {
+                string BeforeAlert = "(//div[@id='toast-container']//div[@role='alertdialog'])[";
+                string AfterAlert = "]";
+
+                string ActualAlert = BeforeAlert + i + AfterAlert;
+                IWebElement finalAlert = Drive.driver.FindElement(By.XPath(ActualAlert));
+                Console.WriteLine(finalAlert.Text); 
+            }
+        }
+
     }
 }
