@@ -223,7 +223,7 @@ namespace DARS.Automation_.Utilities
             string thirdDDN = "]";
 
             int DDName = Drive.driver.FindElements(By.XPath(element)).Count();
-            for (int i = 1; i<= DDName; i++)
+            for (int i = 1; i <= DDName; i++)
             {
                 string ActualDDNpath = secondDDN + i + thirdDDN;
                 IWebElement ActualPath = Drive.driver.FindElement(By.XPath(ActualDDNpath));
@@ -235,25 +235,39 @@ namespace DARS.Automation_.Utilities
                     ActualPath.Click();
                     break;
                 }
-                
+
             }
-          
+
         }
 
 
+        public static void AlertMessage()
+        {
+            CustomWait.WaitFortheLoadingIconDisappear1000();
+            int AlertCount = Drive.driver.FindElements(By.XPath("(//div[@id='toast-container']//div[@role='alertdialog'])")).Count();
+            Console.WriteLine(AlertCount);
+            for (int i = 1; i <= AlertCount; i++)
+            {
+                string beforeAlert = "(//div[@id='toast-container']//div[@role='alertdialog'])[";
+                string afterAlert = "]";
 
+                string ActualAlert = beforeAlert + i + afterAlert;
+                IWebElement finalAlert = Drive.driver.FindElement(By.XPath(ActualAlert));
+                Console.WriteLine(finalAlert.Text);
+            }
+        }
         public static void MultipleAlertMessages()
         {
             int AlertCount = Drive.driver.FindElements(By.XPath("(//div[@id='toast-container']//div[@role='alertdialog'])")).Count();
             Console.WriteLine(AlertCount);
-            for (int i = 1; i <=AlertCount; i++)
+            for (int i = 1; i <= AlertCount; i++)
             {
                 string BeforeAlert = "(//div[@id='toast-container']//div[@role='alertdialog'])[";
                 string AfterAlert = "]";
 
                 string ActualAlert = BeforeAlert + i + AfterAlert;
                 IWebElement finalAlert = Drive.driver.FindElement(By.XPath(ActualAlert));
-                Console.WriteLine(finalAlert.Text); 
+                Console.WriteLine(finalAlert.Text);
             }
         }
 

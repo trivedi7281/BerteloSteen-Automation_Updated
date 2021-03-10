@@ -269,7 +269,7 @@ namespace DARS.Automation_.PageObjectsModels.Workshop_settings
                 int VehicleRowCount = Drive.driver.FindElements(By.XPath(VehicleTableCount)).Count();
                 string BeforeVehicle = "((//div[contains(text(),'";
                 string AfterVehicle = "')])/parent::td[contains(@data-th,'License')])/parent::*/td[@data-th='Actions']";
-                for (int i = 1; i<= VehicleRowCount; i++)
+                for (int i = 1; i <= VehicleRowCount; i++)
                 {
                     string ActualRowData = BeforeVehicle + NewLPNo + AfterVehicle;
                     IWebElement FinalVehicleData = Drive.driver.FindElement(By.XPath(ActualRowData));
@@ -277,7 +277,7 @@ namespace DARS.Automation_.PageObjectsModels.Workshop_settings
                     CustomWait.WaitFortheLoadingIconDisappear3000();
                     FinalVehicleData.Click();
                     CustomWait.WaitFortheLoadingIconDisappear2000();
-                    CustomLib.MultipleAlertMessages();
+                    CustomLib.AlertMessage();
                 }
 
             }
@@ -550,32 +550,27 @@ namespace DARS.Automation_.PageObjectsModels.Workshop_settings
             if (ModalTitle == "Add Package")
             {
                 AddPackageOkBtn.Click();
-                CustomWait.WaitFortheLoadingIconDisappear3000();
-                CustomLib.MultipleAlertMessages();
+                CustomLib.AlertMessage();
             }
             else if (ModalTitle == "Add Service")
             {
                 AddServiceOkBtn.Click();
-                CustomWait.WaitFortheLoadingIconDisappear5000();
-                CustomLib.MultipleAlertMessages();
+                CustomLib.AlertMessage();
             }
             else if (ModalTitle == "Add Operation")
             {
                 AddOperationSaveBtn.Click();
-                CustomWait.WaitFortheLoadingIconDisappear5000();
-                CustomLib.MultipleAlertMessages();
+                CustomLib.AlertMessage();
             }
             else if (ModalTitle == "Add Material")
             {
                 AddMaterialOkBtn.Click();
-                CustomWait.WaitFortheLoadingIconDisappear5000();
-                CustomLib.MultipleAlertMessages();
+                CustomLib.AlertMessage();
             }
             else if (ModalTitle == "Add AOP")
             {
                 AddAOPOkBtn.Click();
-                CustomWait.WaitFortheLoadingIconDisappear5000();
-                CustomLib.MultipleAlertMessages();
+                CustomLib.AlertMessage();
             }
 
         }
@@ -645,26 +640,127 @@ namespace DARS.Automation_.PageObjectsModels.Workshop_settings
         [FindsBy(How = How.XPath, Using = "//a[@title='Delete Row']")]
         public IWebElement DeleteRowInOperation { get; set; }
 
-        public void AddingOperation(string Description , string Quantity)
+        public void AddingOperation(string Description, string Quantity)
         {
+            EnterDescription.SendKeys(Keys.Control);
+            EnterDescription.SendKeys("A");
+            EnterDescription.SendKeys(Keys.Delete);
             EnterDescription.SendKeys(Description);
             EnterQuantity.Clear();
             EnterQuantity.SendKeys(Quantity);
+            EnterDescription.SendKeys(Keys.Tab);
             string unitPrice = UnitPrice.GetText();
             Console.WriteLine(unitPrice);
+            CustomWait.WaitFortheLoadingIconDisappear2000();
             string salesPriceAmount = SalesPriceAmount.GetText();
             Console.WriteLine(salesPriceAmount);
-            Assert.AreEqual("3478", salesPriceAmount);
-            CustomWait.WaitFortheLoadingIconDisappear3000();
             AddRowInOperation.Click();
-            
+            CustomWait.WaitFortheLoadingIconDisappear2000();
+            DeleteRowInOperation.Click();
         }
 
+        public void AgainAddingOperation(string Quantity)
+        {
+            EnterQuantity.Clear();
+            EnterQuantity.SendKeys(Quantity);
+            AddRowInOperation.Click();
+        }
+
+        [FindsBy(How = How.XPath, Using = "//input[@id='adv_PartNo']")]
+        public IWebElement EnterPartNo { get; set; }
+
+        [FindsBy(How = How.XPath, Using = "//a[@id='partsSearchButton']")]
+        public IWebElement EnterPartSearchBtn { get; set; }
+
+        [FindsBy(How = How.XPath, Using = "//*[@id='Quantity']")]
+        public IWebElement Enterquantity { get; set; }
+
+        public void AddingMaterial(string PartNo, string Quantity)
+        {
+            EnterPartNo.SendKeys(PartNo);
+            EnterPartSearchBtn.Click();
+            CustomWait.WaitFortheLoadingIconDisappear2000();
+            Enterquantity.SendKeys(Keys.Control);
+            Enterquantity.SendKeys("A");
+            Enterquantity.SendKeys(Keys.Delete);
+            Enterquantity.Clear();
+            Enterquantity.SendKeys(Quantity);
+        }
+
+        string BeforeAddAOPfromTable = "//table[@id='AppointmentAopTable']/tbody/tr/td[contains(text(),'";
+        string AfterAddAOPfromTable = "')]/parent::*/td[1]/div/a";
+
+        public void selectOperationGroup(string selectOperation)
+        {
+            AddOperationGroup.Click();
+            CustomLib.DropDownbyName(selectOperation, operationgroup);
+        }
+
+        public void AddingAOP(string SalesPart)
+        {
+            string FinalAddAOPfromTable = BeforeAddAOPfromTable + SalesPart + AfterAddAOPfromTable;
+            IWebElement MainAddAOPfromTable = Drive.driver.FindElement(By.XPath(FinalAddAOPfromTable));
+            ((IJavaScriptExecutor)Drive.driver).ExecuteScript("arguments[0].scrollIntoView(true);", MainAddAOPfromTable);
+            MainAddAOPfromTable.Click();
+        }
+
+        string BeforeDeleteAOPfromTable = "//table[@id='AppointmentAddedAopTable']/tbody/tr/td[contains(text(),'";
+        string AfterDeleteAOPfromTable = "')]/parent::*/td[1]/div/a";
+
+        public void DeletingAOP(string SalesPart)
+        {
+            CustomWait.WaitFortheLoadingIconDisappear2000();
+            string FinalDeleteAOPfromTable = BeforeDeleteAOPfromTable + SalesPart + AfterDeleteAOPfromTable;
+            IWebElement MainDeleteAOPfromTable = Drive.driver.FindElement(By.XPath(FinalDeleteAOPfromTable));
+            ((IJavaScriptExecutor)Drive.driver).ExecuteScript("arguments[0].scrollIntoView(true);", MainDeleteAOPfromTable);
+            MainDeleteAOPfromTable.Click();
+        }
+
+        [FindsBy(How = How.XPath, Using = "//*[@id='WarrantyPreApproval']/div/div/label")]
+        public IWebElement CustomerApprovalCheckBox { get; set; }
+
+        [FindsBy(How = How.XPath, Using = "//*[@id='DemandId1070764']/td[14]/div[1]")]
+        public IWebElement Actions { get; set; }
+
+        string ActionDropdown = "((//div[@class='divAppointmentDemandActions']/ul)[2]/li//span)";
+
+        
+        [FindsBy(How = How.XPath, Using = "//*[@id='AfConfirmationModalPopup']//div[@class='appointment-comment-title']")]
+        public IWebElement ApproveBehalfcustomerTitle { get; set; }
+
+        [FindsBy(How = How.XPath, Using = "//*[@id='AfConfirmationModalPopup']/div/div[3]/div[2]/input")]
+        public IWebElement ApproveBehalfcustomer{ get; set; }
+
+        [FindsBy(How = How.XPath, Using = "//button[@id='btnSaveComments']")]
+        public IWebElement ApproveBehalfcustomerSave { get; set; }
+
+        [FindsBy(How = How.XPath, Using = "//button[contains(@class,'cancelGlobalComments')]")]
+        public IWebElement ApproveBehalfcustomerCancel { get; set; }
 
 
+        [FindsBy(How = How.XPath, Using = "//*[@id='WarrantyPreApproval']/div/span")]
+        public IWebElement ApproveBehalfcustomerChecked { get; set; }
+        
+        public void GiveCustomerApproval(string DropDownAction , string Comment = null)
+        {
+            CustomerApprovalCheckBox.Click();
+            Actions.Click();
+            CustomLib.DropDownbyName(DropDownAction , ActionDropdown);
+            Console.WriteLine(ApproveBehalfcustomerTitle.Text);
+            ApproveBehalfcustomer.SendKeys(Comment);
+            ApproveBehalfcustomerSave.Click();
+            CustomWait.WaitFortheLoadingIconDisappear3000();
+            bool ValidateApproval = ApproveBehalfcustomerChecked.Displayed;
+            Console.WriteLine("Approve Behalf of Customer is" + "_" + ValidateApproval);
+        }
 
+        [FindsBy(How = How.XPath, Using = "//*[@id='DemandId1070764']/td[7]/div/label")]
+        public IWebElement WarrantyCheckBox { get; set; }
 
-
+        public void GiveWarranty()
+        {
+            WarrantyCheckBox.Click();  
+        }
 
     }
 }

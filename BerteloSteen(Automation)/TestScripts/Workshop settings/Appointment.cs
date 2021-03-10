@@ -85,7 +85,9 @@ namespace DARS.Automation_.TestScripts.Workshop_settings
         {
             AppObject.AddActions("New", 1, 1, "Add Package");
             AppObject.ValidateAddPackageTitle("Add Package");
+            AppObject.AddModal("Add Package");
             AppObject.AddingPackage("Forrige søk");
+            CustomWait.WaitFortheLoadingIconDisappear2000();
             AppObject.AddModal("Add Package");
             CustomWait.WaitFortheLoadingIconDisappear3000();
         }
@@ -100,6 +102,7 @@ namespace DARS.Automation_.TestScripts.Workshop_settings
             AppObject.AddingService("Service");
             AppObject.AddModal("Add Service");
             AppObject.AddingService("Service");
+            CustomWait.WaitFortheLoadingIconDisappear2000();
             AppObject.AddModal("Add Service");
             CustomWait.WaitFortheLoadingIconDisappear3000();
         }
@@ -111,9 +114,47 @@ namespace DARS.Automation_.TestScripts.Workshop_settings
             AppObject.AddActions("New", 1, 1, "Add Operation");
             AppObject.ValidateAddPackageTitle("Add Operation");
             AppObject.AddingOperation("Testing Service" , "2");
-
-
+            AppObject.AddModal("Add Operation");
+            AppObject.AgainAddingOperation("2");
+            CustomWait.WaitFortheLoadingIconDisappear2000();
+            AppObject.AddModal("Add Operation");
+            CustomWait.WaitFortheLoadingIconDisappear3000();
         }
+
+
+        [Test, Order(10)]
+        [Obsolete]
+        public void AddMaterial()
+        {
+            AppObject.AddActions("New", 1, 1, "Add Material");
+            AppObject.ValidateAddPackageTitle("Add Material");
+            AppObject.AddModal("Add Material");
+            AppObject.AddingMaterial("2", "2");
+            AppObject.AddModal("Add Material");
+            CustomWait.WaitFortheLoadingIconDisappear3000();
+        }
+
+        [Test, Order(11)]
+        [Obsolete]
+        public void AddAOP()
+        {
+            AppObject.AddActions("New", 1, 1, "Add AOP");
+            AppObject.ValidateAddPackageTitle("Add AOP");
+            AppObject.AddModal("Add AOP");
+            CustomWait.WaitFortheLoadingIconDisappear5000();
+            AppObject.selectOperationGroup("Forrige søk");
+            CustomWait.WaitFortheLoadingIconDisappear10000();
+            AppObject.AddingAOP("007941");
+            CustomWait.WaitFortheLoadingIconDisappear2000();
+            AppObject.DeletingAOP("007941");
+            CustomWait.WaitFortheLoadingIconDisappear2000();
+            AppObject.AddingAOP("007941");
+            AppObject.AddModal("Add AOP");
+            CustomWait.WaitFortheLoadingIconDisappear3000();
+        }
+
+
+
 
 
 
