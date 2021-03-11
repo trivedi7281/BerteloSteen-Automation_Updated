@@ -2,6 +2,7 @@
 using DARS.Automation_.Utilities;
 using NUnit.Framework;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.Events;
 using OpenQA.Selenium.Support.PageObjects;
 using System;
@@ -16,7 +17,7 @@ namespace DARS.Automation_.PageObjectsModels.Workshop_settings
         public AppointmentObjects() => PageFactory.InitElements(Drive.driver, this);
 
         [FindsBy(How = How.XPath, Using = "//ul/li[@id='engli']/a")]
-        public IWebElement engLanguage { get; set; }
+        public IWebElement EngLanguage { get; set; }
 
 
         public void ClickonLanguage()
@@ -24,8 +25,8 @@ namespace DARS.Automation_.PageObjectsModels.Workshop_settings
             CustomWait.WaitFortheLoadingIconDisappear5000();
             Drive.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
             CustomWait.FluentWaitbyXPath("engLanguage");
-            CustomLib.Highlightelement(engLanguage);
-            engLanguage.Clicks();
+            CustomLib.Highlightelement(EngLanguage);
+            EngLanguage.Clicks();
         }
 
 
@@ -642,8 +643,7 @@ namespace DARS.Automation_.PageObjectsModels.Workshop_settings
 
         public void AddingOperation(string Description, string Quantity)
         {
-            EnterDescription.SendKeys(Keys.Control);
-            EnterDescription.SendKeys("A");
+            EnterDescription.SendKeys(Keys.Control + "A");
             EnterDescription.SendKeys(Keys.Delete);
             EnterDescription.SendKeys(Description);
             EnterQuantity.Clear();
@@ -680,10 +680,8 @@ namespace DARS.Automation_.PageObjectsModels.Workshop_settings
             EnterPartNo.SendKeys(PartNo);
             EnterPartSearchBtn.Click();
             CustomWait.WaitFortheLoadingIconDisappear2000();
-            Enterquantity.SendKeys(Keys.Control);
-            Enterquantity.SendKeys("A");
+            Enterquantity.SendKeys(Keys.Control + "A");
             Enterquantity.SendKeys(Keys.Delete);
-            Enterquantity.Clear();
             Enterquantity.SendKeys(Quantity);
         }
 
@@ -719,48 +717,143 @@ namespace DARS.Automation_.PageObjectsModels.Workshop_settings
         [FindsBy(How = How.XPath, Using = "//*[@id='WarrantyPreApproval']/div/div/label")]
         public IWebElement CustomerApprovalCheckBox { get; set; }
 
-        [FindsBy(How = How.XPath, Using = "//*[@id='DemandId1070764']/td[14]/div[1]")]
+        [FindsBy(How = How.XPath, Using = "//td/div[contains(@class,'dropdown-button')]")]
         public IWebElement Actions { get; set; }
 
         string ActionDropdown = "((//div[@class='divAppointmentDemandActions']/ul)[2]/li//span)";
 
-        
+
         [FindsBy(How = How.XPath, Using = "//*[@id='AfConfirmationModalPopup']//div[@class='appointment-comment-title']")]
-        public IWebElement ApproveBehalfcustomerTitle { get; set; }
+        public IWebElement ApproveBehalfCustomerTitle { get; set; }
+
+        [FindsBy(How = How.XPath, Using = "//*[@id='AfConfirmationModalPopup']/div/div[3]/div[1]/p")]
+        public IWebElement ApproveBehalfCustomerText { get; set; }
+
 
         [FindsBy(How = How.XPath, Using = "//*[@id='AfConfirmationModalPopup']/div/div[3]/div[2]/input")]
-        public IWebElement ApproveBehalfcustomer{ get; set; }
+        public IWebElement ApproveBehalfCustomerInput { get; set; }
 
         [FindsBy(How = How.XPath, Using = "//button[@id='btnSaveComments']")]
-        public IWebElement ApproveBehalfcustomerSave { get; set; }
+        public IWebElement ApproveBehalfCustomerSave { get; set; }
 
         [FindsBy(How = How.XPath, Using = "//button[contains(@class,'cancelGlobalComments')]")]
-        public IWebElement ApproveBehalfcustomerCancel { get; set; }
+        public IWebElement ApproveBehalfCustomerCancel { get; set; }
 
 
         [FindsBy(How = How.XPath, Using = "//*[@id='WarrantyPreApproval']/div/span")]
-        public IWebElement ApproveBehalfcustomerChecked { get; set; }
-        
-        public void GiveCustomerApproval(string DropDownAction , string Comment = null)
+        public IWebElement ApproveBehalfCustomerChecked { get; set; }
+
+        public void GiveCustomerApproval(string DropDownAction, string Comment = null)
         {
+            ((IJavaScriptExecutor)Drive.driver).ExecuteScript("arguments[0].scrollIntoView(true);", CustomerApprovalCheckBox);
             CustomerApprovalCheckBox.Click();
+            ((IJavaScriptExecutor)Drive.driver).ExecuteScript("arguments[0].scrollIntoView(true);", Actions);
             Actions.Click();
-            CustomLib.DropDownbyName(DropDownAction , ActionDropdown);
-            Console.WriteLine(ApproveBehalfcustomerTitle.Text);
-            ApproveBehalfcustomer.SendKeys(Comment);
-            ApproveBehalfcustomerSave.Click();
+            CustomWait.WaitFortheLoadingIconDisappear2000();
+            CustomLib.DropDownbyName(DropDownAction, ActionDropdown);
+            Console.WriteLine(ApproveBehalfCustomerTitle.Text);
+            Console.WriteLine(ApproveBehalfCustomerText.Text);
+            ApproveBehalfCustomerInput.SendKeys(Comment);
+            ApproveBehalfCustomerSave.Click();
             CustomWait.WaitFortheLoadingIconDisappear3000();
-            bool ValidateApproval = ApproveBehalfcustomerChecked.Displayed;
+            bool ValidateApproval = ApproveBehalfCustomerChecked.Displayed;
             Console.WriteLine("Approve Behalf of Customer is" + "_" + ValidateApproval);
         }
 
-        [FindsBy(How = How.XPath, Using = "//*[@id='DemandId1070764']/td[7]/div/label")]
+        [FindsBy(How = How.XPath, Using = "//td[@data-th='Warranty']//label")]
         public IWebElement WarrantyCheckBox { get; set; }
 
         public void GiveWarranty()
         {
-            WarrantyCheckBox.Click();  
+            CustomWait.WaitFortheLoadingIconDisappear2000();
+            WarrantyCheckBox.Click();
         }
+
+        [FindsBy(How = How.XPath, Using = "(//tbody[@id='AppointmentJobDetailsBody']/tr/td[13]/input)[2]")]
+        public IWebElement FixedPriceChange { get; set; }
+
+        [FindsBy(How = How.XPath, Using = "//div[@id='priceCausePopup']//div[@class='appointment-comment-title']")]
+        public IWebElement CauseCodesDeletionTitle { get; set; }
+
+        string CodesDropDown = "(//div[@id='priceCausePopup']//div[contains(@class,'priceCausePopup')]//label)";
+
+        [FindsBy(How = How.XPath, Using = "//textarea[@id='priceCauseComments']")]
+        public IWebElement AddCommentInCauseCodeDeletion { get; set; }
+
+        [FindsBy(How = How.XPath, Using = "//button[@id='savePriceCause']")]
+        public IWebElement OKCauseComments { get; set; }
+
+        [FindsBy(How = How.XPath, Using = "//button[contains(@class,'cancelPriceCause')]")]
+        public IWebElement CancelPriceCause { get; set; }
+        
+
+        public void ChangingFixedPrice(string FixedPrice , string Code , string Comment = null )
+        {
+            Actions act = new Actions(Drive.driver);
+            CustomWait.WaitFortheLoadingIconDisappear2000();
+            ((IJavaScriptExecutor)Drive.driver).ExecuteScript("arguments[0].scrollIntoView(true);", FixedPriceChange);
+            FixedPriceChange.Click();
+            CustomWait.WaitFortheLoadingIconDisappear2000();
+            act.KeyDown(FixedPriceChange ,Keys.Control).SendKeys("A").Build().Perform();
+            CustomWait.WaitFortheLoadingIconDisappear2000();
+            FixedPriceChange.SendKeys(FixedPrice);
+            act.KeyDown(FixedPriceChange, Keys.Enter).Build().Perform();
+            Console.WriteLine(CauseCodesDeletionTitle.Text);
+            CustomWait.WaitFortheLoadingIconDisappear2000();
+            CustomLib.DropDownbyName(Code, CodesDropDown);
+            AddCommentInCauseCodeDeletion.SendKeys(Comment);
+            OKCauseComments.Click();
+            CustomLib.AlertMessage();
+            CustomWait.WaitFortheLoadingIconDisappear2000();
+        }
+
+        [FindsBy(How = How.XPath, Using = "//button[@id='saveAppointment']")]
+        public IWebElement SaveAppointment { get; set; }
+
+        [FindsBy(How = How.XPath, Using = "//button[@id='deleteAppointment']")]
+        public IWebElement DeleteAppointment { get; set; }
+
+        [FindsBy(How = How.XPath, Using = "//button[contains(@class,'appointmentCloseButton')]")]
+        public IWebElement AppointmentCloseButton { get; set; }
+
+        [FindsBy(How = How.XPath, Using = "//button[@id='appointmentRefreshBtn']")]
+        public IWebElement AppointmentRefreshBtn { get; set; }
+
+        [FindsBy(How = How.XPath, Using = "//button[@id='sendToDMS']")]
+        public IWebElement SendToDMS { get; set; }
+
+        public void AppointmentButtons(string ActionBtn)
+        {
+            if (ActionBtn == "Save")
+            {
+                SaveAppointment.Click();
+            }
+            else if (ActionBtn == "Delete")
+            {
+                DeleteAppointment.Click();
+            }
+            else if (ActionBtn == "Cancel")
+            {
+                AppointmentCloseButton.Click();
+            }
+            else if (ActionBtn == "DMS")
+            {
+                SendToDMS.Click();
+            }
+            else if (ActionBtn == "Refresh")
+            {
+                AppointmentRefreshBtn.Click();
+            }
+        }
+
+
+
+
+
+
+
+
+
 
     }
 }

@@ -7,28 +7,24 @@ using System.Threading.Tasks;
 
 namespace DARS.Automation_.Utilities
 {
-    public class EcryptDecrypt
+    public class EncryptDecrypt
     {
+        
 
-        public void EncodingData()
+        public string EncodingData(string decodedPassword)
         {
-            // Here i we take a Decoded password
-            String Decodepassword = "";
-
-            var passwordInBytes = Encoding.UTF8.GetBytes(Decodepassword);
+            Info information = new Info();
+            var passwordInBytes = Encoding.UTF8.GetBytes(decodedPassword);
             string encodedPassword = Convert.ToBase64String(passwordInBytes);
-            Console.WriteLine("Encoded pssword is:" + encodedPassword);
+            return encodedPassword;
         }
 
 
-        public void DecodingData()
+        public string DecodingData(string encodedPassword)
         {
-            // Here i we take a Encoded password
-            String Encodedpassword = "";
-
-            var EncodedpasswordInBytes = Convert.FromBase64String(Encodedpassword);
+            var EncodedpasswordInBytes = Convert.FromBase64String(encodedPassword);
             string decodedPassword = Encoding.UTF8.GetString(EncodedpasswordInBytes);
-            Console.WriteLine("Decoded pssword is:" + decodedPassword);
+            return decodedPassword;
         }
 
 

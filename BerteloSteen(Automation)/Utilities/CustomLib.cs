@@ -228,7 +228,6 @@ namespace DARS.Automation_.Utilities
                 string ActualDDNpath = secondDDN + i + thirdDDN;
                 IWebElement ActualPath = Drive.driver.FindElement(By.XPath(ActualDDNpath));
                 ((IJavaScriptExecutor)Drive.driver).ExecuteScript("arguments[0].scrollIntoView(true);", ActualPath);
-                Console.WriteLine(ActualPath.Text);
                 CustomWait.WaitFortheLoadingIconDisappear2000();
                 if (ActualPath.Text.Contains(value))
                 {
@@ -270,6 +269,8 @@ namespace DARS.Automation_.Utilities
                 Console.WriteLine(finalAlert.Text);
             }
         }
+
+      
 
     }
 }

@@ -20,7 +20,7 @@ namespace DARS.Automation_.PageObjectsModels.Login
         public IWebElement TxtUserName { get; set; }
 
         [FindsBy(How = How.XPath, Using = "//div[@class='inline-block']/input[@value='Next']")]
-        public IWebElement submitBtn { get; set; }
+        public IWebElement SubmitBtn { get; set; }
 
         public void EnterUserName(string userName)
         {
@@ -30,49 +30,49 @@ namespace DARS.Automation_.PageObjectsModels.Login
             CustomWait.FluentWaitbyXPath("txtUserName");
             TxtUserName.SendKeys(userName);
             //Click on LoginBtn
-            CustomLib.Highlightelement(submitBtn);
+            CustomLib.Highlightelement(SubmitBtn);
             CustomWait.FluentWaitbyXPath("submitBtn");
-            submitBtn.Clicks();
+            SubmitBtn.Clicks();
 
         }
 
 
         [FindsBy(How = How.XPath, Using = "//input[@placeholder='Password']")]
-        public IWebElement txtPassword { get; set; }
+        public IWebElement TxtPassword { get; set; }
 
 
         [FindsBy(How = How.XPath, Using = "//div[@class='inline-block']/input[@value='Sign in']")]
-        public IWebElement signIn { get; set; }
+        public IWebElement SignIn { get; set; }
 
         public void EnterPassword(string password)
         {
-            CustomLib.Highlightelement(txtPassword);
+            CustomLib.Highlightelement(TxtPassword);
             CustomWait.FluentWaitbyXPath( "txtPassword");
-            txtPassword.SendKeys(password);//Enter Password
-            CustomLib.Highlightelement(signIn);
+            TxtPassword.SendKeys(password);//Enter Password
+            CustomLib.Highlightelement(SignIn);
             //Click on LoginBtn
             CustomWait.FluentWaitbyXPath("signIn");
-            signIn.Clicks();
+            SignIn.Clicks();
 
         }
 
 
         [FindsBy(How = How.XPath, Using = "//input[contains(@value,'true')]")]
-        public IWebElement staySignedIn { get; set; }
+        public IWebElement StaySignedIn { get; set; }
 
 
         [FindsBy(How = How.XPath, Using = "//div[@class='inline-block']/input[@value='Yes']")]
-        public IWebElement yes { get; set; }
+        public IWebElement Yes { get; set; }
 
         [Obsolete]
         public GetPropertiesObjects StaySignedIN()
         {
-            CustomLib.Highlightelement(staySignedIn);
+            CustomLib.Highlightelement(StaySignedIn);
             CustomWait.FluentWaitbyXPath("staySignedIn");
-            staySignedIn.Clicks();
-            CustomLib.Highlightelement(yes);
+            StaySignedIn.Clicks();
+            CustomLib.Highlightelement(Yes);
             CustomWait.FluentWaitbyXPath("yes");
-            yes.Clicks();
+            Yes.Clicks();
             //Return to the GetProperties
             return new GetPropertiesObjects();
 

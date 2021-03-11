@@ -13,7 +13,7 @@ namespace DARS.Automation_.TestScripts.Title_Url
 
         [Test]
         [Obsolete]
-        public void getUrlTitle()
+        public void GetUrlTitle()
         {
             GetPropertiesObjects prop = new GetPropertiesObjects();
             prop.GetDetails();

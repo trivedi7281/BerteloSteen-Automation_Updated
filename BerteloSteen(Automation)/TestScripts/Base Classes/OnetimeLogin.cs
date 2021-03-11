@@ -51,6 +51,7 @@ namespace DARS.Automation_.TestScripts.Base_Classes
 
             try
             {
+                EncryptDecrypt encrypt = new EncryptDecrypt();
                 Info information = new Info();
                 ChromeOptions options = new ChromeOptions();
                 options.AddArguments("no-sandbox");
@@ -58,19 +59,21 @@ namespace DARS.Automation_.TestScripts.Base_Classes
                 options.AddUserProfilePreference("credentials_enable_service", false);
                 options.AddUserProfilePreference("profile.password_manager_enabled", false);
                 options.AddAdditionalCapability("useAutomationExtension", false);
-                Drive.driver = new ChromeDriver(@information.chrome, options, TimeSpan.FromMinutes(3));
-                Drive.driver.Manage().Timeouts().PageLoad.Add(TimeSpan.FromSeconds(30));
+                Drive.driver = new ChromeDriver(@information.chrome, options, TimeSpan.FromMinutes(2));
+                Drive.driver.Manage().Timeouts().PageLoad.Add(System.TimeSpan.FromSeconds(30));
                 //naviate to Url
                 Drive.driver.Manage().Window.Maximize();
                 Drive.driver.Manage().Cookies.DeleteAllCookies();
                 Drive.driver.Navigate().GoToUrl(information.baseURL);
-                Drive.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(2.50);
+                Drive.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(3);
                 Console.WriteLine("Navigated to the 'demo Home Page' URL Sucessfully");
                 //Intitialize the page by calling it reference
                 LoginPageObjects loginpage = new LoginPageObjects();
-                loginpage.EnterUserName(information.username);
+                string UserName = encrypt.EncodingData(information.username);
+                loginpage.EnterUserName(encrypt.DecodingData(UserName));
                 Console.WriteLine("UserName Entered");
-                loginpage.EnterPassword(information.password);
+                string Password = encrypt.EncodingData(information.password);
+                loginpage.EnterPassword(encrypt.DecodingData(Password));
                 Console.WriteLine("Password Entered");
                 Console.WriteLine("Stay Logged In");
                 loginpage.StaySignedIN();
@@ -133,10 +136,12 @@ namespace DARS.Automation_.TestScripts.Base_Classes
             {
                 throw e;
             }
+
+           
         }
 
 
-        [OneTimeTearDown]
+            [OneTimeTearDown]
         public void Close()
         {
             try

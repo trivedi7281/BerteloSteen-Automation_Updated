@@ -22,39 +22,39 @@ namespace DARS.Automation_.TestScripts.Workshop_settings
             AppObject.ClickonLanguage();
         }
 
-        [Test, Order(2)]
-        [Obsolete]
-        public void GetSelectedPageTitle()
-        {
-            AppObject = new AppointmentObjects();
-            AppObject.GetPageTitle();
-        }
+        //[Test, Order(2)]
+        //[Obsolete]
+        //public void GetSelectedPageTitle()
+        //{
+        //    AppObject = new AppointmentObjects();
+        //    AppObject.GetPageTitle();
+        //}
 
-        [Test, Order(3)]
-        [Obsolete]
-        public void SelectAppointmentStatus()
-        {
-            AppObject = new AppointmentObjects();
-            AppObject.AppointmentStatus("Pending");
-        }
+        //[Test, Order(3)]
+        //[Obsolete]
+        //public void SelectAppointmentStatus()
+        //{
+        //    AppObject = new AppointmentObjects();
+        //    AppObject.AppointmentStatus("Pending");
+        //}
 
-        [Test, Order(4)]
-        [Obsolete]
-        public void SelectAppointmentType()
-        {
-            AppObject = new AppointmentObjects();
-            AppObject.AppointmentType("Body Repair");
-        }
+        //[Test, Order(4)]
+        //[Obsolete]
+        //public void SelectAppointmentType()
+        //{
+        //    AppObject = new AppointmentObjects();
+        //    AppObject.AppointmentType("Body Repair");
+        //}
 
-        [Test, Order(5)]
-        [Obsolete]
-        public void StatusBarDetails()
-        {
-            AppObject = new AppointmentObjects();
-            AppObject.AppointmentStatus("All");
-            AppObject.AppointmentType("All");
-            AppObject.StatusBarDtl();
-        }
+        //[Test, Order(5)]
+        //[Obsolete]
+        //public void StatusBarDetails()
+        //{
+        //    AppObject = new AppointmentObjects();
+        //    AppObject.AppointmentStatus("All");
+        //    AppObject.AppointmentType("All");
+        //    AppObject.StatusBarDtl();
+        //}
 
         [Test, Order(6)]
         [Obsolete]
@@ -64,8 +64,8 @@ namespace DARS.Automation_.TestScripts.Workshop_settings
             AppObject.ClickCreateAppointment();
             AppObject.AppointmentSelectWorkOrder("Appointment");
             AppObject.AppointmentSelectDealer("0", "031");
-            AppObject.AppointmentSearchVehicle("Search","DN58600");
-            AppObject.AppointmentCreateOrSelectBooking("New","DN58600");
+            AppObject.AppointmentSearchVehicle("Search", "DN58600");
+            AppObject.AppointmentCreateOrSelectBooking("New", "DN58600");
             AppObject.AppointmentDetailscreen("New");
         }
 
@@ -113,7 +113,7 @@ namespace DARS.Automation_.TestScripts.Workshop_settings
         {
             AppObject.AddActions("New", 1, 1, "Add Operation");
             AppObject.ValidateAddPackageTitle("Add Operation");
-            AppObject.AddingOperation("Testing Service" , "2");
+            AppObject.AddingOperation("Testing Service", "2");
             AppObject.AddModal("Add Operation");
             AppObject.AgainAddingOperation("2");
             CustomWait.WaitFortheLoadingIconDisappear2000();
@@ -144,6 +144,7 @@ namespace DARS.Automation_.TestScripts.Workshop_settings
             CustomWait.WaitFortheLoadingIconDisappear5000();
             AppObject.selectOperationGroup("Forrige søk");
             CustomWait.WaitFortheLoadingIconDisappear10000();
+            CustomWait.WaitFortheLoadingIconDisappear3000();
             AppObject.AddingAOP("007941");
             CustomWait.WaitFortheLoadingIconDisappear2000();
             AppObject.DeletingAOP("007941");
@@ -152,6 +153,37 @@ namespace DARS.Automation_.TestScripts.Workshop_settings
             AppObject.AddModal("Add AOP");
             CustomWait.WaitFortheLoadingIconDisappear3000();
         }
+
+        [Test, Order(12)]
+        [Obsolete]
+        public void ChangeFixedPrice()
+        {
+            AppObject.ChangingFixedPrice("1500", "Other reason", "Testing by changing the Fixed Price");
+        }
+
+        [Test, Order(13)]
+        [Obsolete]
+        public void CustomerApproval()
+        {
+            AppObject.GiveCustomerApproval("Approve on behalf of customer", "Testing Comment");
+        }
+
+        [Test, Order(14)]
+        [Obsolete]
+        public void Warranty()
+        {
+            AppObject.GiveWarranty();
+        }
+
+
+        [Test, Order(15)]
+        [Obsolete]
+        public void SaveAppointment()
+        {
+            AppObject.AppointmentButtons("Save");
+        }
+
+
 
 
 

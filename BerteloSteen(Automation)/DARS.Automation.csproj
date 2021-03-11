@@ -58,7 +58,6 @@
     <Compile Include="Utilities\Hardwareworking.cs" />
     <Compile Include="Utilities\Info.cs" />
     <Compile Include="Utilities\SendEmail.cs" />
-    <Compile Include="Utilities\TestLogger.cs" />
     <Compile Include="Utilities\TableUtil.cs" />
     <Compile Include="TestScripts\Base Classes\TestWiseLogin.cs" />
     <Compile Include="TestScripts\Title Url\GET_Title_Url.cs" />

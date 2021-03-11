@@ -47,6 +47,7 @@ namespace DARS.Automation_.TestScripts.Base_Classes
 
             try
             {
+                EncryptDecrypt encrypt = new EncryptDecrypt();
                 Info information = new Info();
                 ChromeOptions options = new ChromeOptions();
                 options.AddArguments("no-sandbox");
@@ -60,13 +61,15 @@ namespace DARS.Automation_.TestScripts.Base_Classes
                 Drive.driver.Manage().Window.Maximize();
                 Drive.driver.Manage().Cookies.DeleteAllCookies();
                 Drive.driver.Navigate().GoToUrl(information.baseURL);
-                Drive.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
+                Drive.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(3);
                 Console.WriteLine("Navigated to the 'demo Home Page' URL Sucessfully");
                 //Intitialize the page by calling it reference
                 LoginPageObjects loginpage = new LoginPageObjects();
-                loginpage.EnterUserName(information.username);
+                string UserName = encrypt.EncodingData(information.username);
+                loginpage.EnterUserName(encrypt.DecodingData(UserName));
                 Console.WriteLine("UserName Entered");
-                loginpage.EnterPassword(information.password);
+                string Password = encrypt.EncodingData(information.password);
+                loginpage.EnterPassword(encrypt.DecodingData(Password));
                 Console.WriteLine("Password Entered");
                 Console.WriteLine("Stay Logged In");
                 loginpage.StaySignedIN();
