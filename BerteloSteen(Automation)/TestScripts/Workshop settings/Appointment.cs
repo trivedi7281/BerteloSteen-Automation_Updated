@@ -22,39 +22,39 @@ namespace DARS.Automation_.TestScripts.Workshop_settings
             AppObject.ClickonLanguage();
         }
 
-        //[Test, Order(2)]
-        //[Obsolete]
-        //public void GetSelectedPageTitle()
-        //{
-        //    AppObject = new AppointmentObjects();
-        //    AppObject.GetPageTitle();
-        //}
+        [Test, Order(2)]
+        [Obsolete]
+        public void GetSelectedPageTitle()
+        {
+            AppObject = new AppointmentObjects();
+            AppObject.GetPageTitle();
+        }
 
-        //[Test, Order(3)]
-        //[Obsolete]
-        //public void SelectAppointmentStatus()
-        //{
-        //    AppObject = new AppointmentObjects();
-        //    AppObject.AppointmentStatus("Pending");
-        //}
+        [Test, Order(3)]
+        [Obsolete]
+        public void SelectAppointmentStatus()
+        {
+            AppObject = new AppointmentObjects();
+            AppObject.AppointmentStatus("Pending");
+        }
 
-        //[Test, Order(4)]
-        //[Obsolete]
-        //public void SelectAppointmentType()
-        //{
-        //    AppObject = new AppointmentObjects();
-        //    AppObject.AppointmentType("Body Repair");
-        //}
+        [Test, Order(4)]
+        [Obsolete]
+        public void SelectAppointmentType()
+        {
+            AppObject = new AppointmentObjects();
+            AppObject.AppointmentType("Body Repair");
+        }
 
-        //[Test, Order(5)]
-        //[Obsolete]
-        //public void StatusBarDetails()
-        //{
-        //    AppObject = new AppointmentObjects();
-        //    AppObject.AppointmentStatus("All");
-        //    AppObject.AppointmentType("All");
-        //    AppObject.StatusBarDtl();
-        //}
+        [Test, Order(5)]
+        [Obsolete]
+        public void StatusBarDetails()
+        {
+            AppObject = new AppointmentObjects();
+            AppObject.AppointmentStatus("All");
+            AppObject.AppointmentType("All");
+            AppObject.StatusBarDtl();
+        }
 
         [Test, Order(6)]
         [Obsolete]
@@ -96,7 +96,7 @@ namespace DARS.Automation_.TestScripts.Workshop_settings
         [Obsolete]
         public void AddService()
         {
-            AppObject.AddActions("New", 1, 1, "Add Service");
+            AppObject.AddActions("New", 1, 2, "Add Service");
             AppObject.ValidateAddPackageTitle("Add Service");
             AppObject.AddingService("Cool Season");
             AppObject.AddingService("Service");
@@ -111,7 +111,7 @@ namespace DARS.Automation_.TestScripts.Workshop_settings
         [Obsolete]
         public void AddOperation()
         {
-            AppObject.AddActions("New", 1, 1, "Add Operation");
+            AppObject.AddActions("New", 1, 2, "Add Operation");
             AppObject.ValidateAddPackageTitle("Add Operation");
             AppObject.AddingOperation("Testing Service", "2");
             AppObject.AddModal("Add Operation");
@@ -126,7 +126,7 @@ namespace DARS.Automation_.TestScripts.Workshop_settings
         [Obsolete]
         public void AddMaterial()
         {
-            AppObject.AddActions("New", 1, 1, "Add Material");
+            AppObject.AddActions("New", 1, 2, "Add Material");
             AppObject.ValidateAddPackageTitle("Add Material");
             AppObject.AddModal("Add Material");
             AppObject.AddingMaterial("2", "2");
@@ -138,7 +138,7 @@ namespace DARS.Automation_.TestScripts.Workshop_settings
         [Obsolete]
         public void AddAOP()
         {
-            AppObject.AddActions("New", 1, 1, "Add AOP");
+            AppObject.AddActions("New", 1, 2, "Add AOP");
             AppObject.ValidateAddPackageTitle("Add AOP");
             AppObject.AddModal("Add AOP");
             CustomWait.WaitFortheLoadingIconDisappear5000();
@@ -158,7 +158,8 @@ namespace DARS.Automation_.TestScripts.Workshop_settings
         [Obsolete]
         public void ChangeFixedPrice()
         {
-            AppObject.ChangingFixedPrice("1500", "Other reason", "Testing by changing the Fixed Price");
+            AppObject.ChangingFixedPrice("1000", "Other reason", "Testing by changing the Fixed Price");
+            AppObject.ValidateInHistory("Testing by changing the Fixed Price");
         }
 
         [Test, Order(13)]

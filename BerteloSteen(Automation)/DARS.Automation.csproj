@@ -50,6 +50,7 @@
     <Compile Include="PageObjectsModels\Login\LoginPageObjects.cs" />
     <Compile Include="PageObjectsModels\Workshop settings\My_DealerObjects.cs" />
     <Compile Include="TestScripts\Workshop settings\Appointment.cs" />
+    <Compile Include="TestScripts\Workshop settings\DealerService.cs" />
     <Compile Include="Utilities\CustomLib.cs" />
     <Compile Include="Utilities\CustomWait.cs" />
     <Compile Include="Utilities\Drive.cs" />
