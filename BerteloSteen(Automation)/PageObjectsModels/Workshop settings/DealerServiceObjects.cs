@@ -43,7 +43,7 @@ namespace DARS.Automation_.PageObjectsModels.Workshop_settings
             clickonDealerServiceTab.Clicks();
 
         }
-        
+
 
         public void GetPageTitle()
         {
@@ -79,7 +79,7 @@ namespace DARS.Automation_.PageObjectsModels.Workshop_settings
         [FindsBy(How = How.XPath, Using = "//a[@title='Search']")]
         public IWebElement ClickOnSearchBtn { get; set; }
 
-        
+
         public void SearchBar(string SearchItem)
         {
             CustomWait.FluentWaitbyXPath("ClickOnSearchBar");

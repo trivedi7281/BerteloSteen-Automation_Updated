@@ -3,10 +3,6 @@ using DARS.Automation_.TestScripts.Base_Classes;
 using DARS.Automation_.Utilities;
 using NUnit.Framework;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DARS.Automation_.TestScripts.Workshop_settings
 {
@@ -176,13 +172,21 @@ namespace DARS.Automation_.TestScripts.Workshop_settings
             AppObject.GiveWarranty();
         }
 
-
         [Test, Order(15)]
         [Obsolete]
         public void SaveAppointment()
         {
             AppObject.AppointmentButtons("Save");
         }
+
+        [Test, Order(16)]
+        [Obsolete]
+        public void ValidateWarranty()
+        {
+            AppObject.ValidatingWarranty();
+        }
+
+        
 
 
 

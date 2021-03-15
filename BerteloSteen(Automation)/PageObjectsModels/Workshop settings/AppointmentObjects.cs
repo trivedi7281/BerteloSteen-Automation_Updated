@@ -2,19 +2,19 @@
 using DARS.Automation_.Utilities;
 using NUnit.Framework;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Interactions;
-using OpenQA.Selenium.Support.Events;
 using OpenQA.Selenium.Support.PageObjects;
 using System;
 using System.Linq;
-using System.Threading;
 
 namespace DARS.Automation_.PageObjectsModels.Workshop_settings
 {
     class AppointmentObjects
     {
         [Obsolete]
-        public AppointmentObjects() => PageFactory.InitElements(Drive.driver, this);
+        public AppointmentObjects()
+        {
+            PageFactory.InitElements(Drive.driver, this);
+        }
 
         [FindsBy(How = How.XPath, Using = "//ul/li[@id='engli']/a")]
         public IWebElement EngLanguage { get; set; }
@@ -769,10 +769,21 @@ namespace DARS.Automation_.PageObjectsModels.Workshop_settings
         [FindsBy(How = How.XPath, Using = "//td[@data-th='Warranty']//label")]
         public IWebElement WarrantyCheckBox { get; set; }
 
+        [FindsBy(How = How.XPath, Using = "//*[@id='WarrantyTab']")]
+        public IWebElement WarrantyTab { get; set; }
+
+        
         public void GiveWarranty()
         {
             CustomWait.WaitFortheLoadingIconDisappear2000();
             WarrantyCheckBox.Click();
+        }
+
+        public void ValidatingWarranty()
+        {
+            CustomWait.WaitFortheLoadingIconDisappear2000();
+            bool ValidateWarranty = WarrantyTab.Displayed;
+            Console.WriteLine("Validate once we click on Warraty checbox Warranty tab is Visible or Not ? " + "_" + ValidateWarranty);
         }
 
         [FindsBy(How = How.XPath, Using = "(//tbody[@id='AppointmentJobDetailsBody']/tr/td[13]/input)[3]")]
@@ -837,6 +848,14 @@ namespace DARS.Automation_.PageObjectsModels.Workshop_settings
         }
 
 
+        //(//*[@id="blockDeliveryTime"]/input)[1] : Create Appointment Delivery Time
+        //(//*[@id="blockFinishedTime"]/input)[1] : Finished Time in Create
+        //(//*[@id="blockDeliveryTime"]/input)[2] : Edit Appointment Delivery Time
+        //(//*[@id="blockFinishedTime"]/input)[2] : Finished Time in Edit
+        //((//div[@class='xdsoft_datetimepicker xdsoft_noselect xdsoft_'])[3]//div[@class='xdsoft_time ']) : Delivery Time
+        //((//div[@class='xdsoft_datetimepicker xdsoft_noselect xdsoft_'])[4]//div[@class='xdsoft_time ']) : Finished Time
+
+
         [FindsBy(How = How.XPath, Using = "//button[@id='saveAppointment']")]
         public IWebElement SaveAppointment { get; set; }
 
@@ -874,8 +893,11 @@ namespace DARS.Automation_.PageObjectsModels.Workshop_settings
             {
                 AppointmentRefreshBtn.Click();
             }
+            CustomWait.WaitFortheLoadingIconDisappear2000();
         }
 
+
+        
 
 
 
