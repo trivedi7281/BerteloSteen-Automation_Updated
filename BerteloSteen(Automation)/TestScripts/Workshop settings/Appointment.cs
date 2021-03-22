@@ -59,7 +59,7 @@ namespace DARS.Automation_.TestScripts.Workshop_settings
             AppObject = new AppointmentObjects();
             AppObject.ClickCreateAppointment();
             AppObject.AppointmentSelectWorkOrder("Appointment");
-            AppObject.AppointmentSelectDealer("0", "031");
+            AppObject.AppointmentSelectDealer("0", "015");
             AppObject.AppointmentSearchVehicle("Search", "DN58600");
             AppObject.AppointmentCreateOrSelectBooking("New", "DN58600");
             AppObject.AppointmentDetailscreen("New");
