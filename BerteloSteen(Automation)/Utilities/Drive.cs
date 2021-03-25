@@ -9,8 +9,7 @@ namespace DARS.Automation_.Utilities
 
         public static IWebDriver driver { get; set; }
 
-        public static NgWebDriver ngdriver { get; set; }
-
+       
 
 
         enum LocatorType

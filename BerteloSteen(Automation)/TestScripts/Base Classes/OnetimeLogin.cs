@@ -21,7 +21,7 @@ namespace DARS.Automation_.TestScripts.Base_Classes
     {
         protected ExtentReports _extent;
         protected ExtentTest _test;
-
+        public Status logstatus;
         [OneTimeSetUp]
         [Obsolete]
         public void Login()
@@ -60,7 +60,7 @@ namespace DARS.Automation_.TestScripts.Base_Classes
                 options.AddUserProfilePreference("profile.password_manager_enabled", false);
                 options.AddAdditionalCapability("useAutomationExtension", false);
                 Drive.driver = new ChromeDriver(@information.chrome, options, TimeSpan.FromMinutes(3));
-                Drive.driver.Manage().Timeouts().PageLoad.Add(System.TimeSpan.FromSeconds(30));
+                Drive.driver.Manage().Timeouts().PageLoad.Add(TimeSpan.FromSeconds(30));
                 //naviate to Url
                 Drive.driver.Manage().Window.Maximize();
                 Drive.driver.Manage().Cookies.DeleteAllCookies();
@@ -104,7 +104,7 @@ namespace DARS.Automation_.TestScripts.Base_Classes
         }
 
 
-
+        
         [TearDown]
         public void AfterTest()
         {
@@ -113,7 +113,7 @@ namespace DARS.Automation_.TestScripts.Base_Classes
                 var status = TestContext.CurrentContext.Result.Outcome.Status;
                 var stacktrace = "" + TestContext.CurrentContext.Result.StackTrace + "";
                 var errorMessage = TestContext.CurrentContext.Result.Message;
-                Status logstatus;
+                
                 switch (status)
                 {
                     case TestStatus.Failed:

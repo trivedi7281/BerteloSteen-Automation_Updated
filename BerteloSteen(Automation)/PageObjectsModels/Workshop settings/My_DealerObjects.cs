@@ -12,7 +12,10 @@ namespace DARS.Automation_.PageObjectsModels.Workshop_settings
     class My_DealerObjects
     {
         [Obsolete]
-        public My_DealerObjects() => PageFactory.InitElements(Drive.driver, this);
+        public My_DealerObjects()
+        {
+            PageFactory.InitElements(Drive.driver, this);
+        }
 
         [FindsBy(How = How.XPath, Using = "//ul/li[@id='engli']/a")]
         public IWebElement engLanguage { get; set; }
@@ -124,7 +127,7 @@ namespace DARS.Automation_.PageObjectsModels.Workshop_settings
         [FindsBy(How = How.XPath, Using = "//*[@id='containerData']//a[2]")]
         public IWebElement DealerHoursAddBtn { get; set; }
 
-        
+
 
         public void EnterDealerHours()
         {
@@ -137,7 +140,7 @@ namespace DARS.Automation_.PageObjectsModels.Workshop_settings
             Console.WriteLine("CheckBox Count is: " + els);
             string fistCheckPath = "((//div[@id='containerData'])/div[2]//div[@class='dealer-day']/label)[";
             string secondCheckPath = "]";
-            for (int i=1; i<=els; i++)
+            for (int i = 1; i <= els; i++)
             {
                 string ActualCheckPath = fistCheckPath + i + secondCheckPath;
                 IWebElement ActualCheckedPath = Drive.driver.FindElement(By.XPath(ActualCheckPath));
@@ -201,7 +204,7 @@ namespace DARS.Automation_.PageObjectsModels.Workshop_settings
             string secondStartPath = "]";
             for (int i = 1; i <= StartHours; i++)
             {
-                string finalStartPath = firstStartPath + i + secondStartPath ;
+                string finalStartPath = firstStartPath + i + secondStartPath;
                 IWebElement SelectTime = Drive.driver.FindElement(By.XPath(finalStartPath));
                 CustomWait.WaitFortheLoadingIconDisappear2000();
                 ((IJavaScriptExecutor)Drive.driver).ExecuteScript("arguments[0].scrollIntoView(true);", SelectTime);
@@ -237,7 +240,7 @@ namespace DARS.Automation_.PageObjectsModels.Workshop_settings
         [FindsBy(How = How.XPath, Using = "(//div[@id='toast-container'])//div[@role='alertdialog']")]
         public IWebElement DialogMessage { get; set; }
 
-        
+
 
         public void EnterNotificationDetail()
         {
@@ -256,7 +259,7 @@ namespace DARS.Automation_.PageObjectsModels.Workshop_settings
             Console.WriteLine("Roles Count is" + Roles);
             string fistxpath = "(//div[@id = 'userType3-panel']/mat-option[@role='option']/span)[";
             string secondxpath = "]";
-            for (int i = 1; i<= Roles; i++)
+            for (int i = 1; i <= Roles; i++)
             {
                 string Actualpath = fistxpath + i + secondxpath;
                 IWebElement ActualXpath = Drive.driver.FindElement(By.XPath(Actualpath));
@@ -309,7 +312,7 @@ namespace DARS.Automation_.PageObjectsModels.Workshop_settings
         [FindsBy(How = How.XPath, Using = "//*[@id='dealerPartOrderingBlock']")]
         public IWebElement PartsOrdering { get; set; }
 
-       
+
 
 
 
