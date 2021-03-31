@@ -83,7 +83,7 @@ namespace DARS.Automation_.Utilities
             try
             {
                 DefaultWait<IWebDriver> fluentWait = new DefaultWait<IWebDriver>(Drive.driver);
-                fluentWait.Timeout = TimeSpan.FromSeconds(1.5);
+                fluentWait.Timeout = TimeSpan.FromSeconds(3);
                 fluentWait.PollingInterval = TimeSpan.FromMilliseconds(100);
                 fluentWait.IgnoreExceptionTypes(typeof(NoSuchElementException));
                 fluentWait.IgnoreExceptionTypes(typeof(ElementNotVisibleException));

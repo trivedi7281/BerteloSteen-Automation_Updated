@@ -6,7 +6,7 @@ using OpenQA.Selenium.Support.PageObjects;
 using System;
 using System.Linq;
 
-namespace DARS.Automation_.PageObjectsModels.Workshop_settings
+namespace DARS.Automation_.PageObjectsModels.DARS_Dealers
 {
     class AppointmentObjects
     {

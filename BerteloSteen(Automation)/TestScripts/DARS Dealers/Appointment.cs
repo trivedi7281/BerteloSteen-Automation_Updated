@@ -1,10 +1,10 @@
-﻿using DARS.Automation_.PageObjectsModels.Workshop_settings;
+﻿using DARS.Automation_.PageObjectsModels.DARS_Dealers;
 using DARS.Automation_.TestScripts.Base_Classes;
 using DARS.Automation_.Utilities;
 using NUnit.Framework;
 using System;
 
-namespace DARS.Automation_.TestScripts.Workshop_settings
+namespace DARS.Automation_.TestScripts.DARS_Dealers
 {
     class Appointment : OnetimeLogin
     {

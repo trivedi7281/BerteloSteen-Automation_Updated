@@ -1,96 +1,110 @@
-﻿using ExcelDataReader;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using xl = Microsoft.Office.Interop.Excel;
 
 namespace DARS.Automation_.Utilities
 {
-    public static class ExcelLibrary
+    class ExcelLibrary
     {
-        private static DataTable ExcelToDataTable(string fileName)
+        xl.Application xlApp = null;
+        xl.Workbooks workbooks = null;
+        xl.Workbook workbook = null;
+        Hashtable sheets;
+        public string xlFilePath;
+
+        public ExcelLibrary(string xlFilePath)
         {
-            //open file and return a stream
-            FileStream stream = File.Open(fileName, FileMode.Open, FileAccess.Read);
-
-            //CreateopenxmlReader via ExcelReaderFactory
-            IExcelDataReader excelReader = ExcelReaderFactory.CreateOpenXmlReader(stream); //.xls
-
-            //Set the first row as Column Name
-            //excelReader.IsFirstRowAsColumnNames = true;
-
-            //Return as Dataset
-            DataSet result = excelReader.AsDataSet(new ExcelDataSetConfiguration()
-            {
-                ConfigureDataTable = (_) => new ExcelDataTableConfiguration()
-                {
-                    UseHeaderRow = true
-                }
-            });
-            //get all the tables
-            DataTableCollection table = result.Tables;
-
-            //Store it in DataTable
-            DataTable resultTable = table["BOS"];
-
-            //return
-            return resultTable;
-
-        }
-        public class Datacollection
-        {
-            public int rowNumber { get; set; }
-            public string colName { get; set; }
-            public string colValue { get; set; }
+            this.xlFilePath = xlFilePath;
         }
 
-        static List<Datacollection> dataCol = new List<Datacollection>();
-
-        public static void PopulateInCollection(string fileName)
+        public void OpenExcel()
         {
-            DataTable table = ExcelToDataTable(fileName);
-
-            //Iterate through the rows and columns of the Table
-            for (int row = 1; row <= table.Rows.Count; row++)
+            xlApp = new xl.Application();
+            workbooks = xlApp.Workbooks;
+            workbook = workbooks.Open(xlFilePath);
+            sheets = new Hashtable();
+            int count = 1;
+            //Storing worksheet naems in the Hastable
+            foreach (xl.Worksheet sheet in workbook.Sheets)
             {
-                for (int col = 0; col <= table.Columns.Count; col++)
+                sheets[count] = sheet.Name;
+                count++;
+            }
+        }
+
+        public void CloseExcel()
+        {
+            workbook.Close(false, xlFilePath, null);// Here it will close the connection with the workbook.
+            Marshal.FinalReleaseComObject(workbook);// Here it will release all unmanaged Object Reference.
+            workbook = null;
+
+            workbooks.Close();
+            Marshal.FinalReleaseComObject(workbooks);
+            workbooks = null;
+
+            xlApp.Quit();
+            Marshal.FinalReleaseComObject(xlApp);
+            xlApp = null;
+
+        }
+
+        public int GetRowCount(string SheetName)
+        {
+            OpenExcel();
+            int rowCount = 0;
+            int sheetValue = 0;
+
+            if (sheets.ContainsValue(SheetName))
+            {
+                foreach (DictionaryEntry sheet in sheets)
                 {
-                    Datacollection dtTable = new Datacollection()
+                    if (sheet.Value.Equals(SheetName))
                     {
-                        rowNumber = row,
-                        colName = table.Columns[col].ColumnName,
-                        colValue = table.Rows[row - 1][col].ToString()
-                    };
-                    //Add all the details for each row
-                    dataCol.Add(dtTable);
+                        sheetValue = (int)sheet.Key;
+                    }
                 }
+                //Getting Particular worksheet using index/key from workbook
+                xl.Worksheet worksheet = workbook.Worksheets[sheetValue] as xl.Worksheet;
+                xl.Range range = worksheet.UsedRange; // Range of cell which is having a content.
+                rowCount = range.Rows.Count;
             }
+            CloseExcel();
+            return rowCount;
         }
 
-        public static string ReadData(int rowNumber, string columnName)
+        public int GetColumnCount(string SheetName)
         {
-            try
-            {
-                //Retriving Data using LINQ to reduce much of iterations
-                string data = (from colData in dataCol
-                               where colData.colName == columnName && colData.rowNumber == rowNumber
-                               select colData.colValue).SingleOrDefault();
+            OpenExcel();
+            int columnCount = 0;
+            int sheetValue = 0;
 
-                //var datas = dataCol.Where(x => x.colName == columnName && x.rowNumber == rowNumber).SingleOrDefault().colValue;
-                return data.ToString();
-            }
-            catch (Exception e)
+            if (sheets.ContainsValue(SheetName))
             {
-                Console.WriteLine(e.Message);
-                return null;
+                foreach(DictionaryEntry sheet in sheets)
+                {
+                    if (sheet.Value.Equals(SheetName))
+                    {
+                        sheetValue = (int)sheet.Key;
+                    }
+                }
+                xl.Worksheet worksheet = workbook.Worksheets[sheetValue] as xl.Worksheet;
+                xl.Range range = worksheet.UsedRange; // Range of cell which is having a content.
+                columnCount = range.Columns.Count;
             }
+            CloseExcel();
+            return columnCount;
         }
+
+
 
     }
-
     
 }
